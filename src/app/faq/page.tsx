@@ -19,7 +19,7 @@ const faqItems: FaqItem[] = [
     answer: `A lista completa de prestadores credenciados está disponível na página "Rede Credenciada" do nosso site. Lá você encontra hospitais, clínicas, laboratórios e profissionais organizados por categoria, além dos principais destaques da nossa rede em Natal/RN.`,
   },
   {
-    question: "Como falar com a Viver Saúde?",
+    question: "Como falar conosco?",
     answer: `Você pode entrar em contato conosco pelo telefone ${SITE.phone}, pelo WhatsApp ou pelo e-mail ${SITE.email}. Nosso horário de atendimento é de segunda a sexta, das 8h às 17h. Estamos aqui para ajudar você.`,
   },
   {

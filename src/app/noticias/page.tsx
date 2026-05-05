@@ -1,7 +1,7 @@
 import { ScrollAnimationWrapper } from "@/components/shared/ScrollAnimationWrapper";
 
 export const metadata = {
-  title: "Notícias e Comunicados",
+  title: "Notícias",
   description:
     "Acompanhe as notícias, comunicados e novidades da Viver Saúde. Informações sobre rede credenciada, benefícios e orientações de saúde.",
 };
@@ -14,7 +14,7 @@ interface NoticiaItem {
   fonte: string;
   fonteUrl: string;
   categoria: string;
-  categoriaColor: string;
+  thumbnail?: string;
 }
 
 const noticias: NoticiaItem[] = [
@@ -22,135 +22,146 @@ const noticias: NoticiaItem[] = [
     id: "tribuna-norte-blog-thiago-cavalcanti",
     titulo: "Viver Saúde",
     resumo:
-      "O colunista Thiago Cavalcanti destaca a chegada de um novo plano de saúde em Natal com proposta focada em atendimento integrado e medicina preventiva. Sob liderança comercial de Idris Saldanha, o Viver Saúde contará com infraestrutura própria e rede credenciada de qualidade. A operação será sediada em imóvel histórico no cruzamento das ruas Maxaraguape e Campos Sales, na capital potiguar.",
+      "O colunista Thiago Cavalcanti destaca a chegada de um novo plano de saúde em Natal com proposta focada em atendimento integrado e medicina preventiva.",
     data: "11 de novembro de 2025",
     fonte: "Tribuna do Norte — Blog Thiago Cavalcanti",
     fonteUrl: "https://blog.tribunadonorte.com.br/thiagocavalcanti/viver-saude/",
     categoria: "Na mídia",
-    categoriaColor: "bg-accent/10 text-accent-dark",
   },
   {
     id: "agorarn-medicina-integrativa",
     titulo: "Viver Saúde chega a Natal com proposta inovadora em medicina integrativa",
     resumo:
-      "Sob liderança da CEO Dra. Eva Rodrigues, o Viver Saúde estreia em Natal oferecendo planos adaptáveis, programas de atenção à saúde e acompanhamento contínuo, com clínicas próprias e rede credenciada. A linha de produtos é composta por quatro categorias inspiradas em pedras preciosas — Diamante, Safira, Turmalina e Esmeralda — cada uma com diferentes níveis de cobertura. A proposta da operadora se ancora em medicina integrativa e atenção integral, voltada à prevenção e à qualidade de vida em todas as fases, do recém-nascido ao idoso.",
+      "Sob liderança da CEO Dra. Eva Rodrigues, o Viver Saúde estreia em Natal oferecendo planos adaptáveis, programas de atenção à saúde e acompanhamento contínuo.",
     data: "11 de novembro de 2025",
     fonte: "Agora RN",
     fonteUrl:
       "https://agorarn.com.br/ultimas/viver-saude-chega-a-natal-proposta-inovadora-medicina-integrativa/",
     categoria: "Na mídia",
-    categoriaColor: "bg-accent/10 text-accent-dark",
   },
   {
     id: "chegada-viver-saude-movimenta-planos-rn",
     titulo: "Chegada do Viver Saúde movimenta segmento de planos no estado",
     resumo:
-      "O setor de saúde complementar do Rio Grande do Norte recebe novo operador com o lançamento do Viver Saúde em Natal. A empresa propõe um modelo focado em atenção integral e prevenção, com clínicas próprias, rede credenciada e gestão administrativa sediada na capital. Segundo a CEO Dra. Eva Rodrigues, a operadora integra prevenção, acolhimento e qualidade em seu modelo operacional, gerando impacto econômico direto na cadeia produtiva local.",
+      "O setor de saúde complementar do Rio Grande do Norte recebe novo operador com o lançamento do Viver Saúde em Natal, com foco em atenção integral e prevenção.",
     data: "10 de novembro de 2025",
     fonte: "Tribuna do Norte",
     fonteUrl:
       "https://tribunadonorte.com.br/economia/chegada-do-viver-saude-movimenta-segmento-de-planos-no-estado/",
     categoria: "Na mídia",
-    categoriaColor: "bg-accent/10 text-accent-dark",
   },
   {
     id: "novonoticias-cuidado-integrado-medicina-preventiva",
     titulo:
       "Viver Saúde chega ao RN com proposta inovadora de cuidado integrado e medicina preventiva",
     resumo:
-      "Uma operadora de saúde inédita é lançada em Natal com modelo focado em prevenção e atenção integral. Sob liderança da CEO Dra. Eva Rodrigues, o Viver Saúde integra medicina integrativa, atendimento multiprofissional e tecnologia para tornar o cuidado acessível. A empresa disponibilizará clínicas próprias nas zonas Norte, Sul e Central, com serviços que incluem psicologia, nutrição, yoga e programas voltados ao envelhecimento saudável.",
+      "Uma operadora de saúde inédita é lançada em Natal com modelo focado em prevenção e atenção integral, com clínicas próprias nas zonas Norte, Sul e Central.",
     data: "10 de novembro de 2025",
     fonte: "NOVO Notícias",
     fonteUrl:
       "https://www.novonoticias.com.br/viver-saude-chega-ao-rn-com-proposta-inovadora-de-cuidado-integrado-e-medicina-preventiva/",
     categoria: "Na mídia",
-    categoriaColor: "bg-accent/10 text-accent-dark",
   },
   {
     id: "blogdobg-cuidado-integrado-medicina-preventiva",
     titulo:
       "Viver Saúde chega ao Rio Grande do Norte com proposta inovadora de cuidado integrado e medicina preventiva",
     resumo:
-      "O Viver Saúde é lançado em Natal com foco em medicina integrativa e prevenção, contando com clínicas próprias estrategicamente distribuídas pela capital potiguar. A operadora oferece atendimento multiprofissional que integra psicologia, nutrição, yoga e pilates. Destaque para o programa especial voltado ao cuidado do idoso, com atividades regenerativas e inclusivas que visam à longevidade ativa.",
+      "O Viver Saúde é lançado em Natal com foco em medicina integrativa e prevenção, contando com clínicas próprias estrategicamente distribuídas pela capital potiguar.",
     data: "10 de novembro de 2025",
     fonte: "Blog do BG",
     fonteUrl:
       "https://www.blogdobg.com.br/viver-saude-chega-ao-rio-grande-do-norte-com-proposta-inovadora-de-cuidado-integrado-e-medicina-preventiva/",
     categoria: "Na mídia",
-    categoriaColor: "bg-accent/10 text-accent-dark",
   },
 ];
 
 export default function NoticiasPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="bg-gradient-to-br from-primary to-primary-dark text-white py-20 lg:py-28">
-        <div className="container mx-auto px-4 text-center">
+      {/* Header banner */}
+      <section className="bg-primary py-14 lg:py-18">
+        <div className="container mx-auto px-4">
           <ScrollAnimationWrapper>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-              Notícias e Comunicados
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">
+              Notícias
             </h1>
-            <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto">
-              Fique por dentro das novidades e informações importantes da Viver Saúde.
-            </p>
           </ScrollAnimationWrapper>
         </div>
       </section>
 
-      {/* News list */}
-      <section className="py-16 lg:py-24">
+      {/* Grid de cards */}
+      <section className="py-16 lg:py-24 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto space-y-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {noticias.map((noticia, idx) => (
-              <ScrollAnimationWrapper key={noticia.id} delay={idx * 0.1}>
-                <article className="bg-white rounded-2xl border border-border shadow-sm overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                  <div className="p-6 md:p-8">
-                    <div className="flex flex-wrap items-center gap-3 mb-4">
-                      <span
-                        className={`px-3 py-1 rounded-full text-xs font-semibold ${noticia.categoriaColor}`}
-                      >
-                        {noticia.categoria}
-                      </span>
-                      <time className="text-sm text-muted">{noticia.data}</time>
-                    </div>
-                    <h2 className="text-xl md:text-2xl font-bold text-foreground mb-3 leading-snug">
-                      {noticia.titulo}
-                    </h2>
-                    <p className="text-muted leading-relaxed mb-5">{noticia.resumo}</p>
-                    <div className="flex items-center justify-between flex-wrap gap-3">
-                      <span className="text-sm text-muted">
-                        Fonte:{" "}
-                        <a
-                          href={noticia.fonteUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-primary hover:underline font-medium"
-                        >
-                          {noticia.fonte}
-                        </a>
-                      </span>
+              <ScrollAnimationWrapper key={noticia.id} delay={idx * 0.08}>
+                <article className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden flex flex-col h-full">
+                  {/* Thumbnail */}
+                  <div className="aspect-[16/9] bg-primary/10 flex items-center justify-center overflow-hidden">
+                    {noticia.thumbnail ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={noticia.thumbnail}
+                        alt={noticia.titulo}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="flex flex-col items-center justify-center gap-3 p-6 w-full h-full">
+                        <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
+                          <svg
+                            className="w-6 h-6 text-primary"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={1.5}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
+                            />
+                          </svg>
+                        </div>
+                        <span className="text-xs font-semibold text-primary/60 uppercase tracking-wider">
+                          {noticia.categoria}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Conteúdo */}
+                  <div className="p-5 flex flex-col flex-1">
+                    <h2 className="text-base font-bold text-foreground mb-2 leading-snug line-clamp-3">
                       <a
                         href={noticia.fonteUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:text-primary-dark transition-colors"
+                        className="hover:text-primary transition-colors"
                       >
-                        Ler matéria completa
-                        <svg
-                          className="w-4 h-4"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={2}
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                          />
-                        </svg>
+                        {noticia.titulo}
                       </a>
+                    </h2>
+                    <p className="text-sm text-gray-500 leading-relaxed mb-4 flex-1 line-clamp-3">
+                      {noticia.resumo}
+                    </p>
+
+                    {/* Rodapé do card */}
+                    <div className="flex items-center gap-1.5 text-xs text-gray-400 mt-auto pt-3 border-t border-gray-100">
+                      <svg
+                        className="w-3.5 h-3.5 flex-shrink-0"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                      <time>{noticia.data}</time>
                     </div>
                   </div>
                 </article>

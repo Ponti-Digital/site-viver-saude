@@ -35,11 +35,11 @@ function ProgramLogo({
   size?: "sm" | "md" | "lg";
 }) {
   if (!src) return null;
-  const dims = { sm: 80, md: 144, lg: 224 };
+  const dims = { sm: 128, md: 160, lg: 224 };
   const px = dims[size];
   const containerClasses = {
-    sm: "h-20 w-20",
-    md: "h-36 w-36",
+    sm: "h-32 w-32",
+    md: "h-40 w-40",
     lg: "h-56 w-full max-w-xs",
   };
   return (
@@ -666,7 +666,7 @@ function AvailableProgramSection({ line }: { line: AvailableLine }) {
 
         <div className="flex flex-col sm:flex-row gap-3">
           <Button href={programWhatsapp(line.programName)} size="md">
-            Quero participar — fale com a Viver
+            Quero participar — fale conosco
           </Button>
           {/* TODO: rota definitiva para inscrição no site ainda não existe — temporariamente apontando para /contato */}
           <Button href="/contato" variant="outline" size="md">
@@ -714,7 +714,7 @@ function ComingSoonProgramSection({ line }: { line: ComingSoonLine }) {
               variant="outline"
               size="sm"
             >
-              Fale com a Viver para saber mais
+              Fale conosco para saber mais
             </Button>
           </div>
         </div>

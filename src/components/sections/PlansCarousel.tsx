@@ -40,7 +40,7 @@ const plans = [
     name: "Quartzo",
     slug: "quartzo",
     tagline: "Completo e prático, com atendimento ambulatorial e hospitalar.",
-    image: "/images/plans/quarzo.png",
+    image: "/images/plans/quartzo.png",
     color: "from-gray-400 to-gray-600",
   },
   {

@@ -39,8 +39,6 @@ export const NAV_ITEMS = [
       { label: "Turmalina", href: "/planos/turmalina" },
       { label: "Quartzo", href: "/planos/quartzo" },
       { label: "Diamante", href: "/planos/diamante" },
-      { label: "Ametista", href: "/planos/ametista", comingSoon: true },
-      { label: "Turquesa", href: "/planos/turquesa", comingSoon: true },
     ],
   },
   { label: "Rede Credenciada", href: "/rede-credenciada" },

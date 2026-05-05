@@ -109,7 +109,7 @@ const plansData: Record<string, PlanData> = {
     name: "Quartzo",
     slug: "quartzo",
     tagline: "Proteção acessível para necessidades essenciais",
-    image: "/images/plans/quarzo.png",
+    image: "/images/plans/quartzo.png",
     description:
       "O plano Quartzo foi pensado para oferecer proteção acessível sem abrir mão do essencial. Com cobertura para as principais necessidades de saúde, é a porta de entrada para quem quer começar a cuidar de si com qualidade.",
     highlights: [

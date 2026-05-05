@@ -33,7 +33,7 @@ export function CTASection() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center font-semibold rounded-lg px-8 py-4 text-lg border-2 border-white text-white hover:bg-white hover:text-primary transition-all duration-300"
             >
-              Fale com a Viver
+              Fale Conosco
             </a>
           </div>
         </ScrollAnimationWrapper>
