@@ -122,11 +122,6 @@ export function Header() {
                             className="block px-4 py-2 text-sm text-foreground/80 hover:text-primary hover:bg-primary/5 transition-colors"
                           >
                             {child.label}
-                            {"comingSoon" in child && child.comingSoon && (
-                              <span className="ml-1.5 text-xs italic text-muted">
-                                em breve
-                              </span>
-                            )}
                           </Link>
                         ))}
                       </div>

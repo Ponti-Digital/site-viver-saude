@@ -132,11 +132,6 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                                     className="block px-4 py-2 text-sm text-foreground hover:text-accent-dark hover:bg-accent/5 rounded-lg transition-colors"
                                   >
                                     {child.label}
-                                    {"comingSoon" in child && child.comingSoon && (
-                                      <span className="ml-1.5 text-xs italic text-muted">
-                                        em breve
-                                      </span>
-                                    )}
                                   </Link>
                                 ))}
                               </div>
