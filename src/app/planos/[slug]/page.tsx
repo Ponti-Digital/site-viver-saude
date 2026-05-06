@@ -150,7 +150,7 @@ const plansData: Record<string, PlanData> = {
     name: "Diamante",
     slug: "diamante",
     tagline: "Plano empresarial com opção de quarto privativo e cobertura completa",
-    image: "/images/plans/diamante.avif",
+    image: "/images/plans/diamante.png",
     description:
       "O plano Diamante é o plano empresarial com o mais alto nível de conforto. Com opção de quarto privativo e cobertura completa, oferece cuidado eficiente e estrutura hospitalar e ambulatorial para quem valoriza privacidade e qualidade.",
     highlights: [
