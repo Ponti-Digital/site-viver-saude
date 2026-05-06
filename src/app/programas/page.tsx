@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { ScrollAnimationWrapper } from "@/components/shared/ScrollAnimationWrapper";
+import { ProgramEnrollButton } from "@/components/sections/ProgramEnrollButton";
 
 export const metadata = {
   title: "Programas de Qualidade de Vida — Viver Melhor 2.6",
@@ -530,10 +531,11 @@ export default function ProgramasPage() {
               <Button href={PHONE_1100_TEL} size="lg">
                 Quero participar — (84) 3114-1100
               </Button>
-              {/* TODO: rota definitiva para inscrição no site ainda não existe — temporariamente apontando para /contato */}
-              <Button href="/contato" variant="secondary" size="lg">
-                Inscreva-se pelo site
-              </Button>
+              <ProgramEnrollButton
+                programName="Viver Melhor 2.6"
+                variant="secondary"
+                size="lg"
+              />
               <Button href="#a-casa" variant="outline" size="lg">
                 Visite a CASA
               </Button>
@@ -668,10 +670,11 @@ function AvailableProgramSection({ line }: { line: AvailableLine }) {
           <Button href={programWhatsapp(line.programName)} size="md">
             Quero participar — fale conosco
           </Button>
-          {/* TODO: rota definitiva para inscrição no site ainda não existe — temporariamente apontando para /contato */}
-          <Button href="/contato" variant="outline" size="md">
-            Inscreva-se pelo site
-          </Button>
+          <ProgramEnrollButton
+            programName={line.programName}
+            variant="outline"
+            size="md"
+          />
         </div>
       </article>
     </ScrollAnimationWrapper>
