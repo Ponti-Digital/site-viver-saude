@@ -26,11 +26,11 @@ export function QuickAccessSection() {
             <div className="bg-white rounded-2xl border border-border overflow-hidden hover:shadow-lg transition-shadow duration-300">
               <div className="h-48 relative overflow-hidden">
                 <Image
-                  src="/images/general/cliente.png"
+                  src="/images/general/cliente.jpg"
                   alt="Área do Cliente Viver Saúde"
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"
-                  className="object-cover object-top"
+                  className="object-cover object-center"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-primary/20" />
                 <div className="absolute bottom-4 left-6">
@@ -53,7 +53,7 @@ export function QuickAccessSection() {
             <div className="bg-white rounded-2xl border border-border overflow-hidden hover:shadow-lg transition-shadow duration-300">
               <div className="h-48 relative overflow-hidden">
                 <Image
-                  src="/images/general/prestador.png"
+                  src="/images/general/prestador.jpg"
                   alt="Área do Prestador Viver Saúde"
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"
@@ -80,7 +80,7 @@ export function QuickAccessSection() {
             <div className="bg-white rounded-2xl border border-border overflow-hidden hover:shadow-lg transition-shadow duration-300">
               <div className="h-48 relative overflow-hidden">
                 <Image
-                  src="/images/general/img-quem-somos.png"
+                  src="/images/general/empresa.jpg"
                   alt="Área Pessoa Jurídica Viver Saúde"
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"
