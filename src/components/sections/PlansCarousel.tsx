@@ -47,7 +47,7 @@ const plans = [
     name: "Diamante",
     slug: "diamante",
     tagline: "Plano empresarial com opção de quarto privativo e cobertura completa.",
-    image: "/images/plans/diamante.svg",
+    image: "/images/plans/diamante.png",
     color: "from-cyan-300 to-cyan-500",
   },
 ];

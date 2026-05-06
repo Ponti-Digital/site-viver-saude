@@ -19,6 +19,7 @@ export const SOCIAL = {
 export const PORTALS = {
   cliente: "https://solus.planoviversaude.com.br/portal_beneficiario/auth/login",
   prestador: "https://solus.planoviversaude.com.br/prestador/index.php",
+  empresa: "https://solus.planoviversaude.com.br/empresa/index.php",
 } as const;
 
 export const APP_LINKS = {
