@@ -217,8 +217,10 @@ export function ProgramRegistrationModal({
               Interesse recebido!
             </h3>
             <p className="text-muted leading-relaxed mb-6">
-              Recebemos seu interesse! Em breve nossa equipe entrará em contato
-              pelo WhatsApp.
+              Recebemos seu interesse no{" "}
+              <span className="font-semibold text-foreground">{programName}</span>!
+              <br />
+              Em breve nossa equipe entrará em contato pelo WhatsApp.
             </p>
             <Button onClick={onClose} variant="primary" size="md" className="w-full">
               Fechar
