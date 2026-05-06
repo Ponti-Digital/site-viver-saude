@@ -68,7 +68,7 @@ export function QuickAccessSection() {
                 <p className="text-muted text-sm mb-6">
                   Área exclusiva para prestadores acessarem recursos e informações.
                 </p>
-                <Button href={PORTALS.prestador} variant="accent" size="md" className="w-full" target="_blank">
+                <Button href={PORTALS.prestador} variant="primary" size="md" className="w-full" target="_blank">
                   Acessar Área do Prestador
                 </Button>
               </div>
