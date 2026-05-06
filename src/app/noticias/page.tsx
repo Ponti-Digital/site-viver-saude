@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ScrollAnimationWrapper } from "@/components/shared/ScrollAnimationWrapper";
 
 export const metadata = {
@@ -27,6 +28,8 @@ const noticias: NoticiaItem[] = [
     fonte: "Tribuna do Norte — Blog Thiago Cavalcanti",
     fonteUrl: "https://blog.tribunadonorte.com.br/thiagocavalcanti/viver-saude/",
     categoria: "Na mídia",
+    thumbnail:
+      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80&auto=format&fit=crop",
   },
   {
     id: "agorarn-medicina-integrativa",
@@ -38,6 +41,8 @@ const noticias: NoticiaItem[] = [
     fonteUrl:
       "https://agorarn.com.br/ultimas/viver-saude-chega-a-natal-proposta-inovadora-medicina-integrativa/",
     categoria: "Na mídia",
+    thumbnail:
+      "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=800&q=80&auto=format&fit=crop",
   },
   {
     id: "chegada-viver-saude-movimenta-planos-rn",
@@ -49,6 +54,8 @@ const noticias: NoticiaItem[] = [
     fonteUrl:
       "https://tribunadonorte.com.br/economia/chegada-do-viver-saude-movimenta-segmento-de-planos-no-estado/",
     categoria: "Na mídia",
+    thumbnail:
+      "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&q=80&auto=format&fit=crop",
   },
   {
     id: "novonoticias-cuidado-integrado-medicina-preventiva",
@@ -61,6 +68,8 @@ const noticias: NoticiaItem[] = [
     fonteUrl:
       "https://www.novonoticias.com.br/viver-saude-chega-ao-rn-com-proposta-inovadora-de-cuidado-integrado-e-medicina-preventiva/",
     categoria: "Na mídia",
+    thumbnail:
+      "https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=800&q=80&auto=format&fit=crop",
   },
   {
     id: "blogdobg-cuidado-integrado-medicina-preventiva",
@@ -73,6 +82,8 @@ const noticias: NoticiaItem[] = [
     fonteUrl:
       "https://www.blogdobg.com.br/viver-saude-chega-ao-rio-grande-do-norte-com-proposta-inovadora-de-cuidado-integrado-e-medicina-preventiva/",
     categoria: "Na mídia",
+    thumbnail:
+      "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80&auto=format&fit=crop",
   },
 ];
 
@@ -96,15 +107,16 @@ export default function NoticiasPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {noticias.map((noticia, idx) => (
               <ScrollAnimationWrapper key={noticia.id} delay={idx * 0.08}>
-                <article className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden flex flex-col h-full">
+                <article className="group bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden flex flex-col h-full">
                   {/* Thumbnail */}
-                  <div className="aspect-[16/9] bg-primary/10 flex items-center justify-center overflow-hidden">
+                  <div className="relative aspect-[16/9] overflow-hidden bg-primary/10">
                     {noticia.thumbnail ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
+                      <Image
                         src={noticia.thumbnail}
-                        alt={noticia.titulo}
-                        className="w-full h-full object-cover"
+                        alt={`Imagem ilustrativa — ${noticia.titulo}`}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     ) : (
                       <div className="flex flex-col items-center justify-center gap-3 p-6 w-full h-full">
