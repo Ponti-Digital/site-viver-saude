@@ -48,11 +48,11 @@ export function WhyViverSection() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left: heading */}
           <ScrollAnimationWrapper direction="left">
-            <span className="text-accent-dark font-medium text-sm uppercase tracking-wider">
+            <span className="text-primary font-medium text-sm uppercase tracking-wider">
               Por que Viver Saúde?
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mt-3 mb-4">
-              Cuidado que acompanha você <span className="text-accent-dark">de verdade</span>
+              Cuidado que acompanha você <span className="text-primary">de verdade</span>
             </h2>
             <p className="text-muted leading-relaxed max-w-md">
               A Viver Saúde foi pensada para oferecer um plano de saúde mais humano, próximo e descomplicado.
@@ -63,8 +63,8 @@ export function WhyViverSection() {
           <div className="flex flex-col gap-1">
             {benefits.map((benefit, index) => (
               <ScrollAnimationWrapper key={index} delay={index * 0.1} direction="right">
-                <div className="group flex items-start gap-5 p-5 rounded-xl hover:bg-accent/5 transition-colors duration-300">
-                  <div className="flex-shrink-0 w-12 h-12 bg-accent/10 text-accent-dark rounded-xl flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-all duration-300">
+                <div className="group flex items-start gap-5 p-5 rounded-xl hover:bg-primary-light transition-colors duration-300">
+                  <div className="flex-shrink-0 w-12 h-12 bg-primary-light text-primary rounded-xl flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300">
                     {benefit.icon}
                   </div>
                   <div className="pt-0.5">

@@ -60,7 +60,7 @@ export default function FaqPage() {
       />
 
       {/* Hero */}
-      <section className="bg-gradient-to-br from-primary to-primary-dark text-white py-20 lg:py-28">
+      <section className="bg-gradient-to-br from-primary-dark to-primary text-white py-20 lg:py-28">
         <div className="container mx-auto px-4 text-center">
           <ScrollAnimationWrapper>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">

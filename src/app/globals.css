@@ -1,12 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  --color-primary: #00995d;
-  --color-primary-dark: #007a47;
-  --color-primary-light: #e6f7f0;
-  --color-accent: #54d8bc;
-  --color-accent-dark: #278a6e;
-  --color-accent-light: #7ee4d0;
+  /* Verde médio vibrante — CTAs, botões primários, header underline */
+  --color-primary: #1e8449;
+  /* Verde profundo/floresta — hero base, top utility bar, seções escuras */
+  --color-primary-dark: #0d5c2e;
+  /* Verde muito claro — fundos de superfície com toque de verde */
+  --color-primary-light: #eaf5ec;
+  /* Verde lima/sage — ícones, badges de destaque, accent points */
+  --color-accent: #6bbf4e;
+  /* Verde médio-escuro — textos de destaque, links hover, títulos secundários */
+  --color-accent-dark: #2e7d32;
+  /* Verde pastel — fundos de ícone, hover states suaves */
+  --color-accent-light: #b8e6a8;
+  /* Amarelo — headline accent pontual (reservado para hero copy) */
+  --color-highlight: #f5c518;
   --background: #ffffff;
   --foreground: #1a1a2e;
   --muted: #6b7280;
@@ -17,12 +25,20 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-primary: #00995d;
-  --color-primary-dark: #007a47;
-  --color-primary-light: #e6f7f0;
-  --color-accent: #54d8bc;
-  --color-accent-dark: #278a6e;
-  --color-accent-light: #7ee4d0;
+  /* Verde médio vibrante — CTAs, botões primários, header underline */
+  --color-primary: #1e8449;
+  /* Verde profundo/floresta — hero base, top utility bar, seções escuras */
+  --color-primary-dark: #0d5c2e;
+  /* Verde muito claro — fundos de superfície com toque de verde */
+  --color-primary-light: #eaf5ec;
+  /* Verde lima/sage — ícones, badges de destaque, accent points */
+  --color-accent: #6bbf4e;
+  /* Verde médio-escuro — textos de destaque, links hover, títulos secundários */
+  --color-accent-dark: #2e7d32;
+  /* Verde pastel — fundos de ícone, hover states suaves */
+  --color-accent-light: #b8e6a8;
+  /* Amarelo — headline accent pontual */
+  --color-highlight: #f5c518;
   --color-muted: #6b7280;
   --color-border: #e5e7eb;
   --color-card: #f9fafb;
@@ -41,7 +57,7 @@ body {
 
 /* Animated gradient text */
 .hero-gradient-text {
-  background: linear-gradient(90deg, #00995d, #54d8bc, #3bbfa3);
+  background: linear-gradient(90deg, #1e8449, #6bbf4e, #2e7d32);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -61,8 +77,8 @@ body {
 
 /* Pulse glow */
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 153, 93, 0.3); }
-  50% { box-shadow: 0 0 20px 4px rgba(0, 153, 93, 0.15); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(30, 132, 73, 0.3); }
+  50% { box-shadow: 0 0 20px 4px rgba(30, 132, 73, 0.15); }
 }
 
 .animate-pulse-glow {

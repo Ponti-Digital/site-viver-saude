@@ -20,7 +20,7 @@ export function Header() {
 
   return (
     <>
-      {/* Top utility bar */}
+      {/* Top utility bar — verde profundo para criar separação tonal do header branco */}
       <div className="bg-primary-dark text-white/90 text-xs hidden lg:block">
         <div className="max-w-7xl mx-auto px-6 py-1.5 flex items-center justify-between">
           <div className="flex items-center gap-5">

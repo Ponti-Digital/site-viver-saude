@@ -105,7 +105,7 @@ export default function QueroSerClientePage() {
   if (isSubmitted) {
     return (
       <>
-        <section className="bg-gradient-to-br from-primary to-primary-dark text-white py-20 lg:py-28">
+        <section className="bg-gradient-to-br from-primary-dark to-primary text-white py-20 lg:py-28">
           <div className="container mx-auto px-4 text-center">
             <ScrollAnimationWrapper>
               <div className="w-20 h-20 bg-white/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
@@ -142,7 +142,7 @@ export default function QueroSerClientePage() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-primary to-primary-dark text-white py-20 lg:py-28">
+      <section className="bg-gradient-to-br from-primary-dark to-primary text-white py-20 lg:py-28">
         <div className="container mx-auto px-4 text-center">
           <ScrollAnimationWrapper>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">

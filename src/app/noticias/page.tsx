@@ -80,7 +80,7 @@ export default function NoticiasPage() {
   return (
     <>
       {/* Header banner */}
-      <section className="bg-primary py-14 lg:py-18">
+      <section className="bg-gradient-to-br from-primary-dark to-primary py-14 lg:py-18">
         <div className="container mx-auto px-4">
           <ScrollAnimationWrapper>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">

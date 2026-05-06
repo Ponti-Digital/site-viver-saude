@@ -56,7 +56,7 @@ export default function QuemSomosPage() {
   return (
     <>
       {/* Hero Banner */}
-      <section className="bg-gradient-to-br from-primary to-primary-dark text-white py-20 lg:py-28">
+      <section className="bg-gradient-to-br from-primary-dark to-primary text-white py-20 lg:py-28">
         <div className="container mx-auto px-4 text-center">
           <ScrollAnimationWrapper>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
@@ -171,7 +171,7 @@ export default function QuemSomosPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 lg:py-24 bg-gradient-to-br from-primary to-primary-dark text-white">
+      <section className="py-16 lg:py-24 bg-gradient-to-br from-primary-dark to-primary text-white">
         <div className="container mx-auto px-4 text-center">
           <ScrollAnimationWrapper>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">

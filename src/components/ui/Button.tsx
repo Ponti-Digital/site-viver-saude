@@ -20,12 +20,12 @@ const variantStyles: Record<ButtonVariant, string> = {
   primary:
     "bg-primary text-white hover:bg-primary-dark shadow-sm hover:shadow-md",
   secondary:
-    "bg-accent text-foreground hover:bg-accent-dark hover:text-white shadow-sm hover:shadow-md",
+    "bg-primary-light text-primary-dark hover:bg-primary hover:text-white shadow-sm hover:shadow-md",
   outline:
-    "border-2 border-accent-dark text-accent-dark hover:bg-accent-dark hover:text-white",
-  ghost: "text-accent-dark hover:bg-accent/10",
+    "border-2 border-primary text-primary hover:bg-primary hover:text-white",
+  ghost: "text-primary hover:bg-primary-light",
   accent:
-    "bg-accent text-foreground hover:bg-accent-dark hover:text-white shadow-sm hover:shadow-md",
+    "bg-accent text-white hover:bg-accent-dark shadow-sm hover:shadow-md",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {

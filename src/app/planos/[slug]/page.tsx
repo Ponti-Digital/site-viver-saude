@@ -230,7 +230,7 @@ export default async function PlanPage(props: {
 
   if (COMING_SOON_SLUGS.includes(slug)) {
     return (
-      <section className="bg-gradient-to-br from-primary to-primary-dark text-white py-32 lg:py-40">
+      <section className="bg-gradient-to-br from-primary-dark to-primary text-white py-32 lg:py-40">
         <div className="container mx-auto px-4 text-center">
           <ScrollAnimationWrapper>
             <p className="text-accent font-semibold mb-3 uppercase tracking-wide text-sm">
@@ -265,7 +265,7 @@ export default async function PlanPage(props: {
   return (
     <>
       {/* Plan Header */}
-      <section className="bg-gradient-to-br from-primary to-primary-dark text-white py-20 lg:py-28">
+      <section className="bg-gradient-to-br from-primary-dark to-primary text-white py-20 lg:py-28">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <ScrollAnimationWrapper direction="left">
@@ -392,7 +392,7 @@ export default async function PlanPage(props: {
       )}
 
       {/* CTA Bar */}
-      <section className="py-16 lg:py-20 bg-gradient-to-br from-primary to-primary-dark text-white">
+      <section className="py-16 lg:py-20 bg-gradient-to-br from-primary-dark to-primary text-white">
         <div className="container mx-auto px-4 text-center">
           <ScrollAnimationWrapper>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">

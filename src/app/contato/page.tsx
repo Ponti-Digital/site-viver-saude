@@ -63,7 +63,7 @@ export default function ContatoPage() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-gradient-to-br from-primary to-primary-dark text-white py-20 lg:py-28">
+      <section className="bg-gradient-to-br from-primary-dark to-primary text-white py-20 lg:py-28">
         <div className="max-w-7xl mx-auto px-4 lg:px-6 text-center">
           <ScrollAnimationWrapper>
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Contato</h1>

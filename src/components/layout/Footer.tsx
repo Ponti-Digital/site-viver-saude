@@ -32,7 +32,7 @@ export function Footer() {
   const { ref, isInView } = useScrollAnimation(0.1);
 
   return (
-    <footer className="bg-[#1a1a2e] text-white">
+    <footer className="bg-primary-dark text-white">
       {/* Main footer */}
       <div className="max-w-7xl mx-auto px-4 lg:px-6 py-16">
         <motion.div

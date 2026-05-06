@@ -11,7 +11,7 @@ export function QuickAccessSection() {
       <div className="max-w-7xl mx-auto px-4 lg:px-6">
         <ScrollAnimationWrapper>
           <div className="text-center mb-14">
-            <span className="text-accent-dark font-medium text-sm uppercase tracking-wider">
+            <span className="text-primary font-medium text-sm uppercase tracking-wider">
               Acesso rápido
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mt-3">

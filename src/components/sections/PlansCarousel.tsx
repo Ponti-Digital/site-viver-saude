@@ -72,11 +72,11 @@ export function PlansCarousel() {
         <ScrollAnimationWrapper>
           <div className="flex items-end justify-between mb-12">
             <div>
-              <span className="text-accent-dark font-medium text-sm uppercase tracking-wider">
+              <span className="text-primary font-medium text-sm uppercase tracking-wider">
                 Nossos Planos
               </span>
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mt-3">
-                Planos feitos para cuidar bem da <span className="text-accent-dark">sua saúde</span>
+                Planos feitos para cuidar bem da <span className="text-primary">sua saúde</span>
               </h2>
               <p className="text-muted mt-3 max-w-lg">
                 Planos descomplicados, com opções para diferentes perfis e fases da vida.
@@ -85,7 +85,7 @@ export function PlansCarousel() {
             <div className="hidden md:flex gap-2">
               <button
                 onClick={scrollPrev}
-                className="w-11 h-11 rounded-full border border-border hover:bg-accent hover:text-white hover:border-accent flex items-center justify-center transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2"
+                className="w-11 h-11 rounded-full border border-border hover:bg-primary hover:text-white hover:border-primary flex items-center justify-center transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2"
                 aria-label="Plano anterior"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -94,7 +94,7 @@ export function PlansCarousel() {
               </button>
               <button
                 onClick={scrollNext}
-                className="w-11 h-11 rounded-full border border-border hover:bg-accent hover:text-white hover:border-accent flex items-center justify-center transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2"
+                className="w-11 h-11 rounded-full border border-border hover:bg-primary hover:text-white hover:border-primary flex items-center justify-center transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2"
                 aria-label="Próximo plano"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

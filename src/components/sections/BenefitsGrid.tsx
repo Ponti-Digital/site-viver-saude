@@ -43,11 +43,11 @@ const benefits = [
 
 export function BenefitsGrid() {
   return (
-    <section className="py-16 lg:py-20 bg-gradient-to-br from-primary to-primary-dark overflow-hidden">
+    <section className="py-16 lg:py-20 bg-gradient-to-br from-primary-dark to-primary overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 lg:px-6">
         <ScrollAnimationWrapper>
           <div className="text-center mb-12">
-            <span className="text-accent-light font-medium text-sm uppercase tracking-wider">
+            <span className="text-accent font-medium text-sm uppercase tracking-wider">
               Benefícios
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-white mt-3">
@@ -59,8 +59,8 @@ export function BenefitsGrid() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 rounded-2xl overflow-hidden">
           {benefits.map((benefit, index) => (
             <ScrollAnimationWrapper key={index} delay={index * 0.1}>
-              <div className="bg-primary/80 p-8 flex flex-col items-center text-center h-full hover:bg-primary transition-colors duration-300">
-                <div className="w-12 h-12 rounded-full bg-accent/20 text-accent-light flex items-center justify-center mb-5">
+              <div className="bg-primary-dark/60 p-8 flex flex-col items-center text-center h-full hover:bg-primary/80 transition-colors duration-300">
+                <div className="w-12 h-12 rounded-full bg-accent/25 text-accent flex items-center justify-center mb-5">
                   {benefit.icon}
                 </div>
                 <h3 className="text-sm font-semibold text-white mb-2">
