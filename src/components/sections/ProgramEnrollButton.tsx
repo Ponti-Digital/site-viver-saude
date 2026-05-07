@@ -7,7 +7,7 @@ import { ProgramRegistrationModal } from "./ProgramRegistrationModal";
 interface ProgramEnrollButtonProps {
   programName: string;
   size?: "sm" | "md" | "lg";
-  variant?: "primary" | "secondary" | "outline" | "ghost" | "accent";
+  variant?: "primary" | "secondary" | "secondary-green" | "outline" | "outline-secondary" | "ghost" | "accent" | "info";
   className?: string;
 }
 

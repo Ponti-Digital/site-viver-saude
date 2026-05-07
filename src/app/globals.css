@@ -20,6 +20,28 @@
   --muted: #6b7280;
   --border: #e5e7eb;
   --card: #f9fafb;
+
+  /* SECONDARY — coral-laranja (CTAs de conversão alternativos) */
+  --color-secondary: #E8622A;
+  --color-secondary-dark: #B84A1A;
+  --color-secondary-light: #FDF0EA;
+
+  /* INFO — azul-confiança (FAQ, links informativos) */
+  --color-info: #2563EB;
+  --color-info-dark: #1E40AF;
+  --color-info-light: #EFF6FF;
+
+  /* STATUS */
+  --color-success: #16A34A;
+  --color-success-light: #DCFCE7;
+  --color-warning: #D97706;
+  --color-warning-light: #FEF3C7;
+  --color-error: #DC2626;
+  --color-error-light: #FEF2F2;
+
+  /* NEUTRO QUENTE — fundo alternativo para ritmo entre seções */
+  --color-warm-neutral: #F7F3EE;
+  --color-warm-border: #E8DDD3;
 }
 
 @theme inline {
@@ -43,6 +65,28 @@
   --color-border: #e5e7eb;
   --color-card: #f9fafb;
   --font-sans: var(--font-work-sans);
+
+  /* SECONDARY — coral-laranja */
+  --color-secondary: #E8622A;
+  --color-secondary-dark: #B84A1A;
+  --color-secondary-light: #FDF0EA;
+
+  /* INFO — azul-confiança */
+  --color-info: #2563EB;
+  --color-info-dark: #1E40AF;
+  --color-info-light: #EFF6FF;
+
+  /* STATUS */
+  --color-success: #16A34A;
+  --color-success-light: #DCFCE7;
+  --color-warning: #D97706;
+  --color-warning-light: #FEF3C7;
+  --color-error: #DC2626;
+  --color-error-light: #FEF2F2;
+
+  /* NEUTRO QUENTE */
+  --color-warm-neutral: #F7F3EE;
+  --color-warm-border: #E8DDD3;
 }
 
 html {

@@ -109,7 +109,7 @@ export default function NoticiasPage() {
               <ScrollAnimationWrapper key={noticia.id} delay={idx * 0.08}>
                 <article className="group bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden flex flex-col h-full">
                   {/* Thumbnail */}
-                  <div className="relative aspect-[16/9] overflow-hidden bg-primary/10">
+                  <div className="relative aspect-[16/9] overflow-hidden bg-info-light">
                     {noticia.thumbnail ? (
                       <Image
                         src={noticia.thumbnail}
@@ -120,9 +120,9 @@ export default function NoticiasPage() {
                       />
                     ) : (
                       <div className="flex flex-col items-center justify-center gap-3 p-6 w-full h-full">
-                        <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
+                        <div className="w-12 h-12 rounded-full bg-info/20 flex items-center justify-center">
                           <svg
-                            className="w-6 h-6 text-primary"
+                            className="w-6 h-6 text-info"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -135,7 +135,7 @@ export default function NoticiasPage() {
                             />
                           </svg>
                         </div>
-                        <span className="text-xs font-semibold text-primary/60 uppercase tracking-wider">
+                        <span className="text-xs font-semibold text-info uppercase tracking-wider">
                           {noticia.categoria}
                         </span>
                       </div>
@@ -144,12 +144,16 @@ export default function NoticiasPage() {
 
                   {/* Conteúdo */}
                   <div className="p-5 flex flex-col flex-1">
+                    {/* Tag categoria */}
+                    <span className="inline-block text-xs font-semibold text-info uppercase tracking-wider mb-2">
+                      {noticia.categoria}
+                    </span>
                     <h2 className="text-base font-bold text-foreground mb-2 leading-snug line-clamp-3">
                       <a
                         href={noticia.fonteUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="hover:text-primary transition-colors"
+                        className="hover:text-info transition-colors"
                       >
                         {noticia.titulo}
                       </a>
@@ -157,6 +161,15 @@ export default function NoticiasPage() {
                     <p className="text-sm text-gray-500 leading-relaxed mb-4 flex-1 line-clamp-3">
                       {noticia.resumo}
                     </p>
+                    {/* Link Leia mais */}
+                    <a
+                      href={noticia.fonteUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm font-semibold text-info hover:text-info-dark transition-colors mb-3 self-start"
+                    >
+                      Leia mais &rarr;
+                    </a>
 
                     {/* Rodapé do card */}
                     <div className="flex items-center gap-1.5 text-xs text-gray-400 mt-auto pt-3 border-t border-gray-100">

@@ -460,7 +460,7 @@ export default function ProgramasPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {linesOfCare.map((line, index) => (
               <ScrollAnimationWrapper key={line.slug} delay={index * 0.05}>
-                <article className="group h-full flex flex-col bg-white border border-gray-200 rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                <article className="group h-full flex flex-col bg-secondary-light border border-secondary/20 rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
                   <div className="flex items-start justify-between gap-3 mb-5">
                     <ProgramLogo
                       src={line.logoSrc}
@@ -485,7 +485,7 @@ export default function ProgramasPage() {
                   <div className="mt-auto">
                     <Button
                       href={`#${line.slug}`}
-                      variant="outline"
+                      variant="outline-secondary"
                       size="sm"
                       className="w-full"
                     >
