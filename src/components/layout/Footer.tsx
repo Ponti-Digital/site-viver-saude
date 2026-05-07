@@ -32,7 +32,7 @@ export function Footer() {
   const { ref, isInView } = useScrollAnimation(0.1);
 
   return (
-    <footer className="bg-primary-dark text-white">
+    <footer className="bg-primary-dark text-white border-t-2 border-highlight">
       {/* Main footer */}
       <div className="max-w-7xl mx-auto px-4 lg:px-6 py-16">
         <motion.div
@@ -73,7 +73,7 @@ export function Footer() {
 
           {/* Column 2: Navigation */}
           <motion.div variants={columnVariants}>
-            <h3 className="text-white font-semibold mb-4">Navegação</h3>
+            <h3 className="text-highlight font-semibold mb-4">Navegação</h3>
             <ul className="space-y-2.5">
               {NAV_ITEMS.filter(item => !("children" in item)).map((item) => (
                 <li key={item.href}>
@@ -98,7 +98,7 @@ export function Footer() {
 
           {/* Column 3: Contact */}
           <motion.div variants={columnVariants}>
-            <h3 className="text-white font-semibold mb-4">Contato</h3>
+            <h3 className="text-highlight font-semibold mb-4">Contato</h3>
             <ul className="space-y-3">
               <li>
                 <a href={`tel:${SITE.phoneSac.replace(/\D/g, "")}`} className="flex items-start gap-3 text-gray-400 hover:text-accent text-sm transition-colors">
@@ -126,7 +126,7 @@ export function Footer() {
               </li>
             </ul>
 
-            <h3 className="text-white font-semibold mt-6 mb-3">Precisa de ajuda?</h3>
+            <h3 className="text-highlight font-semibold mt-6 mb-3">Precisa de ajuda?</h3>
             <ul className="space-y-2">
               <li>
                 <Link href="/faq" className="text-gray-400 hover:text-accent text-sm transition-colors">
@@ -148,13 +148,13 @@ export function Footer() {
 
           {/* Column 4: Social + App */}
           <motion.div variants={columnVariants}>
-            <h3 className="text-white font-semibold mb-3">Redes Sociais</h3>
+            <h3 className="text-highlight font-semibold mb-3">Redes Sociais</h3>
             <div className="flex items-center gap-3">
               <a
                 href={SOCIAL.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-11 h-11 bg-white/10 hover:bg-accent rounded-lg flex items-center justify-center transition-colors"
+                className="w-11 h-11 bg-white/10 hover:bg-highlight rounded-lg flex items-center justify-center transition-colors"
                 aria-label="Instagram"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
@@ -165,7 +165,7 @@ export function Footer() {
                 href={SOCIAL.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-11 h-11 bg-white/10 hover:bg-accent rounded-lg flex items-center justify-center transition-colors"
+                className="w-11 h-11 bg-white/10 hover:bg-highlight rounded-lg flex items-center justify-center transition-colors"
                 aria-label="Facebook"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
@@ -176,7 +176,7 @@ export function Footer() {
                 href={SOCIAL.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-11 h-11 bg-white/10 hover:bg-accent rounded-lg flex items-center justify-center transition-colors"
+                className="w-11 h-11 bg-white/10 hover:bg-highlight rounded-lg flex items-center justify-center transition-colors"
                 aria-label="LinkedIn"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
@@ -185,7 +185,7 @@ export function Footer() {
               </a>
             </div>
 
-            <h3 className="text-white font-semibold mt-6 mb-3">Baixe o App</h3>
+            <h3 className="text-highlight font-semibold mt-6 mb-3">Baixe o App</h3>
             <div className="flex flex-col gap-2">
               <a
                 href={APP_LINKS.ios}
