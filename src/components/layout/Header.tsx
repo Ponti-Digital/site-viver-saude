@@ -13,6 +13,7 @@ export function Header() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
   const router = useRouter();
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -25,6 +26,11 @@ export function Header() {
     } catch {
       console.log("Busca:", term);
     }
+  }
+
+  function handleSearchSubmit(e: React.FormEvent) {
+    handleSearch(e);
+    setSearchOpen(false);
   }
 
   useEffect(() => {
@@ -146,35 +152,62 @@ export function Header() {
               ))}
             </nav>
 
-            {/* Search bar — desktop only */}
-            <form
-              onSubmit={handleSearch}
-              className="hidden lg:flex items-center gap-1 w-[280px] xl:w-[320px] relative"
-            >
-              <div className="relative w-full">
-                <span className="absolute inset-y-0 left-3 flex items-center pointer-events-none text-foreground/40">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            {/* Search — expand-on-click, desktop only */}
+            <div className="hidden lg:flex items-center">
+              {searchOpen ? (
+                <form
+                  onSubmit={handleSearchSubmit}
+                  className="flex items-center gap-1 transition-all"
+                >
+                  <div className="relative">
+                    <span className="absolute inset-y-0 left-3 flex items-center pointer-events-none text-foreground/40">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
+                      </svg>
+                    </span>
+                    <input
+                      ref={searchInputRef}
+                      type="search"
+                      aria-label="Buscar no site"
+                      placeholder="Buscar..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onKeyDown={(e) => e.key === "Escape" && setSearchOpen(false)}
+                      autoFocus
+                      className="w-[220px] xl:w-[260px] pl-9 pr-3 py-1.5 text-sm rounded-lg border border-gray-200 bg-gray-50 text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-all"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className="sr-only"
+                    aria-label="Executar busca"
+                  >
+                    Buscar
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setSearchOpen(false)}
+                    aria-label="Fechar busca"
+                    className="p-2 text-foreground/60 hover:text-primary hover:bg-gray-50 rounded-lg transition-colors"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </form>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setSearchOpen(true)}
+                  aria-label="Abrir busca"
+                  className="w-9 h-9 flex items-center justify-center p-2 text-foreground/60 hover:text-primary hover:bg-gray-50 rounded-lg transition-colors"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
                   </svg>
-                </span>
-                <input
-                  ref={searchInputRef}
-                  type="search"
-                  aria-label="Buscar no site"
-                  placeholder="Buscar..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-9 pr-3 py-1.5 text-sm rounded-lg border border-gray-200 bg-gray-50 text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-all"
-                />
-              </div>
-              <button
-                type="submit"
-                className="sr-only"
-                aria-label="Executar busca"
-              >
-                Buscar
-              </button>
-            </form>
+                </button>
+              )}
+            </div>
 
             {/* CTA + mobile toggle */}
             <div className="flex items-center gap-3">

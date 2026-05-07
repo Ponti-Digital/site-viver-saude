@@ -44,10 +44,16 @@ export const NAV_ITEMS = [
   },
   { label: "Rede Credenciada", href: "/rede-credenciada" },
   { label: "Serviços", href: "/servicos" },
-  { label: "Programas de Qualidade de Vida", href: "/programas" },
-  { label: "Notícias", href: "/noticias" },
-  { label: "FAQ", href: "/faq" },
-  { label: "Contato", href: "/contato" },
+  { label: "Programas", href: "/programas" },
+  {
+    label: "Mais",
+    href: "#",
+    children: [
+      { label: "Notícias", href: "/noticias" },
+      { label: "FAQ", href: "/faq" },
+      { label: "Contato", href: "/contato" },
+    ],
+  },
 ] as const;
 
 export const WHATSAPP_URL = `https://wa.me/${SITE.phoneRaw}?text=${encodeURIComponent("Olá! Gostaria de saber mais sobre os planos Viver Saúde.")}`;
