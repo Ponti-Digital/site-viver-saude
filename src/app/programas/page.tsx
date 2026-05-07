@@ -45,14 +45,14 @@ function ProgramLogo({
   };
   return (
     <div
-      className={`relative flex items-center justify-center rounded-xl bg-gray-200 shadow-sm p-4 ${containerClasses[size]}`}
+      className={`relative flex items-center justify-center p-4 ${containerClasses[size]}`}
     >
       <Image
         src={src}
         alt={alt}
         width={px}
         height={px}
-        className="object-contain w-full h-full"
+        className="object-contain w-full h-full [filter:drop-shadow(0_1px_2px_rgba(0,0,0,0.35))_drop-shadow(0_0_1px_rgba(0,0,0,0.4))]"
       />
     </div>
   );
