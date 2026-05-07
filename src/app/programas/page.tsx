@@ -411,12 +411,12 @@ export default function ProgramasPage() {
                     alt: "Recepção principal da CASA — Centro de Atenção à Saúde da Viver Saúde",
                   },
                   {
-                    src: "/images/programas/casa/casa-consultorio.jpg",
-                    alt: "Consultório multidisciplinar da CASA",
+                    src: "/images/programas/casa/casa-lounge.jpg",
+                    alt: "Lounge da CASA com sofás amarelos e iluminação acolhedora",
                   },
                   {
-                    src: "/images/programas/casa/casa-recepcao-consultorios.jpg",
-                    alt: "Recepção de consultórios e espaço infantil da CASA",
+                    src: "/images/programas/casa/casa-cozinha.jpg",
+                    alt: "Cozinha da CASA com bancada de madeira e banquetas para treinamentos em alimentação saudável",
                   },
                   {
                     src: "/images/programas/casa/casa-piscina.jpg",
