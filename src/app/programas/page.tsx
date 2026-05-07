@@ -45,7 +45,7 @@ function ProgramLogo({
   };
   return (
     <div
-      className={`relative flex items-center justify-center rounded-xl bg-primary-dark shadow-md p-4 ${containerClasses[size]}`}
+      className={`relative flex items-center justify-center rounded-xl bg-gray-700 shadow-md p-4 ${containerClasses[size]}`}
     >
       <Image
         src={src}
