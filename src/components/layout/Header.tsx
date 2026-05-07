@@ -66,6 +66,10 @@ export function Header() {
             <a href={PORTALS.prestador} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
               Área do Prestador
             </a>
+            <span className="text-white/20">|</span>
+            <a href={PORTALS.empresa} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+              Área Pessoa Jurídica
+            </a>
           </div>
         </div>
       </div>

@@ -73,7 +73,7 @@ export function Footer() {
 
           {/* Column 2: Navigation */}
           <motion.div variants={columnVariants}>
-            <h3 className="text-highlight font-semibold mb-4">Navegação</h3>
+            <h3 className="text-white font-semibold mb-4">Navegação</h3>
             <ul className="space-y-2.5">
               {NAV_ITEMS.filter(item => !("children" in item)).map((item) => (
                 <li key={item.href}>
@@ -98,7 +98,7 @@ export function Footer() {
 
           {/* Column 3: Contact */}
           <motion.div variants={columnVariants}>
-            <h3 className="text-highlight font-semibold mb-4">Contato</h3>
+            <h3 className="text-white font-semibold mb-4">Contato</h3>
             <ul className="space-y-3">
               <li>
                 <a href={`tel:${SITE.phoneSac.replace(/\D/g, "")}`} className="flex items-start gap-3 text-gray-400 hover:text-accent text-sm transition-colors">
@@ -126,7 +126,7 @@ export function Footer() {
               </li>
             </ul>
 
-            <h3 className="text-highlight font-semibold mt-6 mb-3">Precisa de ajuda?</h3>
+            <h3 className="text-white font-semibold mt-6 mb-3">Precisa de ajuda?</h3>
             <ul className="space-y-2">
               <li>
                 <Link href="/faq" className="text-gray-400 hover:text-accent text-sm transition-colors">
@@ -148,7 +148,7 @@ export function Footer() {
 
           {/* Column 4: Social + App */}
           <motion.div variants={columnVariants}>
-            <h3 className="text-highlight font-semibold mb-3">Redes Sociais</h3>
+            <h3 className="text-white font-semibold mb-3">Redes Sociais</h3>
             <div className="flex items-center gap-3">
               <a
                 href={SOCIAL.instagram}
@@ -185,7 +185,7 @@ export function Footer() {
               </a>
             </div>
 
-            <h3 className="text-highlight font-semibold mt-6 mb-3">Baixe o App</h3>
+            <h3 className="text-white font-semibold mt-6 mb-3">Baixe o App</h3>
             <div className="flex flex-col gap-2">
               <a
                 href={APP_LINKS.ios}

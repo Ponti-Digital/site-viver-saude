@@ -32,7 +32,7 @@ export function QuickAccessSection() {
                   sizes="(max-width: 768px) 100vw, 33vw"
                   className="object-cover object-center"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-primary/20" />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-primary/10" />
                 <div className="absolute bottom-4 left-6">
                   <h3 className="text-white text-xl font-bold">Área do Cliente</h3>
                 </div>
@@ -59,7 +59,7 @@ export function QuickAccessSection() {
                   sizes="(max-width: 768px) 100vw, 33vw"
                   className="object-cover object-top"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-accent-dark/80 to-accent/20" />
+                <div className="absolute inset-0 bg-gradient-to-t from-accent-dark/40 to-accent/10" />
                 <div className="absolute bottom-4 left-6">
                   <h3 className="text-white text-xl font-bold">Área do Prestador</h3>
                 </div>
@@ -86,7 +86,7 @@ export function QuickAccessSection() {
                   sizes="(max-width: 768px) 100vw, 33vw"
                   className="object-cover object-center"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-emerald-700/80 to-emerald-500/20" />
+                <div className="absolute inset-0 bg-gradient-to-t from-emerald-700/40 to-emerald-500/10" />
                 <div className="absolute bottom-4 left-6">
                   <h3 className="text-white text-xl font-bold">Área Pessoa Jurídica</h3>
                 </div>
