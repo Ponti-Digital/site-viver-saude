@@ -44,7 +44,9 @@ function ProgramLogo({
     lg: "h-56 w-full max-w-xs",
   };
   return (
-    <div className={`relative flex items-center justify-center ${containerClasses[size]}`}>
+    <div
+      className={`relative flex items-center justify-center rounded-xl bg-primary-dark shadow-md p-4 ${containerClasses[size]}`}
+    >
       <Image
         src={src}
         alt={alt}

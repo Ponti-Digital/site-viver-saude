@@ -20,7 +20,7 @@ const faqItems: FaqItem[] = [
   },
   {
     question: "Como falar conosco?",
-    answer: `Você pode entrar em contato conosco pelo telefone ${SITE.phone}, pelo WhatsApp ou pelo e-mail ${SITE.email}. Nosso horário de atendimento é de segunda a sexta, das 8h às 17h. Estamos aqui para ajudar você.`,
+    answer: `Você pode entrar em contato conosco pelo telefone ${SITE.phone}, pelo WhatsApp ou pelo e-mail ${SITE.email}. Nosso horário de atendimento é de segunda a quinta, das 8h às 18h, e às sextas, das 8h às 17h. Estamos aqui para ajudar você.`,
   },
   {
     question: "Consigo comparar planos no site?",

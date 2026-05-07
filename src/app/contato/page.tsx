@@ -47,8 +47,8 @@ const contactCards = [
   },
   {
     title: "Horário",
-    description: "Segunda a sexta-feira",
-    value: "8h às 17h",
+    description: "Atendimento ao cliente",
+    value: "Seg–Qui: 8h às 18h · Sex: 8h às 17h",
     href: null,
     linkLabel: null,
     icon: (
