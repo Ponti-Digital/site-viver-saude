@@ -1,14 +1,6 @@
 import Link from "next/link";
 
-type ButtonVariant =
-  | "primary"
-  | "secondary"
-  | "secondary-green"
-  | "outline"
-  | "outline-secondary"
-  | "ghost"
-  | "accent"
-  | "info";
+type ButtonVariant = "primary" | "secondary" | "outline" | "ghost" | "accent";
 type ButtonSize = "sm" | "md" | "lg";
 
 interface ButtonProps {
@@ -27,23 +19,13 @@ interface ButtonProps {
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
     "bg-primary text-white hover:bg-primary-dark shadow-sm hover:shadow-md",
-  /** secondary — coral-laranja para CTAs de conversão alternativos */
   secondary:
-    "bg-secondary text-white hover:bg-secondary-dark shadow-sm hover:shadow-md",
-  /** secondary-green — variante verde original (renomeada para não quebrar callers) */
-  "secondary-green":
     "bg-primary-light text-primary-dark hover:bg-primary hover:text-white shadow-sm hover:shadow-md",
   outline:
     "border-2 border-primary text-primary hover:bg-primary hover:text-white",
-  /** outline-secondary — borda coral para CTAs secundários */
-  "outline-secondary":
-    "border-2 border-secondary text-secondary hover:bg-secondary-light",
   ghost: "text-primary hover:bg-primary-light",
   accent:
     "bg-accent text-white hover:bg-accent-dark shadow-sm hover:shadow-md",
-  /** info — azul-confiança para links e ações informativas */
-  info:
-    "bg-info text-white hover:bg-info-dark shadow-sm hover:shadow-md",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {

@@ -74,12 +74,12 @@ export default function FaqPage() {
       </section>
 
       {/* FAQ Accordion */}
-      <section className="py-16 lg:py-24 bg-info-light">
+      <section className="py-16 lg:py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto space-y-4">
             {faqItems.map((item, idx) => (
               <ScrollAnimationWrapper key={idx} delay={idx * 0.1}>
-                <div className="bg-white rounded-2xl border border-info/20 shadow-sm overflow-hidden">
+                <div className="bg-white rounded-2xl border border-border shadow-sm overflow-hidden">
                   <button
                     onClick={() => toggle(idx)}
                     className="w-full flex items-center justify-between p-6 text-left cursor-pointer"
@@ -89,7 +89,7 @@ export default function FaqPage() {
                       {item.question}
                     </span>
                     <svg
-                      className={`w-5 h-5 text-info-dark flex-shrink-0 transition-transform duration-300 ${
+                      className={`w-5 h-5 text-primary flex-shrink-0 transition-transform duration-300 ${
                         openIndex === idx ? "rotate-180" : ""
                       }`}
                       fill="none"
@@ -105,7 +105,7 @@ export default function FaqPage() {
                       openIndex === idx ? "max-h-[600px]" : "max-h-0"
                     }`}
                   >
-                    <div className="px-6 pb-6 text-info-dark leading-relaxed">
+                    <div className="px-6 pb-6 text-muted leading-relaxed">
                       {item.answer}
                     </div>
                   </div>
