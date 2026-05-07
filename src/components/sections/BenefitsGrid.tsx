@@ -43,15 +43,17 @@ const benefits = [
 
 export function BenefitsGrid() {
   return (
-    <section className="py-16 lg:py-20 bg-[#EAF5EC] overflow-hidden">
+    <section className="py-16 lg:py-20 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 lg:px-6">
         <ScrollAnimationWrapper>
           <div className="text-center mb-12">
-            <span className="text-primary font-medium text-sm uppercase tracking-wider">
+            <span className="inline-flex items-center px-3 py-1 rounded-full bg-primary text-white text-xs font-bold tracking-wider uppercase mb-4">
               Benefícios
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mt-3">
-              Benefícios que simplificam sua rotina
+              Benefícios que{" "}
+              <span className="text-primary">simplificam</span>{" "}
+              sua rotina
             </h2>
           </div>
         </ScrollAnimationWrapper>
@@ -59,14 +61,21 @@ export function BenefitsGrid() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {benefits.map((benefit, index) => (
             <ScrollAnimationWrapper key={index} delay={index * 0.1}>
-              <div className="bg-white rounded-2xl border border-green-100 shadow-sm p-8 flex flex-col items-center text-center h-full hover:shadow-md transition-shadow duration-300">
-                <div className="w-12 h-12 rounded-full bg-accent/20 text-accent flex items-center justify-center mb-5">
+              <div className="relative bg-white border-l-4 border-primary rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 p-6 h-full overflow-hidden">
+                {/* Número decorativo */}
+                <span className="absolute top-2 right-3 text-5xl font-black text-primary/5 select-none leading-none">
+                  0{index + 1}
+                </span>
+
+                {/* Ícone cheio */}
+                <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center mb-5 text-white">
                   {benefit.icon}
                 </div>
-                <h3 className="text-sm font-semibold text-slate-800 mb-2">
+
+                <h3 className="text-sm font-bold text-slate-800 mb-2">
                   {benefit.title}
                 </h3>
-                <p className="text-xs text-slate-500 leading-relaxed">
+                <p className="text-xs text-slate-600 leading-relaxed">
                   {benefit.description}
                 </p>
               </div>
