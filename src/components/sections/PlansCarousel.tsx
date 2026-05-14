@@ -52,7 +52,24 @@ const plans = [
   },
 ];
 
-export function PlansCarousel() {
+interface PlansCarouselProps {
+  slugOrder?: string[];
+  activeSlugs?: string[];
+}
+
+export function PlansCarousel({ slugOrder = [], activeSlugs = [] }: PlansCarouselProps = {}) {
+  const orderedPlans = (() => {
+    const activeSet = new Set(activeSlugs);
+    const filtered = activeSet.size > 0 ? plans.filter((p) => activeSet.has(p.slug)) : plans;
+    if (slugOrder.length === 0) return filtered;
+    const rank = new Map(slugOrder.map((s, i) => [s, i]));
+    return [...filtered].sort((a, b) => {
+      const ra = rank.get(a.slug) ?? Number.MAX_SAFE_INTEGER;
+      const rb = rank.get(b.slug) ?? Number.MAX_SAFE_INTEGER;
+      return ra - rb;
+    });
+  })();
+
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: false,
     align: "start",
@@ -107,7 +124,7 @@ export function PlansCarousel() {
 
         <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex gap-6">
-            {plans.map((plan, index) => (
+            {orderedPlans.map((plan, index) => (
               <div
                 key={plan.slug}
                 className="flex-none w-[85%] md:w-[45%] lg:w-[30%]"

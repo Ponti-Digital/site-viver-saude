@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { ScrollAnimationWrapper } from "@/components/shared/ScrollAnimationWrapper";
 import { WHATSAPP_URL } from "@/lib/constants/site";
+import { getPlansOrder, reorderBySlug } from "@/lib/supabase/plans";
 
 export const metadata = {
   title: "Planos",
@@ -48,7 +49,34 @@ const plans = [
   },
 ];
 
-export default function PlanosPage() {
+const comparisonRows = [
+  { label: "Consultas e exames ambulatoriais", bySlug: { topazio: true, quartzo: true, rubi: true, turmalina: true, safira: true, diamante: true } as Record<string, boolean | "partial"> },
+  { label: "Internação hospitalar", bySlug: { topazio: false, quartzo: true, rubi: true, turmalina: true, safira: true, diamante: true } as Record<string, boolean | "partial"> },
+  { label: "Cobertura obstétrica (parto)", bySlug: { topazio: false, quartzo: true, rubi: "partial", turmalina: true, safira: true, diamante: true } as Record<string, boolean | "partial">, note: "Rubi: disponível apenas na modalidade por adesão" },
+  { label: "Urgência e emergência", bySlug: { topazio: true, quartzo: true, rubi: true, turmalina: true, safira: true, diamante: true } as Record<string, boolean | "partial"> },
+  { label: "Cirurgias e procedimentos", bySlug: { topazio: false, quartzo: true, rubi: true, turmalina: true, safira: true, diamante: true } as Record<string, boolean | "partial"> },
+  { label: "Quimioterapia e radioterapia", bySlug: { topazio: true, quartzo: true, rubi: true, turmalina: true, safira: true, diamante: true } as Record<string, boolean | "partial"> },
+  { label: "Opção de quarto privativo", bySlug: { topazio: false, quartzo: false, rubi: false, turmalina: false, safira: false, diamante: true } as Record<string, boolean | "partial"> },
+  { label: "Sem coparticipação", bySlug: { topazio: false, quartzo: false, rubi: false, turmalina: false, safira: false, diamante: false } as Record<string, boolean | "partial"> },
+  { label: "Disponível para pessoa física", bySlug: { topazio: false, quartzo: false, rubi: false, turmalina: false, safira: true, diamante: false } as Record<string, boolean | "partial"> },
+  { label: "Disponível por adesão", bySlug: { topazio: false, quartzo: true, rubi: true, turmalina: true, safira: true, diamante: false } as Record<string, boolean | "partial"> },
+  { label: "Foco no público sênior", bySlug: { topazio: false, quartzo: false, rubi: false, turmalina: false, safira: false, diamante: false } as Record<string, boolean | "partial"> },
+];
+
+const comparisonPlans = [
+  { name: "Topázio", slug: "topazio" },
+  { name: "Quartzo", slug: "quartzo" },
+  { name: "Rubi", slug: "rubi" },
+  { name: "Turmalina", slug: "turmalina" },
+  { name: "Safira", slug: "safira" },
+  { name: "Diamante", slug: "diamante" },
+];
+
+export default async function PlanosPage() {
+  const { slugs, activeSlugs } = await getPlansOrder();
+  const orderedPlans = reorderBySlug(plans, slugs, activeSlugs);
+  const orderedComparisonPlans = reorderBySlug(comparisonPlans, slugs, activeSlugs);
+
   return (
     <>
       {/* Hero */}
@@ -69,7 +97,7 @@ export default function PlanosPage() {
       <section className="py-16 lg:py-24">
         <div className="container mx-auto px-4">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {plans.map((plan, idx) => (
+            {orderedPlans.map((plan, idx) => (
               <ScrollAnimationWrapper key={plan.slug} delay={idx * 0.1}>
                 <div className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-shadow border border-border overflow-hidden flex flex-col h-full">
                   <div className="relative aspect-[4/3] bg-card flex items-center justify-center p-8">
@@ -124,14 +152,7 @@ export default function PlanosPage() {
                     <th className="sticky left-0 z-10 bg-white text-left py-4 px-4 text-sm font-semibold text-muted border-b-2 border-border min-w-[200px]">
                       Cobertura
                     </th>
-                    {[
-                      { name: "Topázio", slug: "topazio" },
-                      { name: "Quartzo", slug: "quartzo" },
-                      { name: "Rubi", slug: "rubi" },
-                      { name: "Turmalina", slug: "turmalina" },
-                      { name: "Safira", slug: "safira" },
-                      { name: "Diamante", slug: "diamante" },
-                    ].map((p) => (
+                    {orderedComparisonPlans.map((p) => (
                       <th
                         key={p.slug}
                         className="py-4 px-3 text-center text-sm font-bold text-foreground border-b-2 border-border whitespace-nowrap"
@@ -144,53 +165,7 @@ export default function PlanosPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {[
-                    {
-                      label: "Consultas e exames ambulatoriais",
-                      values: [true, true, true, true, true, true],
-                    },
-                    {
-                      label: "Internação hospitalar",
-                      values: [false, true, true, true, true, true],
-                    },
-                    {
-                      label: "Cobertura obstétrica (parto)",
-                      values: [false, true, "partial", true, true, true],
-                      note: "Rubi: disponível apenas na modalidade por adesão",
-                    },
-                    {
-                      label: "Urgência e emergência",
-                      values: [true, true, true, true, true, true],
-                    },
-                    {
-                      label: "Cirurgias e procedimentos",
-                      values: [false, true, true, true, true, true],
-                    },
-                    {
-                      label: "Quimioterapia e radioterapia",
-                      values: [true, true, true, true, true, true],
-                    },
-                    {
-                      label: "Opção de quarto privativo",
-                      values: [false, false, false, false, false, true],
-                    },
-                    {
-                      label: "Sem coparticipação",
-                      values: [false, false, false, false, false, false],
-                    },
-                    {
-                      label: "Disponível para pessoa física",
-                      values: [false, false, false, false, true, false],
-                    },
-                    {
-                      label: "Disponível por adesão",
-                      values: [false, true, true, true, true, false],
-                    },
-                    {
-                      label: "Foco no público sênior",
-                      values: [false, false, false, false, false, false],
-                    },
-                  ].map((row, rowIdx) => (
+                  {comparisonRows.map((row, rowIdx) => (
                     <tr
                       key={rowIdx}
                       className={rowIdx % 2 === 0 ? "bg-white" : "bg-card/50"}
@@ -203,9 +178,11 @@ export default function PlanosPage() {
                           </span>
                         )}
                       </td>
-                      {row.values.map((val, colIdx) => (
+                      {orderedComparisonPlans.map((p) => {
+                        const val = row.bySlug[p.slug];
+                        return (
                         <td
-                          key={colIdx}
+                          key={p.slug}
                           className="py-3.5 px-3 text-center border-b border-border/60"
                         >
                           {val === true ? (
@@ -225,7 +202,8 @@ export default function PlanosPage() {
                             </svg>
                           )}
                         </td>
-                      ))}
+                        );
+                      })}
                     </tr>
                   ))}
                 </tbody>
