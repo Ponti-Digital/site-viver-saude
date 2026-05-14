@@ -7,7 +7,7 @@ export const SITE = {
   email: "contato@planoviversaude.com.br",
   url: "https://planoviversaude.com.br",
   address: "Natal, RN",
-  ansNumber: "335592",
+  ansNumber: "424480",
 } as const;
 
 export const SOCIAL = {
