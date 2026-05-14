@@ -2,6 +2,24 @@
 
 import { ScrollAnimationWrapper } from "@/components/shared/ScrollAnimationWrapper";
 
+type BenefitTheme = {
+  iconBg: string;
+  iconText: string;
+  border: string;
+  number: string;
+};
+
+const themes: BenefitTheme[] = [
+  // 1 — Mata (institucional, acolhimento)
+  { iconBg: "bg-mata-800", iconText: "text-areia-100", border: "border-mata-800", number: "text-mata-800/10" },
+  // 2 — Céu (preventivo, informativo — alinhado ao PDF da marca)
+  { iconBg: "bg-ceu-300", iconText: "text-mata-900", border: "border-ceu-300", number: "text-ceu-500/15" },
+  // 3 — Menta (energia, agilidade de acesso)
+  { iconBg: "bg-menta-400", iconText: "text-mata-900", border: "border-menta-400", number: "text-menta-600/15" },
+  // 4 — Coral (acolhedor/humano — paleta expandida da marca)
+  { iconBg: "bg-acent-coral", iconText: "text-mata-900", border: "border-acent-coral", number: "text-acent-coral/20" },
+];
+
 const benefits = [
   {
     icon: (
@@ -47,40 +65,41 @@ export function BenefitsGrid() {
       <div className="max-w-7xl mx-auto px-4 lg:px-6">
         <ScrollAnimationWrapper>
           <div className="text-center mb-12">
-            <span className="inline-flex items-center px-3 py-1 rounded-full bg-primary text-white text-xs font-bold tracking-wider uppercase mb-4">
+            <span className="inline-flex items-center px-3 py-1 rounded-full bg-menta-400 text-mata-900 text-xs font-bold tracking-wider uppercase mb-4">
               Benefícios
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-800 mt-3">
+            <h2 className="text-3xl md:text-4xl font-bold text-mata-900 mt-3">
               Benefícios que{" "}
-              <span className="text-primary">simplificam</span>{" "}
+              <span className="hero-gradient-text">simplificam</span>{" "}
               sua rotina
             </h2>
           </div>
         </ScrollAnimationWrapper>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {benefits.map((benefit, index) => (
-            <ScrollAnimationWrapper key={index} delay={index * 0.1}>
-              <div className="relative bg-white border-l-4 border-primary rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 p-6 h-full overflow-hidden">
-                {/* Número decorativo */}
-                <span className="absolute top-2 right-3 text-5xl font-black text-primary/5 select-none leading-none">
-                  0{index + 1}
-                </span>
+          {benefits.map((benefit, index) => {
+            const theme = themes[index % themes.length];
+            return (
+              <ScrollAnimationWrapper key={index} delay={index * 0.1}>
+                <div className={`relative bg-white border-l-4 ${theme.border} rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 p-6 h-full overflow-hidden`}>
+                  <span className={`absolute top-2 right-3 text-5xl font-black ${theme.number} select-none leading-none`}>
+                    0{index + 1}
+                  </span>
 
-                {/* Ícone cheio */}
-                <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center mb-5 text-white">
-                  {benefit.icon}
+                  <div className={`w-12 h-12 rounded-full ${theme.iconBg} ${theme.iconText} flex items-center justify-center mb-5`}>
+                    {benefit.icon}
+                  </div>
+
+                  <h3 className="text-sm font-bold text-mata-900 mb-2">
+                    {benefit.title}
+                  </h3>
+                  <p className="text-xs text-stone-600 leading-relaxed">
+                    {benefit.description}
+                  </p>
                 </div>
-
-                <h3 className="text-sm font-bold text-slate-800 mb-2">
-                  {benefit.title}
-                </h3>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  {benefit.description}
-                </p>
-              </div>
-            </ScrollAnimationWrapper>
-          ))}
+              </ScrollAnimationWrapper>
+            );
+          })}
         </div>
       </div>
     </section>

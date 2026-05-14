@@ -1,47 +1,191 @@
 @import "tailwindcss";
 
+/* =============================================================
+   Viver Saúde — Sistema de cores (alinhado ao guia de marca)
+   Núcleo: Verde Mata · Verde Menta · Azul Céu · Areia
+   ============================================================= */
+
 :root {
-  /* Verde médio vibrante — CTAs, botões primários, header underline */
-  --color-primary: #1e8449;
-  /* Verde profundo/floresta — hero base, top utility bar, seções escuras */
-  --color-primary-dark: #0d5c2e;
-  /* Verde muito claro — fundos de superfície com toque de verde */
-  --color-primary-light: #eaf5ec;
-  /* Verde lima/sage — ícones, badges de destaque, accent points */
-  --color-accent: #6bbf4e;
-  /* Verde médio-escuro — textos de destaque, links hover, títulos secundários */
-  --color-accent-dark: #2e7d32;
-  /* Verde pastel — fundos de ícone, hover states suaves */
-  --color-accent-light: #b8e6a8;
-  /* Amarelo — headline accent pontual (reservado para hero copy) */
-  --color-highlight: #f5c518;
-  --background: #ffffff;
-  --foreground: #1a1a2e;
-  --muted: #6b7280;
-  --border: #e5e7eb;
-  --card: #f9fafb;
+  /* ---------- Núcleo da marca ---------- */
+  --brand-mata: #063D2F;     /* Verde Mata — primary institucional */
+  --brand-menta: #2BE89A;    /* Verde Menta — accent vibrante */
+  --brand-ceu: #0CD3E8;      /* Azul Céu — secondary/info */
+  --brand-areia: #F5F1E6;    /* Areia — neutro quente base */
+
+  /* ---------- Escala Verde Mata ---------- */
+  --mata-50:  #ECF7F2;
+  --mata-100: #D2EDE0;
+  --mata-200: #A6DCC2;
+  --mata-300: #6FC59F;
+  --mata-400: #3FAA7E;
+  --mata-500: #1F8862;
+  --mata-600: #136B4D;
+  --mata-700: #0A553C;
+  --mata-800: #063D2F;
+  --mata-900: #042E22;
+  --mata-950: #02201A;
+
+  /* ---------- Escala Verde Menta ---------- */
+  --menta-50:  #E6FCF2;
+  --menta-100: #C3F7DE;
+  --menta-200: #8FF0C2;
+  --menta-300: #5BEAA8;
+  --menta-400: #2BE89A;
+  --menta-500: #1FC983;
+  --menta-600: #15A36A;
+  --menta-700: #107D52;
+  --menta-800: #0B5A3B;
+  --menta-900: #073E29;
+  --menta-950: #042619;
+
+  /* ---------- Escala Azul Céu ---------- */
+  --ceu-50:  #E5FBFE;
+  --ceu-100: #BFF4FA;
+  --ceu-200: #88EAF3;
+  --ceu-300: #0CD3E8;
+  --ceu-400: #0AB8CC;
+  --ceu-500: #0894A4;
+  --ceu-600: #077582;
+  --ceu-700: #055B65;
+  --ceu-800: #04434B;
+  --ceu-900: #022F35;
+  --ceu-950: #011D20;
+
+  /* ---------- Neutros quentes (Areia + Stone) ---------- */
+  --areia-50:  #FBFAF5;
+  --areia-100: #F5F1E6;
+  --areia-200: #EBE6D4;
+  --areia-300: #DDD5BC;
+  --stone-400: #A8A293;
+  --stone-500: #6F6B5F;
+  --stone-600: #4D4A40;
+  --stone-700: #33312A;
+  --stone-800: #1F1E1A;
+
+  /* ---------- Acentos emocionais (paleta expandida da marca) ---------- */
+  --acent-coral:    #FF8B6A;   /* Inspiradora */
+  --acent-vermelho: #FF6B5E;   /* Moderna */
+  --acent-sage:     #88B895;   /* Cuidadora */
+  --acent-manteiga: #FCE38A;   /* Inovadora */
+  --acent-lilas:    #C9B3E8;   /* Acolhedora */
+  --acent-rosa:     #F0BCDB;   /* Próxima */
+  --acent-mocha:    #8B6F5C;   /* Confiável */
+
+  /* ---------- Semantic ---------- */
+  --color-success:    var(--menta-600);
+  --color-success-bg: var(--menta-50);
+  --color-info:       var(--ceu-500);
+  --color-info-bg:    var(--ceu-50);
+  --color-warning:    #D97706;
+  --color-warning-bg: #FEF3C7;
+  --color-error:      #DC2626;
+  --color-error-bg:   #FEE2E2;
+
+  /* ---------- Compat layer (aliases legados que o site usa) ---------- */
+  /* Mantém bg-primary, text-accent, etc. funcionando sem cascata em 50 arquivos */
+  --color-primary:       var(--mata-800);
+  --color-primary-dark:  var(--mata-900);
+  --color-primary-light: var(--mata-50);
+  --color-accent:        var(--menta-400);
+  --color-accent-dark:   var(--menta-600);
+  --color-accent-light:  var(--menta-100);
+  --color-highlight:     var(--menta-400);
+
+  --background: var(--areia-100);
+  --foreground: var(--mata-900);
+  --muted:      var(--stone-500);
+  --border:     var(--areia-300);
+  --card:       #FFFFFF;
 }
 
 @theme inline {
+  /* Expõe variáveis ao Tailwind v4 para gerar utilities (bg-mata-800, text-ceu-300, etc.) */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  /* Verde médio vibrante — CTAs, botões primários, header underline */
-  --color-primary: #1e8449;
-  /* Verde profundo/floresta — hero base, top utility bar, seções escuras */
-  --color-primary-dark: #0d5c2e;
-  /* Verde muito claro — fundos de superfície com toque de verde */
-  --color-primary-light: #eaf5ec;
-  /* Verde lima/sage — ícones, badges de destaque, accent points */
-  --color-accent: #6bbf4e;
-  /* Verde médio-escuro — textos de destaque, links hover, títulos secundários */
-  --color-accent-dark: #2e7d32;
-  /* Verde pastel — fundos de ícone, hover states suaves */
-  --color-accent-light: #b8e6a8;
-  /* Amarelo — headline accent pontual */
-  --color-highlight: #f5c518;
-  --color-muted: #6b7280;
-  --color-border: #e5e7eb;
-  --color-card: #f9fafb;
+
+  /* Núcleo */
+  --color-brand-mata:  var(--brand-mata);
+  --color-brand-menta: var(--brand-menta);
+  --color-brand-ceu:   var(--brand-ceu);
+  --color-brand-areia: var(--brand-areia);
+
+  /* Escala Mata */
+  --color-mata-50:  var(--mata-50);
+  --color-mata-100: var(--mata-100);
+  --color-mata-200: var(--mata-200);
+  --color-mata-300: var(--mata-300);
+  --color-mata-400: var(--mata-400);
+  --color-mata-500: var(--mata-500);
+  --color-mata-600: var(--mata-600);
+  --color-mata-700: var(--mata-700);
+  --color-mata-800: var(--mata-800);
+  --color-mata-900: var(--mata-900);
+  --color-mata-950: var(--mata-950);
+
+  /* Escala Menta */
+  --color-menta-50:  var(--menta-50);
+  --color-menta-100: var(--menta-100);
+  --color-menta-200: var(--menta-200);
+  --color-menta-300: var(--menta-300);
+  --color-menta-400: var(--menta-400);
+  --color-menta-500: var(--menta-500);
+  --color-menta-600: var(--menta-600);
+  --color-menta-700: var(--menta-700);
+  --color-menta-800: var(--menta-800);
+  --color-menta-900: var(--menta-900);
+  --color-menta-950: var(--menta-950);
+
+  /* Escala Céu */
+  --color-ceu-50:  var(--ceu-50);
+  --color-ceu-100: var(--ceu-100);
+  --color-ceu-200: var(--ceu-200);
+  --color-ceu-300: var(--ceu-300);
+  --color-ceu-400: var(--ceu-400);
+  --color-ceu-500: var(--ceu-500);
+  --color-ceu-600: var(--ceu-600);
+  --color-ceu-700: var(--ceu-700);
+  --color-ceu-800: var(--ceu-800);
+  --color-ceu-900: var(--ceu-900);
+  --color-ceu-950: var(--ceu-950);
+
+  /* Neutros */
+  --color-areia-50:  var(--areia-50);
+  --color-areia-100: var(--areia-100);
+  --color-areia-200: var(--areia-200);
+  --color-areia-300: var(--areia-300);
+  --color-stone-400: var(--stone-400);
+  --color-stone-500: var(--stone-500);
+  --color-stone-600: var(--stone-600);
+  --color-stone-700: var(--stone-700);
+  --color-stone-800: var(--stone-800);
+
+  /* Acentos emocionais */
+  --color-acent-coral:    var(--acent-coral);
+  --color-acent-vermelho: var(--acent-vermelho);
+  --color-acent-sage:     var(--acent-sage);
+  --color-acent-manteiga: var(--acent-manteiga);
+  --color-acent-lilas:    var(--acent-lilas);
+  --color-acent-rosa:     var(--acent-rosa);
+  --color-acent-mocha:    var(--acent-mocha);
+
+  /* Semantic */
+  --color-success:    var(--menta-600);
+  --color-info:       var(--ceu-500);
+  --color-warning:    #D97706;
+  --color-error:      #DC2626;
+
+  /* Aliases legados (compat) — mantêm bg-primary, text-accent etc. funcionando */
+  --color-primary:       var(--mata-800);
+  --color-primary-dark:  var(--mata-900);
+  --color-primary-light: var(--mata-50);
+  --color-accent:        var(--menta-400);
+  --color-accent-dark:   var(--menta-600);
+  --color-accent-light:  var(--menta-100);
+  --color-highlight:     var(--menta-400);
+  --color-muted:         var(--stone-500);
+  --color-border:        var(--areia-300);
+  --color-card:          #FFFFFF;
+
   --font-sans: var(--font-work-sans);
 }
 
@@ -55,9 +199,9 @@ body {
   font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
 }
 
-/* Animated gradient text */
+/* Texto em gradiente — atualizado para Mata → Menta → Céu */
 .hero-gradient-text {
-  background: linear-gradient(90deg, #1e8449, #6bbf4e, #2e7d32);
+  background: linear-gradient(90deg, var(--menta-400), var(--ceu-300), var(--menta-400));
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -75,50 +219,49 @@ body {
   animation: float 3s ease-in-out infinite;
 }
 
-/* Pulse glow */
+/* Pulse glow — agora em Verde Menta */
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(30, 132, 73, 0.3); }
-  50% { box-shadow: 0 0 20px 4px rgba(30, 132, 73, 0.15); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(43, 232, 154, 0.35); }
+  50%      { box-shadow: 0 0 20px 4px rgba(43, 232, 154, 0.18); }
 }
 
 .animate-pulse-glow {
   animation: pulse-glow 2.5s ease-in-out infinite;
 }
 
-/* Gradient shift */
 @keyframes gradient-shift {
-  0% { background-position: 0% center; }
+  0%   { background-position: 0% center; }
   100% { background-position: 200% center; }
 }
 
-/* Shimmer loading effect */
+/* Shimmer loading — tons Areia */
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
+  0%   { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 }
 
 .animate-shimmer {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background: linear-gradient(90deg, var(--areia-100) 25%, var(--areia-200) 50%, var(--areia-100) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
 
-/* Custom scrollbar */
+/* Scrollbar custom — Areia + Mata */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: var(--areia-200);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c4c4c4;
+  background: var(--mata-300);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a0a0a0;
+  background: var(--mata-600);
 }
 
 @media (prefers-reduced-motion: reduce) {
