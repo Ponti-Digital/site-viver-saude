@@ -463,7 +463,7 @@ export default function ProgramasPage() {
             {linesOfCare.map((line, index) => (
               <ScrollAnimationWrapper key={line.slug} delay={index * 0.05}>
                 <article className="group h-full flex flex-col bg-white border border-gray-200 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-                  <div className="h-48 bg-gradient-to-br from-mata-800 to-mata-900 relative flex items-center justify-center p-6">
+                  <div className="h-48 bg-gradient-to-br from-areia-50 to-areia-100 border-b-2 border-menta-400 relative flex items-center justify-center p-6">
                     {line.logoSrc ? (
                       <Image
                         src={line.logoSrc}
@@ -473,7 +473,7 @@ export default function ProgramasPage() {
                         className="object-contain max-h-full w-auto group-hover:scale-105 transition-transform duration-500"
                       />
                     ) : (
-                      <span className="text-white/80 text-sm font-medium text-center px-2">
+                      <span className="text-mata-700 text-sm font-medium text-center px-2">
                         {line.cardName}
                       </span>
                     )}
