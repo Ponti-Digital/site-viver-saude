@@ -54,3 +54,10 @@ next-env.d.ts
 
 # Local Netlify folder
 .netlify
+
+# Claude Code local settings
+.claude/
+
+# Working notes e raw assets fora do public/
+/atualizar-*.md
+/imagens/

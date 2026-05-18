@@ -10,6 +10,15 @@ export const SITE = {
   ansNumber: "424480",
 } as const;
 
+export const LGPD = {
+  controllerName: "Viver Saúde Operadora de Planos de Saúde",
+  controllerAddress: "Natal/RN",
+  dpoName: "Encarregado de Proteção de Dados (DPO) — Viver Saúde",
+  dpoEmail: "lgpd@planoviversaude.com.br",
+  privacyPolicyVersion: "1.0",
+  privacyPolicyDate: "2026-05-08",
+} as const;
+
 export const SOCIAL = {
   instagram: "https://www.instagram.com/planoviversaude/",
   facebook: "https://www.facebook.com/planoviversaude/",

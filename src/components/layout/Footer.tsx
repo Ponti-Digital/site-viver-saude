@@ -4,7 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { SITE, SOCIAL, NAV_ITEMS, APP_LINKS, WHATSAPP_URL, PORTALS } from "@/lib/constants/site";
+import { SITE, SOCIAL, NAV_ITEMS, APP_LINKS, WHATSAPP_URL, PORTALS, LGPD } from "@/lib/constants/site";
+import { ManageCookiesButton } from "@/components/shared/ManageCookiesButton";
 
 const footerVariants = {
   hidden: { opacity: 0, y: 40 },
@@ -212,6 +213,31 @@ export function Footer() {
             </div>
           </motion.div>
         </motion.div>
+
+        {/* LGPD / Privacidade */}
+        <div className="mt-12 pt-8 border-t border-white/10 grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+          <div>
+            <h3 className="text-white font-semibold mb-2">Privacidade e LGPD</h3>
+            <p className="text-gray-400 text-xs leading-relaxed">
+              Tratamos seus dados conforme a Lei nº 13.709/2018 (LGPD). Conheça nossas políticas e
+              exerça seus direitos como titular.
+            </p>
+          </div>
+          <div>
+            <h3 className="text-white font-semibold mb-2">Encarregado (DPO)</h3>
+            <p className="text-gray-400 text-xs mb-1">{LGPD.dpoName}</p>
+            <a
+              href={`mailto:${LGPD.dpoEmail}`}
+              className="text-gray-300 hover:text-accent text-xs transition-colors"
+            >
+              {LGPD.dpoEmail}
+            </a>
+          </div>
+          <div>
+            <h3 className="text-white font-semibold mb-2">Cookies</h3>
+            <ManageCookiesButton />
+          </div>
+        </div>
       </div>
 
       {/* Bottom bar */}
@@ -221,14 +247,20 @@ export function Footer() {
             &copy; {new Date().getFullYear()} {SITE.name}. Todos os direitos reservados.
           </p>
           <div className="flex items-center gap-4 flex-wrap text-xs text-gray-400">
-            <Link href="/planos" className="hover:text-accent transition-colors">
-              Condições Gerais
+            <Link href="/politica-de-privacidade" className="hover:text-accent transition-colors">
+              Política de Privacidade
+            </Link>
+            <Link href="/politica-de-cookies" className="hover:text-accent transition-colors">
+              Política de Cookies
+            </Link>
+            <Link href="/termos-de-uso" className="hover:text-accent transition-colors">
+              Termos de Uso
+            </Link>
+            <Link href="/direitos-do-titular" className="hover:text-accent transition-colors">
+              Direitos do Titular (LGPD)
             </Link>
             <Link href="/faq" className="hover:text-accent transition-colors">
               FAQ
-            </Link>
-            <Link href="/contato" className="hover:text-accent transition-colors">
-              Contato
             </Link>
             <a
               href="https://www.gov.br/ans/pt-br/assuntos/consumidor/prazos-maximos-de-atendimento"

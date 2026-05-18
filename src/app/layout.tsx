@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { FloatingWhatsApp } from "@/components/shared/FloatingWhatsApp";
 import { UTMCapture } from "@/components/shared/UTMCapture";
 import { PageTransition } from "@/components/shared/PageTransition";
+import { CookieBanner } from "@/components/shared/CookieBanner";
 
 const workSans = Work_Sans({
   variable: "--font-work-sans",
@@ -85,6 +86,7 @@ export default function RootLayout({
         </main>
         <Footer />
         <FloatingWhatsApp />
+        <CookieBanner />
       </body>
     </html>
   );

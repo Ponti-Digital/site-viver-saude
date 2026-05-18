@@ -1,20 +1,27 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { formatPhone } from "@/lib/utils/phone-mask";
 import { resolveUtm } from "@/lib/utils/utm";
+import { LGPD } from "@/lib/constants/site";
+
+const CONSENT_TEXT =
+  "Autorizo o tratamento dos meus dados pessoais para inscrição no programa de saúde, contato pela equipe Viver Saúde e acompanhamento da minha participação. Estou ciente de que dados de saúde são sensíveis (LGPD, art. 11) e recebem proteção reforçada.";
 
 interface FormState {
   name: string;
   whatsapp: string;
   email: string;
+  consent: boolean;
 }
 
 interface FormErrors {
   name?: string;
   whatsapp?: string;
   email?: string;
+  consent?: string;
 }
 
 interface ProgramRegistrationModalProps {
@@ -40,6 +47,10 @@ function validateForm(data: FormState): FormErrors {
     errors.email = "Informe um e-mail válido";
   }
 
+  if (!data.consent) {
+    errors.consent = "É necessário autorizar o tratamento dos dados.";
+  }
+
   return errors;
 }
 
@@ -48,7 +59,7 @@ export function ProgramRegistrationModal({
   isOpen,
   onClose,
 }: ProgramRegistrationModalProps) {
-  const [form, setForm] = useState<FormState>({ name: "", whatsapp: "", email: "" });
+  const [form, setForm] = useState<FormState>({ name: "", whatsapp: "", email: "", consent: false });
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -62,7 +73,7 @@ export function ProgramRegistrationModal({
   // Reset form when modal opens for a different program
   useEffect(() => {
     if (isOpen) {
-      setForm({ name: "", whatsapp: "", email: "" });
+      setForm({ name: "", whatsapp: "", email: "", consent: false });
       setErrors({});
       setSubmitError(null);
       setIsSubmitted(false);
@@ -98,10 +109,15 @@ export function ProgramRegistrationModal({
   };
 
   const handleFieldChange =
-    (field: keyof FormState) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    (field: "name" | "whatsapp" | "email") => (e: React.ChangeEvent<HTMLInputElement>) => {
       setForm((prev) => ({ ...prev, [field]: e.target.value }));
       if (errors[field]) setErrors((prev) => ({ ...prev, [field]: undefined }));
     };
+
+  const handleConsentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm((prev) => ({ ...prev, consent: e.target.checked }));
+    if (errors.consent) setErrors((prev) => ({ ...prev, consent: undefined }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -126,6 +142,9 @@ export function ProgramRegistrationModal({
         page_url: window.location.href,
         _rendered_at: renderedAt,
         company_website: "",
+        consent_text: CONSENT_TEXT,
+        policy_version: LGPD.privacyPolicyVersion,
+        purposes: ["inscricao_programa", "contato", "saude_sensivel"],
         ...utm,
       };
 
@@ -305,6 +324,39 @@ export function ProgramRegistrationModal({
               )}
             </div>
 
+            {/* Aviso de finalidade + Consentimento LGPD */}
+            <div className="bg-primary/5 border border-primary/15 rounded-lg p-4 text-xs text-muted leading-relaxed space-y-3">
+              <p>
+                <strong className="text-foreground">Finalidade:</strong> seus dados serão usados
+                para inscrição no programa, contato pela equipe e acompanhamento da participação.
+                Programas envolvem dados sensíveis de saúde, com proteção reforçada conforme art.
+                11 da LGPD.
+              </p>
+              <label className="flex items-start gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={form.consent}
+                  onChange={handleConsentChange}
+                  className="mt-0.5 w-4 h-4 accent-primary cursor-pointer flex-shrink-0"
+                />
+                <span className="text-sm text-foreground leading-snug">
+                  Autorizo o tratamento dos meus dados, conforme a{" "}
+                  <Link
+                    href="/politica-de-privacidade"
+                    className="text-primary hover:underline font-medium"
+                  >
+                    Política de Privacidade
+                  </Link>
+                  . *
+                </span>
+              </label>
+              {errors.consent && (
+                <p className="text-red-500 text-sm" role="alert">
+                  {errors.consent}
+                </p>
+              )}
+            </div>
+
             {/* Error */}
             {submitError && (
               <div
@@ -325,10 +377,6 @@ export function ProgramRegistrationModal({
             >
               {isSubmitting ? "Enviando..." : "Quero me inscrever"}
             </Button>
-
-            <p className="text-xs text-muted text-center">
-              Ao enviar, você concorda com o uso dos seus dados para contato.
-            </p>
           </form>
         )}
       </div>

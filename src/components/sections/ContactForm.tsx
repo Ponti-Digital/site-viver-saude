@@ -4,16 +4,23 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { resolveUtm } from "@/lib/utils/utm";
 import { formatPhone } from "@/lib/utils/phone-mask";
-import { WHATSAPP_URL } from "@/lib/constants/site";
+import { WHATSAPP_URL, LGPD } from "@/lib/constants/site";
+
+const CONSENT_TEXT =
+  "Autorizo a Viver Saúde a tratar meus dados pessoais (nome, telefone e e-mail) para responder a este contato, conforme a Política de Privacidade. Estou ciente dos meus direitos como titular (LGPD, art. 18).";
 
 const formSchema = z.object({
   name: z.string().min(2, "Informe seu nome completo"),
   phone: z.string().min(14, "Informe um telefone válido"),
   email: z.string().email("Informe um e-mail válido"),
   message: z.string().optional(),
+  consent: z
+    .boolean()
+    .refine((v) => v === true, { message: "É necessário autorizar o tratamento dos dados." }),
   company_website: z.string().optional(),
 });
 
@@ -42,6 +49,7 @@ export function ContactForm() {
       phone: "",
       email: "",
       message: "",
+      consent: undefined,
       company_website: "",
     },
   });
@@ -64,6 +72,9 @@ export function ContactForm() {
         _rendered_at: renderedAt,
         form_type: "contato",
         page_url: window.location.href,
+        consent_text: CONSENT_TEXT,
+        policy_version: LGPD.privacyPolicyVersion,
+        purposes: ["contato_comercial"],
         ...utm,
       };
 
@@ -202,6 +213,44 @@ export function ContactForm() {
         />
       </div>
 
+      {/* Aviso de finalidade */}
+      <div className="bg-primary/5 border border-primary/15 rounded-lg p-4 text-xs text-muted leading-relaxed">
+        <p className="mb-2">
+          <strong className="text-foreground">Finalidade da coleta:</strong> seus dados serão
+          utilizados exclusivamente para responder a este contato e oferecer informações sobre
+          nossos planos. Não compartilhamos com terceiros para fins de marketing.
+        </p>
+        <p>
+          Você pode acessar, corrigir ou excluir seus dados a qualquer momento pela página{" "}
+          <Link href="/direitos-do-titular" className="text-primary hover:underline font-medium">
+            Direitos do Titular
+          </Link>
+          .
+        </p>
+      </div>
+
+      {/* Consentimento LGPD */}
+      <label className="flex items-start gap-3 cursor-pointer">
+        <input
+          type="checkbox"
+          {...register("consent")}
+          className="mt-1 w-4 h-4 accent-primary cursor-pointer flex-shrink-0"
+        />
+        <span className="text-sm text-foreground leading-relaxed">
+          {CONSENT_TEXT.replace("Política de Privacidade", "")}{" "}
+          <Link
+            href="/politica-de-privacidade"
+            className="text-primary hover:underline font-medium"
+          >
+            Política de Privacidade
+          </Link>
+          . *
+        </span>
+      </label>
+      {errors.consent && (
+        <p className="text-red-500 text-sm -mt-3">{errors.consent.message}</p>
+      )}
+
       {/* Error */}
       {submitError && (
         <div className="bg-red-50 text-red-600 p-4 rounded-lg text-sm">
@@ -219,10 +268,6 @@ export function ContactForm() {
       >
         {isSubmitting ? "Enviando..." : "Enviar mensagem"}
       </Button>
-
-      <p className="text-xs text-muted text-center">
-        Ao enviar, você concorda com o uso dos seus dados para contato comercial.
-      </p>
     </form>
   );
 }
