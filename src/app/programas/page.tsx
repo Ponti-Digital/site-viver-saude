@@ -52,7 +52,7 @@ function ProgramLogo({
         alt={alt}
         width={px}
         height={px}
-        className="object-contain w-full h-full [filter:drop-shadow(0_1px_2px_rgba(0,0,0,0.35))_drop-shadow(0_0_1px_rgba(0,0,0,0.4))]"
+        className="object-contain w-full h-full"
       />
     </div>
   );
@@ -462,37 +462,49 @@ export default function ProgramasPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {linesOfCare.map((line, index) => (
               <ScrollAnimationWrapper key={line.slug} delay={index * 0.05}>
-                <article className="group h-full flex flex-col bg-white border border-gray-200 rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-                  <div className="flex items-start justify-between gap-3 mb-5">
-                    <ProgramLogo
-                      src={line.logoSrc}
-                      alt={`Logotipo do Programa ${line.cardName}`}
-                      size="sm"
-                    />
-                    <Badge
-                      variant={line.status === "available" ? "success" : "muted"}
-                    >
-                      {line.status === "available" ? "Disponível" : "Em breve"}
-                    </Badge>
+                <article className="group h-full flex flex-col bg-white border border-gray-200 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                  <div className="h-48 bg-primary-light/40 relative flex items-center justify-center p-6">
+                    {line.logoSrc ? (
+                      <Image
+                        src={line.logoSrc}
+                        alt={`Logotipo do Programa ${line.cardName}`}
+                        width={200}
+                        height={200}
+                        className="object-contain max-h-full w-auto group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <span className="text-muted text-sm font-medium text-center px-2">
+                        {line.cardName}
+                      </span>
+                    )}
+                    <div className="absolute top-4 right-4">
+                      <Badge
+                        variant={line.status === "available" ? "success" : "muted"}
+                      >
+                        {line.status === "available" ? "Disponível" : "Em breve"}
+                      </Badge>
+                    </div>
                   </div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2">
-                    {line.cardName}
-                  </h3>
-                  <p className="text-sm text-muted leading-relaxed mb-5">
-                    {line.cardSummary}
-                  </p>
-                  <div className="mb-5">
-                    <SeloEndosso size="sm" />
-                  </div>
-                  <div className="mt-auto">
-                    <Button
-                      href={`#${line.slug}`}
-                      variant="outline"
-                      size="sm"
-                      className="w-full"
-                    >
-                      Saiba mais
-                    </Button>
+                  <div className="p-6 flex flex-col flex-1">
+                    <h3 className="text-lg font-semibold text-foreground mb-2">
+                      {line.cardName}
+                    </h3>
+                    <p className="text-sm text-muted leading-relaxed mb-5">
+                      {line.cardSummary}
+                    </p>
+                    <div className="mb-5">
+                      <SeloEndosso size="sm" />
+                    </div>
+                    <div className="mt-auto">
+                      <Button
+                        href={`#${line.slug}`}
+                        variant="outline"
+                        size="sm"
+                        className="w-full"
+                      >
+                        Saiba mais
+                      </Button>
+                    </div>
                   </div>
                 </article>
               </ScrollAnimationWrapper>

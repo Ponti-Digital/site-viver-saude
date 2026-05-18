@@ -4,11 +4,15 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { ScrollAnimationWrapper } from "@/components/shared/ScrollAnimationWrapper";
 import { resolveUtm } from "@/lib/utils/utm";
 import { formatPhone } from "@/lib/utils/phone-mask";
-import { WHATSAPP_URL } from "@/lib/constants/site";
+import { WHATSAPP_URL, LGPD } from "@/lib/constants/site";
+
+const CONSENT_TEXT =
+  "Autorizo a Viver Saúde a tratar meus dados pessoais (nome, telefone, e-mail e plano de interesse) para fins de contato comercial e proposta dos planos de saúde, conforme a Política de Privacidade.";
 
 const formSchema = z.object({
   name: z.string().min(2, "Informe seu nome completo"),
@@ -16,18 +20,21 @@ const formSchema = z.object({
   email: z.string().email("Informe um e-mail válido"),
   plan_interest: z.string().min(1, "Selecione um plano de interesse"),
   message: z.string().optional(),
+  consent: z
+    .boolean()
+    .refine((v) => v === true, { message: "É necessário autorizar o tratamento dos dados." }),
   company_website: z.string().optional(),
 });
 
 type FormData = z.infer<typeof formSchema>;
 
 const planOptions = [
-  { value: "topazio", label: "Topázio", comingSoon: false },
-  { value: "rubi", label: "Rubi", comingSoon: false },
-  { value: "safira", label: "Safira", comingSoon: false },
-  { value: "turmalina", label: "Turmalina", comingSoon: false },
-  { value: "quartzo", label: "Quartzo", comingSoon: false },
   { value: "diamante", label: "Diamante", comingSoon: false },
+  { value: "quartzo", label: "Quartzo", comingSoon: false },
+  { value: "rubi", label: "Rubi", comingSoon: false },
+  { value: "turmalina", label: "Turmalina", comingSoon: false },
+  { value: "safira", label: "Safira", comingSoon: false },
+  { value: "topazio", label: "Topázio", comingSoon: false },
   { value: "ametista", label: "Ametista (em breve)", comingSoon: true },
   { value: "turquesa", label: "Turquesa (em breve)", comingSoon: true },
 ];
@@ -56,6 +63,7 @@ export default function QueroSerClientePage() {
       email: "",
       plan_interest: "",
       message: "",
+      consent: undefined,
       company_website: "",
     },
   });
@@ -78,6 +86,9 @@ export default function QueroSerClientePage() {
         _rendered_at: renderedAt,
         form_type: "quero-ser-cliente",
         page_url: window.location.href,
+        consent_text: CONSENT_TEXT,
+        policy_version: LGPD.privacyPolicyVersion,
+        purposes: ["contato_comercial", "proposta_plano"],
         ...utm,
       };
 
@@ -265,6 +276,48 @@ export default function QueroSerClientePage() {
                   />
                 </div>
 
+                {/* Aviso de finalidade */}
+                <div className="bg-primary/5 border border-primary/15 rounded-lg p-4 text-xs text-muted leading-relaxed">
+                  <p className="mb-2">
+                    <strong className="text-foreground">Finalidade da coleta:</strong> seus dados
+                    serão usados para contato comercial e elaboração de proposta dos planos da Viver
+                    Saúde. Ao final do atendimento, você pode solicitar a exclusão dos dados.
+                  </p>
+                  <p>
+                    Conheça seus direitos em{" "}
+                    <Link
+                      href="/direitos-do-titular"
+                      className="text-primary hover:underline font-medium"
+                    >
+                      Direitos do Titular
+                    </Link>
+                    .
+                  </p>
+                </div>
+
+                {/* Consentimento LGPD */}
+                <label className="flex items-start gap-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    {...register("consent")}
+                    className="mt-1 w-4 h-4 accent-primary cursor-pointer flex-shrink-0"
+                  />
+                  <span className="text-sm text-foreground leading-relaxed">
+                    Autorizo a Viver Saúde a tratar meus dados pessoais para contato comercial e
+                    proposta de planos, conforme a{" "}
+                    <Link
+                      href="/politica-de-privacidade"
+                      className="text-primary hover:underline font-medium"
+                    >
+                      Política de Privacidade
+                    </Link>
+                    . *
+                  </span>
+                </label>
+                {errors.consent && (
+                  <p className="text-red-500 text-sm -mt-3">{errors.consent.message}</p>
+                )}
+
                 {/* Error */}
                 {submitError && (
                   <div className="bg-red-50 text-red-600 p-4 rounded-lg text-sm">
@@ -282,10 +335,6 @@ export default function QueroSerClientePage() {
                 >
                   {isSubmitting ? "Enviando..." : "Enviar mensagem"}
                 </Button>
-
-                <p className="text-xs text-muted text-center">
-                  Ao enviar, você concorda com o uso dos seus dados para contato comercial.
-                </p>
               </form>
             </ScrollAnimationWrapper>
           </div>
