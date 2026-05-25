@@ -10,54 +10,238 @@ interface PlanDocument {
   file: string;
 }
 
+interface PlanBenefit {
+  name: string;
+  description: string;
+  value: string;
+}
+
+interface PlanModality {
+  coparticipacao: string;
+  acomodacao: string;
+  contratacao: string;
+}
+
 interface PlanData {
   name: string;
   slug: string;
   tagline: string;
   image: string;
   description: string;
+  audienceLabel: string;
+  coverageType: string;
+  region: string;
+  startingPrice: string;
   highlights: string[];
   targetAudience: string;
+  benefits: PlanBenefit[];
+  modalities: PlanModality[];
   condicoesGerais?: PlanDocument[];
 }
 
+const REGION_NATAL_PARNAMIRIM_SGA = "Natal, Parnamirim, São Gonçalo do Amarante";
+const REGION_AMETISTA =
+  "Natal, Parnamirim, São Gonçalo do Amarante, Macaíba, Goianinha, Canguaretama, Extremoz, Ceará Mirim, São José de Mipibu";
+const REGION_DIAMANTE =
+  "Natal, Parnamirim, São Gonçalo do Amarante, Macaíba, Goianinha, Canguaretama, Extremoz, Ceará Mirim, São José de Mipibu, Macau, Alto do Rodrigues, Açu, Mossoró, Caicó, Currais Novos, Nísia Floresta, Guamaré, Pendências, Pau dos Ferros";
+
+const BENEFIT_TELEMEDICINA: PlanBenefit = {
+  name: "Telemedicina",
+  description: "Consultas médicas online disponíveis 24h",
+  value: "Incluso",
+};
+const BENEFIT_REMOCAO: PlanBenefit = {
+  name: "Remoção",
+  description: "Serviço de remoção de pacientes",
+  value: "Incluso",
+};
+const BENEFIT_PET: PlanBenefit = {
+  name: "Benefício Pet",
+  description: "Cobertura de saúde para pets",
+  value: "Incluso",
+};
+const seguroVida = (valor: string): PlanBenefit => ({
+  name: "Seguro de Vida",
+  description: `Seguro de vida R$ ${valor}`,
+  value: "Incluso",
+});
+
+const baseBenefits = (seguroValor: string): PlanBenefit[] => [
+  BENEFIT_TELEMEDICINA,
+  BENEFIT_REMOCAO,
+  BENEFIT_PET,
+  seguroVida(seguroValor),
+];
+
 const plansData: Record<string, PlanData> = {
-  topazio: {
-    name: "Topázio",
-    slug: "topazio",
-    tagline: "Plano ambulatorial empresarial com foco em consultas e prevenção",
-    image: "/images/plans/topázio.png",
+  diamante: {
+    name: "Diamante",
+    slug: "diamante",
+    tagline:
+      "Plano empresarial completo, com obstetrícia e opção de quarto privativo",
+    image: "/images/plans/diamante.png",
     description:
-      "O plano Topázio é ambulatorial e voltado para empresas que buscam cuidado preventivo para seus colaboradores. Com foco em consultas regulares, exames e orientação médica, ele garante acompanhamento contínuo sem necessidade de cobertura hospitalar.",
+      "O Viver Diamante é o plano empresarial de mais alto nível da Viver Saúde. Com cobertura ambulatorial e hospitalar completa, incluindo obstetrícia, e opção de quarto privativo, é a escolha para empresas que querem oferecer o melhor aos seus colaboradores em qualquer fase da vida.",
+    audienceLabel: "Empresarial",
+    coverageType: "Ambulatorial + Hospitalar com Obstetrícia",
+    region: REGION_DIAMANTE,
+    startingPrice: "A partir de R$ 171,41",
     highlights: [
-      "Consultas com clínico geral e especialistas",
-      "Exames preventivos e de rotina",
-      "Acompanhamento contínuo de saúde",
-      "Acesso à rede credenciada organizada",
-      "Atendimento humanizado e próximo",
+      "Cobertura ambulatorial e hospitalar completa",
+      "Cobertura obstétrica (parto e gestação)",
+      "Opção de quarto privativo",
+      "Atendimento de urgência e emergência",
+      "Abrangência em todo o Rio Grande do Norte",
     ],
     targetAudience:
-      "Ideal para quem busca um plano com foco em prevenção e acompanhamento regular, com custo acessível.",
+      "Para empresas que buscam o mais alto padrão de cobertura, com obstetrícia e opção de quarto privativo para seus colaboradores.",
+    benefits: baseBenefits("50.000"),
+    modalities: [
+      { coparticipacao: "Com coparticipação completa", acomodacao: "Quarto Coletivo", contratacao: "Empresarial" },
+      { coparticipacao: "Com coparticipação completa", acomodacao: "Quarto Privativo", contratacao: "Empresarial" },
+      { coparticipacao: "Com coparticipação básica", acomodacao: "Quarto Coletivo", contratacao: "Empresarial" },
+      { coparticipacao: "Com coparticipação básica", acomodacao: "Quarto Privativo", contratacao: "Empresarial" },
+      { coparticipacao: "Com coparticipação completa", acomodacao: "Quarto Coletivo", contratacao: "Por Adesão" },
+      { coparticipacao: "Com coparticipação completa", acomodacao: "Quarto Privativo", contratacao: "Por Adesão" },
+      { coparticipacao: "Com coparticipação básica", acomodacao: "Quarto Coletivo", contratacao: "Por Adesão" },
+      { coparticipacao: "Com coparticipação básica", acomodacao: "Quarto Privativo", contratacao: "Por Adesão" },
+    ],
     condicoesGerais: [
-      { label: "Topázio CE (Ambulatorial)", file: "/docs/condicoes-gerais/topazio-ce-ambulatorial.pdf" },
+      { label: "Diamante CE QC", file: "/docs/condicoes-gerais/diamante-ce-qc.pdf" },
+      { label: "Diamante CE QP (Quarto Privativo)", file: "/docs/condicoes-gerais/diamante-ce-qp.pdf" },
+    ],
+  },
+  ametista: {
+    name: "Ametista",
+    slug: "ametista",
+    tagline: "Plano completo com obstetrícia para empresas e por adesão",
+    image: "/images/plans/ametista.png",
+    description:
+      "O Viver Ametista oferece cobertura ambulatorial e hospitalar completa, incluindo obstetrícia. Disponível para contratação empresarial e por adesão, combina segurança, acompanhamento próximo e atenção integral à saúde física e emocional dos beneficiários.",
+    audienceLabel: "Empresarial e Por Adesão",
+    coverageType: "Ambulatorial + Hospitalar com Obstetrícia",
+    region: REGION_AMETISTA,
+    startingPrice: "A partir de R$ 121,80",
+    highlights: [
+      "Cobertura ambulatorial e hospitalar completa",
+      "Cobertura obstétrica (parto e gestação)",
+      "Atendimento de urgência e emergência",
+      "Disponível para empresas e por adesão",
+      "Abrangência em 9 municípios do RN",
+    ],
+    targetAudience:
+      "Para empresas e entidades de adesão que buscam cobertura completa com obstetrícia e uma abrangência regional ampliada no Rio Grande do Norte.",
+    benefits: baseBenefits("50.000"),
+    modalities: [
+      { coparticipacao: "Com coparticipação completa", acomodacao: "Quarto Coletivo", contratacao: "Empresarial" },
+      { coparticipacao: "Com coparticipação básica", acomodacao: "Quarto Coletivo", contratacao: "Empresarial" },
+      { coparticipacao: "Com coparticipação completa", acomodacao: "Quarto Coletivo", contratacao: "Por Adesão" },
+      { coparticipacao: "Com coparticipação básica", acomodacao: "Quarto Coletivo", contratacao: "Por Adesão" },
+    ],
+    condicoesGerais: [
+      { label: "Ametista CE QC", file: "/docs/condicoes-gerais/ametista-ce-qc.pdf" },
+    ],
+  },
+  quartzo: {
+    name: "Quartzo",
+    slug: "quartzo",
+    tagline: "Plano completo com obstetrícia para empresas e pessoa física",
+    image: "/images/plans/quartzo.png",
+    description:
+      "O Viver Quartzo oferece cobertura ambulatorial e hospitalar completa, com obstetrícia. Disponível tanto para contratação empresarial quanto para pessoa física, é um plano robusto para quem quer proteção integral em todas as fases da vida, incluindo a chegada de um filho.",
+    audienceLabel: "Empresarial e Pessoa Física",
+    coverageType: "Ambulatorial + Hospitalar com Obstetrícia",
+    region: REGION_NATAL_PARNAMIRIM_SGA,
+    startingPrice: "A partir de R$ 110,80",
+    highlights: [
+      "Cobertura ambulatorial e hospitalar completa",
+      "Cobertura obstétrica (parto e gestação)",
+      "Opção de quarto privativo (modalidade QP)",
+      "Atendimento de urgência e emergência",
+      "Disponível para empresas e pessoa física",
+    ],
+    targetAudience:
+      "Para quem busca um plano completo, com cobertura ambulatorial, hospitalar e obstétrica, disponível tanto para contratação empresarial quanto individual.",
+    benefits: baseBenefits("30.000"),
+    modalities: [
+      { coparticipacao: "Com coparticipação completa", acomodacao: "Quarto Coletivo", contratacao: "Empresarial" },
+      { coparticipacao: "Com coparticipação completa", acomodacao: "Quarto Privativo", contratacao: "Empresarial" },
+      { coparticipacao: "Com coparticipação básica", acomodacao: "Quarto Coletivo", contratacao: "Empresarial" },
+      { coparticipacao: "Com coparticipação básica", acomodacao: "Quarto Privativo", contratacao: "Empresarial" },
+      { coparticipacao: "Com coparticipação completa", acomodacao: "Quarto Coletivo", contratacao: "Por Adesão" },
+      { coparticipacao: "Com coparticipação completa", acomodacao: "Quarto Privativo", contratacao: "Por Adesão" },
+      { coparticipacao: "Com coparticipação básica", acomodacao: "Quarto Coletivo", contratacao: "Por Adesão" },
+      { coparticipacao: "Com coparticipação básica", acomodacao: "Quarto Privativo", contratacao: "Por Adesão" },
+      { coparticipacao: "Com coparticipação completa", acomodacao: "Quarto Coletivo", contratacao: "Pessoa Física" },
+      { coparticipacao: "Com coparticipação completa", acomodacao: "Quarto Privativo", contratacao: "Pessoa Física" },
+      { coparticipacao: "Com coparticipação básica", acomodacao: "Quarto Coletivo", contratacao: "Pessoa Física" },
+      { coparticipacao: "Com coparticipação básica", acomodacao: "Quarto Privativo", contratacao: "Pessoa Física" },
+    ],
+    condicoesGerais: [
+      { label: "Quartzo CA QC", file: "/docs/condicoes-gerais/quartzo-ca-qc.pdf" },
+      { label: "Quartzo CE QC", file: "/docs/condicoes-gerais/quartzo-ce-qc.pdf" },
+    ],
+  },
+  turmalina: {
+    name: "Turmalina",
+    slug: "turmalina",
+    tagline:
+      "Plano de atenção primária com obstetrícia para empresas e pessoa física",
+    image: "/images/plans/turmalina.png",
+    description:
+      "O Viver Turmalina é um plano de atenção primária à saúde, com cobertura ambulatorial e hospitalar completa, incluindo obstetrícia. Com foco no acompanhamento contínuo, prevenção e gestão da saúde, é ideal para quem valoriza cuidado regular e integral ao longo da vida.",
+    audienceLabel: "Empresarial e Pessoa Física",
+    coverageType: "Ambulatorial + Hospitalar com Obstetrícia",
+    region: REGION_NATAL_PARNAMIRIM_SGA,
+    startingPrice: "A partir de R$ 98,37",
+    highlights: [
+      "Cobertura ambulatorial e hospitalar completa",
+      "Cobertura obstétrica (parto e gestação)",
+      "Foco em atenção primária e acompanhamento contínuo",
+      "Atendimento de urgência e emergência",
+      "Disponível para empresas e pessoa física",
+    ],
+    targetAudience:
+      "Para quem busca um plano com foco em prevenção, acompanhamento regular e cobertura completa, incluindo obstetrícia.",
+    benefits: baseBenefits("30.000"),
+    modalities: [
+      { coparticipacao: "Com coparticipação completa", acomodacao: "Quarto Coletivo", contratacao: "Empresarial" },
+      { coparticipacao: "Com coparticipação básica", acomodacao: "Quarto Coletivo", contratacao: "Empresarial" },
+      { coparticipacao: "Com coparticipação completa", acomodacao: "Quarto Coletivo", contratacao: "Pessoa Física" },
+      { coparticipacao: "Com coparticipação básica", acomodacao: "Quarto Coletivo", contratacao: "Pessoa Física" },
+    ],
+    condicoesGerais: [
+      { label: "Turmalina CA QC", file: "/docs/condicoes-gerais/turmalina-ca-qc.pdf" },
+      { label: "Turmalina CE QC", file: "/docs/condicoes-gerais/turmalina-ce-qc.pdf" },
     ],
   },
   rubi: {
     name: "Rubi",
     slug: "rubi",
-    tagline: "Cobertura completa para todas as fases da vida",
+    tagline: "Plano ambulatorial e hospitalar para empresas e pessoa física",
     image: "/images/plans/rubi.png",
     description:
-      "O plano Rubi oferece cobertura abrangente para toda a família. Com acesso amplo a especialidades, exames e procedimentos, ele é a escolha certa para quem deseja tranquilidade em todas as fases da vida.",
+      "O Viver Rubi oferece cobertura ambulatorial e hospitalar completa para quem busca segurança no dia a dia e nas situações que exigem internação. Disponível para contratação empresarial e pessoa física, combina acesso a consultas, exames e procedimentos com uma rede credenciada qualificada.",
+    audienceLabel: "Empresarial e Pessoa Física",
+    coverageType: "Ambulatorial + Hospitalar",
+    region: REGION_NATAL_PARNAMIRIM_SGA,
+    startingPrice: "A partir de R$ 104,53",
     highlights: [
-      "Ampla cobertura de especialidades médicas",
-      "Exames de média e alta complexidade",
-      "Internações e procedimentos cirúrgicos",
-      "Cobertura para todas as faixas etárias",
-      "Rede credenciada completa",
+      "Cobertura ambulatorial e hospitalar completa",
+      "Consultas com clínico geral e especialistas",
+      "Exames e procedimentos cirúrgicos",
+      "Atendimento de urgência e emergência",
+      "Disponível para empresas e pessoa física",
     ],
     targetAudience:
-      "Perfeito para famílias que buscam cobertura completa e segurança em todas as situações de saúde.",
+      "Para quem busca cobertura ambulatorial e hospitalar completa, com bom custo-benefício, tanto na modalidade empresarial quanto individual.",
+    benefits: baseBenefits("30.000"),
+    modalities: [
+      { coparticipacao: "Com coparticipação completa", acomodacao: "Quarto Coletivo", contratacao: "Empresarial" },
+      { coparticipacao: "Com coparticipação básica", acomodacao: "Quarto Coletivo", contratacao: "Empresarial" },
+      { coparticipacao: "Com coparticipação completa", acomodacao: "Quarto Coletivo", contratacao: "Pessoa Física" },
+      { coparticipacao: "Com coparticipação básica", acomodacao: "Quarto Coletivo", contratacao: "Pessoa Física" },
+    ],
     condicoesGerais: [
       { label: "Rubi CA QC", file: "/docs/condicoes-gerais/rubi-ca-qc.pdf" },
       { label: "Rubi CE QC", file: "/docs/condicoes-gerais/rubi-ce-qc.pdf" },
@@ -66,130 +250,72 @@ const plansData: Record<string, PlanData> = {
   safira: {
     name: "Safira",
     slug: "safira",
-    tagline: "Plano individual e por adesão, com foco em longevidade e prevenção",
+    tagline:
+      "Plano sênior ambulatorial e hospitalar para pessoa física e por adesão",
     image: "/images/plans/safira.png",
     description:
-      "O plano Safira é para quem busca cuidado individual de qualidade. Disponível para contratação por pessoa física e por adesão, oferece acesso a uma rede de atenção primária com foco em prevenção e longevidade.",
+      "O Viver Safira é um plano desenvolvido especialmente para o público sênior. Com cobertura ambulatorial e hospitalar, oferece atenção contínua às necessidades de saúde do idoso, com foco em prevenção, acompanhamento regular e qualidade de vida em cada fase.",
+    audienceLabel: "Sênior",
+    coverageType: "Ambulatorial + Hospitalar",
+    region: REGION_NATAL_PARNAMIRIM_SGA,
+    startingPrice: "A partir de R$ 964,11 (faixa 59+ anos)",
     highlights: [
-      "Atendimento ágil e sem burocracia",
-      "Acesso a profissionais de alta qualidade",
-      "Exames e procedimentos com rapidez",
-      "Rede credenciada premium",
-      "Suporte dedicado ao beneficiário",
+      "Cobertura ambulatorial e hospitalar completa",
+      "Desenvolvido para o perfil sênior",
+      "Opção de quarto privativo (modalidade QP)",
+      "Atendimento de urgência e emergência",
+      "Disponível para pessoa física e por adesão",
     ],
     targetAudience:
-      "Ideal para quem busca alta qualidade no atendimento com agilidade e conforto.",
+      "Para pessoas que buscam um plano desenvolvido para as necessidades do público sênior, com cobertura ambulatorial e hospitalar, disponível para pessoa física e por adesão.",
+    benefits: baseBenefits("30.000"),
+    modalities: [
+      { coparticipacao: "Com coparticipação completa", acomodacao: "Quarto Coletivo", contratacao: "Empresarial" },
+      { coparticipacao: "Com coparticipação básica", acomodacao: "Quarto Coletivo", contratacao: "Empresarial" },
+      { coparticipacao: "Com coparticipação completa", acomodacao: "Quarto Coletivo", contratacao: "Por Adesão" },
+      { coparticipacao: "Com coparticipação completa", acomodacao: "Quarto Privativo", contratacao: "Por Adesão" },
+      { coparticipacao: "Com coparticipação básica", acomodacao: "Quarto Coletivo", contratacao: "Por Adesão" },
+      { coparticipacao: "Com coparticipação básica", acomodacao: "Quarto Privativo", contratacao: "Por Adesão" },
+      { coparticipacao: "Com coparticipação completa", acomodacao: "Quarto Coletivo", contratacao: "Pessoa Física" },
+      { coparticipacao: "Com coparticipação completa", acomodacao: "Quarto Privativo", contratacao: "Pessoa Física" },
+      { coparticipacao: "Com coparticipação básica", acomodacao: "Quarto Coletivo", contratacao: "Pessoa Física" },
+      { coparticipacao: "Com coparticipação básica", acomodacao: "Quarto Privativo", contratacao: "Pessoa Física" },
+    ],
     condicoesGerais: [
       { label: "Safira CA QC", file: "/docs/condicoes-gerais/safira-ca-qc.pdf" },
       { label: "Safira PF QC", file: "/docs/condicoes-gerais/safira-pf-qc.pdf" },
     ],
   },
-  turmalina: {
-    name: "Turmalina",
-    slug: "turmalina",
-    tagline: "Cobertura essencial para internações",
-    image: "/images/plans/turmalina.png",
+  topazio: {
+    name: "Topázio",
+    slug: "topazio",
+    tagline: "Plano ambulatorial empresarial com foco em consultas e prevenção",
+    image: "/images/plans/topázio.png",
     description:
-      "O plano Turmalina oferece a cobertura essencial para situações que exigem internação. Uma opção estratégica para quem deseja estar protegido nos momentos mais críticos, com segurança e respaldo médico.",
+      "O Viver Topázio é um plano ambulatorial voltado para empresas que querem investir na saúde preventiva dos seus colaboradores. Com acesso a consultas regulares, exames e acompanhamento médico contínuo, garante cuidado no dia a dia sem necessidade de cobertura hospitalar.",
+    audienceLabel: "Empresarial",
+    coverageType: "Ambulatorial",
+    region: REGION_NATAL_PARNAMIRIM_SGA,
+    startingPrice: "A partir de R$ 69,90",
     highlights: [
-      "Cobertura para internações clínicas e cirúrgicas",
-      "Atendimento de urgência e emergência",
-      "Acompanhamento hospitalar completo",
-      "Acesso a rede de hospitais credenciados",
-      "Proteção nos momentos mais importantes",
-    ],
-    targetAudience:
-      "Indicado para quem busca proteção essencial focada em internações e situações de urgência.",
-    condicoesGerais: [
-      { label: "Turmalina CA QC", file: "/docs/condicoes-gerais/turmalina-ca-qc.pdf" },
-      { label: "Turmalina CE QC", file: "/docs/condicoes-gerais/turmalina-ce-qc.pdf" },
-    ],
-  },
-  quartzo: {
-    name: "Quartzo",
-    slug: "quartzo",
-    tagline: "Proteção acessível para necessidades essenciais",
-    image: "/images/plans/quartzo.png",
-    description:
-      "O plano Quartzo foi pensado para oferecer proteção acessível sem abrir mão do essencial. Com cobertura para as principais necessidades de saúde, é a porta de entrada para quem quer começar a cuidar de si com qualidade.",
-    highlights: [
-      "Consultas com clínico geral",
-      "Exames básicos e essenciais",
-      "Atendimento acessível e humanizado",
-      "Cobertura para necessidades fundamentais",
-      "Melhor custo-benefício da categoria",
-    ],
-    targetAudience:
-      "Perfeito para quem busca um plano acessível que cubra as necessidades essenciais de saúde.",
-    condicoesGerais: [
-      { label: "Quartzo CA QC", file: "/docs/condicoes-gerais/quartzo-ca-qc.pdf" },
-      { label: "Quartzo CE QC", file: "/docs/condicoes-gerais/quartzo-ce-qc.pdf" },
-    ],
-  },
-  ametista: {
-    name: "Ametista",
-    slug: "ametista",
-    tagline: "Voltado ao público sênior, com acompanhamento próximo e segurança",
-    image: "/images/plans/ametista.avif",
-    description:
-      "O plano Ametista foi pensado para o público sênior que busca tranquilidade e cuidado dedicado. Com cobertura empresarial e foco em acompanhamento próximo, oferece segurança e atenção especializada para quem precisa de cuidados contínuos.",
-    highlights: [
-      "Acompanhamento dedicado ao público sênior",
-      "Cobertura hospitalar com quarto coletivo",
-      "Consultas com especialistas em geriatria",
+      "Consultas com clínico geral e especialistas",
       "Exames preventivos e de rotina",
+      "Acompanhamento contínuo de saúde",
       "Atendimento humanizado e próximo",
+      "Plano exclusivo para contratação empresarial",
     ],
     targetAudience:
-      "Voltado para empresas que desejam oferecer cobertura de saúde dedicada a colaboradores e dependentes sêniores.",
+      "Para empresas que buscam um plano ambulatorial acessível, com foco em prevenção e acompanhamento regular da saúde dos colaboradores.",
+    benefits: baseBenefits("15.000"),
+    modalities: [
+      { coparticipacao: "Com coparticipação completa", acomodacao: "Não se aplica (ambulatorial)", contratacao: "Empresarial" },
+      { coparticipacao: "Com coparticipação básica", acomodacao: "Não se aplica (ambulatorial)", contratacao: "Empresarial" },
+    ],
     condicoesGerais: [
-      { label: "Ametista CE QC", file: "/docs/condicoes-gerais/ametista-ce-qc.pdf" },
-    ],
-  },
-  diamante: {
-    name: "Diamante",
-    slug: "diamante",
-    tagline: "Plano empresarial com opção de quarto privativo e cobertura completa",
-    image: "/images/plans/diamante.png",
-    description:
-      "O plano Diamante é o plano empresarial com o mais alto nível de conforto. Com opção de quarto privativo e cobertura completa, oferece cuidado eficiente e estrutura hospitalar e ambulatorial para quem valoriza privacidade e qualidade.",
-    highlights: [
-      "Opção de quarto privativo (exclusivo Diamante)",
-      "Cobertura hospitalar e ambulatorial completa",
-      "Atendimento de urgência e emergência",
-      "Rede credenciada ampla e qualificada",
-      "Conforto e privacidade no atendimento",
-    ],
-    targetAudience:
-      "Para empresas que buscam o mais alto padrão de cobertura, com opção de quarto privativo para seus colaboradores.",
-    condicoesGerais: [
-      { label: "Diamante CE QC", file: "/docs/condicoes-gerais/diamante-ce-qc.pdf" },
-      { label: "Diamante CE QP (Quarto Privativo)", file: "/docs/condicoes-gerais/diamante-ce-qp.pdf" },
-    ],
-  },
-  turquesa: {
-    name: "Turquesa",
-    slug: "turquesa",
-    tagline: "Plano empresarial com cobertura hospitalar de alto padrão",
-    image: "/images/plans/turquesa.avif",
-    description:
-      "O plano Turquesa oferece cobertura hospitalar de alto padrão para empresas que valorizam qualidade no atendimento. Com acesso a uma rede credenciada diferenciada, garante cuidado completo e seguro para seus beneficiários.",
-    highlights: [
-      "Cobertura hospitalar de alto padrão",
-      "Atendimento de urgência e emergência",
-      "Rede credenciada diferenciada",
-      "Internações e procedimentos cirúrgicos",
-      "Suporte dedicado ao beneficiário",
-    ],
-    targetAudience:
-      "Para empresas que buscam cobertura hospitalar de qualidade com atendimento diferenciado.",
-    condicoesGerais: [
-      { label: "Turquesa CE QC", file: "/docs/condicoes-gerais/turquesa-ce-qc.pdf" },
+      { label: "Topázio CE (Ambulatorial)", file: "/docs/condicoes-gerais/topazio-ce-ambulatorial.pdf" },
     ],
   },
 };
-
-const COMING_SOON_SLUGS = ["ametista", "turquesa"];
 
 export async function generateStaticParams() {
   return Object.keys(plansData).map((slug) => ({ slug }));
@@ -203,13 +329,6 @@ export async function generateMetadata(props: {
 
   if (!plan) {
     return { title: "Plano não encontrado" };
-  }
-
-  if (COMING_SOON_SLUGS.includes(slug)) {
-    return {
-      title: `Plano ${plan.name} — em breve`,
-      description: `Plano ${plan.name} da Viver Saúde em Natal/RN. Em breve.`,
-    };
   }
 
   return {
@@ -228,45 +347,11 @@ export default async function PlanPage(props: {
     notFound();
   }
 
-  if (COMING_SOON_SLUGS.includes(slug)) {
-    return (
-      <section className="bg-gradient-to-br from-primary-dark to-primary text-white py-32 lg:py-40">
-        <div className="container mx-auto px-4 text-center">
-          <ScrollAnimationWrapper>
-            <p className="text-accent font-semibold mb-3 uppercase tracking-wide text-sm">
-              Plano {plan.name}
-            </p>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
-              Em breve
-            </h1>
-            <p className="text-lg md:text-xl text-white/90 max-w-xl mx-auto mb-10">
-              Estamos preparando esta página. Em breve você poderá conhecer o
-              plano {plan.name} aqui mesmo.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button href="/planos" variant="accent" size="lg">
-                Ver outros planos
-              </Button>
-              <Button
-                href={WHATSAPP_URL}
-                variant="outline"
-                size="lg"
-                className="border-white text-white hover:bg-white hover:text-primary"
-              >
-                Falar no WhatsApp
-              </Button>
-            </div>
-          </ScrollAnimationWrapper>
-        </div>
-      </section>
-    );
-  }
-
   return (
     <>
       {/* Plan Header */}
       <section className="bg-gradient-to-br from-primary-dark to-primary text-white py-20 lg:py-28">
-        <div className="container mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-4 lg:px-6">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <ScrollAnimationWrapper direction="left">
               <p className="text-accent font-semibold mb-2 uppercase tracking-wide text-sm">
@@ -309,13 +394,44 @@ export default async function PlanPage(props: {
         </div>
       </section>
 
-      {/* Highlights */}
-      <section className="py-16 lg:py-24">
-        <div className="container mx-auto px-4">
+      {/* Resumo do plano */}
+      <section className="py-12 lg:py-16 bg-white border-b border-border">
+        <div className="max-w-7xl mx-auto px-4 lg:px-6">
           <ScrollAnimationWrapper>
-            <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-12">
+            <div className="grid sm:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              <div>
+                <p className="text-xs font-semibold text-muted uppercase tracking-wide mb-1">
+                  Público-alvo
+                </p>
+                <p className="text-foreground font-medium">{plan.audienceLabel}</p>
+              </div>
+              <div>
+                <p className="text-xs font-semibold text-muted uppercase tracking-wide mb-1">
+                  Tipo de cobertura
+                </p>
+                <p className="text-foreground font-medium">{plan.coverageType}</p>
+              </div>
+              <div>
+                <p className="text-xs font-semibold text-muted uppercase tracking-wide mb-1">
+                  Abrangência
+                </p>
+                <p className="text-foreground text-sm leading-relaxed">{plan.region}</p>
+              </div>
+            </div>
+          </ScrollAnimationWrapper>
+        </div>
+      </section>
+
+      {/* Highlights + preço */}
+      <section className="py-16 lg:py-24">
+        <div className="max-w-7xl mx-auto px-4 lg:px-6">
+          <ScrollAnimationWrapper>
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-3">
               O que o plano {plan.name} oferece
             </h2>
+            <p className="text-center text-2xl md:text-3xl font-bold text-primary mb-12">
+              {plan.startingPrice}
+            </p>
           </ScrollAnimationWrapper>
           <div className="max-w-3xl mx-auto grid sm:grid-cols-2 gap-4">
             {plan.highlights.map((highlight, idx) => (
@@ -340,7 +456,7 @@ export default async function PlanPage(props: {
 
       {/* Target Audience */}
       <section className="py-16 lg:py-24 bg-card">
-        <div className="container mx-auto px-4 text-center">
+        <div className="max-w-7xl mx-auto px-4 lg:px-6 text-center">
           <ScrollAnimationWrapper>
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
               Para quem é indicado?
@@ -352,10 +468,82 @@ export default async function PlanPage(props: {
         </div>
       </section>
 
+      {/* Benefícios inclusos */}
+      <section className="py-16 lg:py-24">
+        <div className="max-w-7xl mx-auto px-4 lg:px-6">
+          <ScrollAnimationWrapper>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
+                Benefícios inclusos no plano
+              </h2>
+              <p className="text-muted text-lg max-w-2xl mx-auto">
+                Todos os itens abaixo já estão inclusos no preço do plano.
+              </p>
+            </div>
+          </ScrollAnimationWrapper>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+            {plan.benefits.map((benefit, idx) => (
+              <ScrollAnimationWrapper key={benefit.name} delay={idx * 0.08}>
+                <div className="bg-card border border-border rounded-xl p-6 h-full flex flex-col">
+                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                    <svg className="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <h3 className="font-bold text-foreground mb-2">{benefit.name}</h3>
+                  <p className="text-sm text-muted flex-1">{benefit.description}</p>
+                  <span className="inline-block mt-3 text-xs font-semibold text-primary uppercase tracking-wide">
+                    {benefit.value}
+                  </span>
+                </div>
+              </ScrollAnimationWrapper>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Modalidades disponíveis */}
+      <section className="py-16 lg:py-24 bg-card">
+        <div className="max-w-7xl mx-auto px-4 lg:px-6">
+          <ScrollAnimationWrapper>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
+                Modalidades disponíveis
+              </h2>
+              <p className="text-muted text-lg max-w-2xl mx-auto">
+                Este plano está disponível nas combinações de coparticipação, acomodação e contratação abaixo.
+              </p>
+            </div>
+          </ScrollAnimationWrapper>
+          <ScrollAnimationWrapper>
+            <div className="max-w-4xl mx-auto overflow-x-auto -mx-4 px-4">
+              <table className="w-full min-w-[600px] bg-white rounded-xl overflow-hidden border border-border">
+                <thead>
+                  <tr className="bg-primary/5">
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-foreground">Coparticipação</th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-foreground">Acomodação</th>
+                    <th className="text-left py-3 px-4 text-sm font-semibold text-foreground">Contratação</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {plan.modalities.map((m, idx) => (
+                    <tr key={idx} className={idx % 2 === 0 ? "bg-white" : "bg-card/40"}>
+                      <td className="py-3 px-4 text-sm text-foreground border-t border-border/60">{m.coparticipacao}</td>
+                      <td className="py-3 px-4 text-sm text-foreground border-t border-border/60">{m.acomodacao}</td>
+                      <td className="py-3 px-4 text-sm text-foreground border-t border-border/60">{m.contratacao}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </ScrollAnimationWrapper>
+        </div>
+      </section>
+
       {/* Condições Gerais Download */}
       {plan.condicoesGerais && plan.condicoesGerais.length > 0 && (
         <section className="py-16 lg:py-24">
-          <div className="container mx-auto px-4">
+          <div className="max-w-7xl mx-auto px-4 lg:px-6">
             <ScrollAnimationWrapper>
               <div className="max-w-2xl mx-auto text-center">
                 <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-6">
@@ -393,7 +581,7 @@ export default async function PlanPage(props: {
 
       {/* CTA Bar */}
       <section className="py-16 lg:py-20 bg-gradient-to-br from-primary-dark to-primary text-white">
-        <div className="container mx-auto px-4 text-center">
+        <div className="max-w-7xl mx-auto px-4 lg:px-6 text-center">
           <ScrollAnimationWrapper>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Pronto para começar?

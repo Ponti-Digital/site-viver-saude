@@ -44,9 +44,10 @@ export const NAV_ITEMS = [
     href: "/planos",
     children: [
       { label: "Diamante", href: "/planos/diamante" },
+      { label: "Ametista", href: "/planos/ametista" },
       { label: "Quartzo", href: "/planos/quartzo" },
-      { label: "Rubi", href: "/planos/rubi" },
       { label: "Turmalina", href: "/planos/turmalina" },
+      { label: "Rubi", href: "/planos/rubi" },
       { label: "Safira", href: "/planos/safira" },
       { label: "Topázio", href: "/planos/topazio" },
     ],

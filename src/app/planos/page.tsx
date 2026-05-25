@@ -7,69 +7,83 @@ import { getPlansOrder, reorderBySlug } from "@/lib/supabase/plans";
 export const metadata = {
   title: "Planos",
   description:
-    "Encontre o plano de saúde ideal para você e sua família. Conheça os planos Topázio, Rubi, Safira, Turmalina, Quartzo e Diamante da Viver Saúde.",
+    "Encontre o plano de saúde ideal para você e sua família. Conheça os planos Diamante, Ametista, Quartzo, Turmalina, Rubi, Safira e Topázio da Viver Saúde.",
 };
 
 const plans = [
+  {
+    name: "Diamante",
+    slug: "diamante",
+    tagline: "Plano empresarial completo, com obstetrícia e opção de quarto privativo",
+    image: "/images/plans/diamante.png",
+  },
+  {
+    name: "Ametista",
+    slug: "ametista",
+    tagline: "Plano completo com obstetrícia para empresas e por adesão",
+    image: "/images/plans/ametista.png",
+  },
+  {
+    name: "Quartzo",
+    slug: "quartzo",
+    tagline: "Plano completo com obstetrícia para empresas e pessoa física",
+    image: "/images/plans/quartzo.png",
+  },
+  {
+    name: "Turmalina",
+    slug: "turmalina",
+    tagline: "Plano de atenção primária com obstetrícia para empresas e pessoa física",
+    image: "/images/plans/turmalina.png",
+  },
+  {
+    name: "Rubi",
+    slug: "rubi",
+    tagline: "Plano ambulatorial e hospitalar para empresas e pessoa física",
+    image: "/images/plans/rubi.png",
+  },
+  {
+    name: "Safira",
+    slug: "safira",
+    tagline: "Plano sênior ambulatorial e hospitalar para pessoa física e por adesão",
+    image: "/images/plans/safira.png",
+  },
   {
     name: "Topázio",
     slug: "topazio",
     tagline: "Plano ambulatorial empresarial com foco em consultas e prevenção",
     image: "/images/plans/topázio.png",
   },
-  {
-    name: "Rubi",
-    slug: "rubi",
-    tagline: "Cobertura completa para empresas e adesão, com rede ampla",
-    image: "/images/plans/rubi.png",
-  },
-  {
-    name: "Safira",
-    slug: "safira",
-    tagline: "Plano individual e por adesão, com foco em longevidade e prevenção",
-    image: "/images/plans/safira.png",
-  },
-  {
-    name: "Turmalina",
-    slug: "turmalina",
-    tagline: "Cuidado integral com acompanhamento contínuo da saúde",
-    image: "/images/plans/turmalina.png",
-  },
-  {
-    name: "Quartzo",
-    slug: "quartzo",
-    tagline: "Completo e prático, com atendimento ambulatorial e hospitalar",
-    image: "/images/plans/quartzo.png",
-  },
-  {
-    name: "Diamante",
-    slug: "diamante",
-    tagline: "Plano empresarial com opção de quarto privativo e cobertura completa",
-    image: "/images/plans/diamante.png",
-  },
 ];
 
-const comparisonRows = [
-  { label: "Consultas e exames ambulatoriais", bySlug: { topazio: true, quartzo: true, rubi: true, turmalina: true, safira: true, diamante: true } as Record<string, boolean | "partial"> },
-  { label: "Internação hospitalar", bySlug: { topazio: false, quartzo: true, rubi: true, turmalina: true, safira: true, diamante: true } as Record<string, boolean | "partial"> },
-  { label: "Cobertura obstétrica (parto)", bySlug: { topazio: false, quartzo: true, rubi: "partial", turmalina: true, safira: true, diamante: true } as Record<string, boolean | "partial">, note: "Rubi: disponível apenas na modalidade por adesão" },
-  { label: "Urgência e emergência", bySlug: { topazio: true, quartzo: true, rubi: true, turmalina: true, safira: true, diamante: true } as Record<string, boolean | "partial"> },
-  { label: "Cirurgias e procedimentos", bySlug: { topazio: false, quartzo: true, rubi: true, turmalina: true, safira: true, diamante: true } as Record<string, boolean | "partial"> },
-  { label: "Quimioterapia e radioterapia", bySlug: { topazio: true, quartzo: true, rubi: true, turmalina: true, safira: true, diamante: true } as Record<string, boolean | "partial"> },
-  { label: "Opção de quarto privativo", bySlug: { topazio: false, quartzo: false, rubi: false, turmalina: false, safira: false, diamante: true } as Record<string, boolean | "partial"> },
-  { label: "Sem coparticipação", bySlug: { topazio: false, quartzo: false, rubi: false, turmalina: false, safira: false, diamante: false } as Record<string, boolean | "partial"> },
-  { label: "Disponível para pessoa física", bySlug: { topazio: false, quartzo: false, rubi: false, turmalina: false, safira: true, diamante: false } as Record<string, boolean | "partial"> },
-  { label: "Disponível por adesão", bySlug: { topazio: false, quartzo: true, rubi: true, turmalina: true, safira: true, diamante: false } as Record<string, boolean | "partial"> },
-  { label: "Foco no público sênior", bySlug: { topazio: false, quartzo: false, rubi: false, turmalina: false, safira: false, diamante: false } as Record<string, boolean | "partial"> },
+type CellValue = boolean | "partial" | string;
+
+const comparisonRows: { label: string; bySlug: Record<string, CellValue>; note?: string }[] = [
+  { label: "Consultas e exames ambulatoriais", bySlug: { diamante: true, ametista: true, quartzo: true, turmalina: true, rubi: true, safira: true, topazio: true } },
+  { label: "Internação hospitalar", bySlug: { diamante: true, ametista: true, quartzo: true, turmalina: true, rubi: true, safira: true, topazio: false } },
+  { label: "Cobertura obstétrica (parto)", bySlug: { diamante: true, ametista: true, quartzo: true, turmalina: true, rubi: "partial", safira: false, topazio: false }, note: "Rubi: disponível apenas na modalidade por adesão" },
+  { label: "Urgência e emergência", bySlug: { diamante: true, ametista: true, quartzo: true, turmalina: true, rubi: true, safira: true, topazio: true } },
+  { label: "Cirurgias e procedimentos", bySlug: { diamante: true, ametista: true, quartzo: true, turmalina: true, rubi: true, safira: true, topazio: false } },
+  { label: "Quimioterapia e radioterapia", bySlug: { diamante: true, ametista: true, quartzo: true, turmalina: true, rubi: true, safira: true, topazio: true } },
+  { label: "Opção de quarto privativo", bySlug: { diamante: true, ametista: false, quartzo: true, turmalina: false, rubi: false, safira: true, topazio: false } },
+  { label: "Sem coparticipação", bySlug: { diamante: false, ametista: false, quartzo: false, turmalina: false, rubi: false, safira: false, topazio: false } },
+  { label: "Telemedicina inclusa", bySlug: { diamante: true, ametista: true, quartzo: true, turmalina: true, rubi: true, safira: true, topazio: true } },
+  { label: "Seguro de vida incluso", bySlug: { diamante: "R$ 50K", ametista: "R$ 50K", quartzo: "R$ 30K", turmalina: "R$ 30K", rubi: "R$ 30K", safira: "R$ 30K", topazio: "R$ 15K" } },
+  { label: "Benefício Pet incluso", bySlug: { diamante: true, ametista: true, quartzo: true, turmalina: true, rubi: true, safira: true, topazio: true } },
+  { label: "Disponível para empresas", bySlug: { diamante: true, ametista: true, quartzo: true, turmalina: true, rubi: true, safira: false, topazio: true } },
+  { label: "Disponível para pessoa física", bySlug: { diamante: false, ametista: false, quartzo: true, turmalina: true, rubi: true, safira: true, topazio: false } },
+  { label: "Disponível por adesão", bySlug: { diamante: true, ametista: true, quartzo: true, turmalina: false, rubi: true, safira: true, topazio: false } },
+  { label: "Foco em atenção primária", bySlug: { diamante: false, ametista: false, quartzo: false, turmalina: true, rubi: false, safira: false, topazio: false } },
+  { label: "Foco no público sênior", bySlug: { diamante: false, ametista: false, quartzo: false, turmalina: false, rubi: false, safira: true, topazio: false } },
 ];
 
 const comparisonPlans = [
-  { name: "Topázio", slug: "topazio" },
-  { name: "Quartzo", slug: "quartzo" },
-  { name: "Rubi", slug: "rubi" },
-  { name: "Turmalina", slug: "turmalina" },
-  { name: "Safira", slug: "safira" },
   { name: "Diamante", slug: "diamante" },
+  { name: "Ametista", slug: "ametista" },
+  { name: "Quartzo", slug: "quartzo" },
+  { name: "Turmalina", slug: "turmalina" },
+  { name: "Rubi", slug: "rubi" },
+  { name: "Safira", slug: "safira" },
+  { name: "Topázio", slug: "topazio" },
 ];
 
 export default async function PlanosPage() {
@@ -195,6 +209,10 @@ export default async function PlanosPage() {
                               <circle cx="12" cy="12" r="10" strokeWidth={1.5} className="text-amber-100" fill="currentColor" stroke="none" />
                               <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h8" className="text-amber-500" />
                             </svg>
+                          ) : typeof val === "string" ? (
+                            <span className="inline-block px-2.5 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold whitespace-nowrap">
+                              {val}
+                            </span>
                           ) : (
                             <svg className="w-6 h-6 mx-auto text-red-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
                               <circle cx="12" cy="12" r="10" strokeWidth={1.5} className="text-red-50" fill="currentColor" stroke="none" />
