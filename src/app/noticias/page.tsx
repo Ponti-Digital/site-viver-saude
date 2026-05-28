@@ -2,9 +2,15 @@ import Image from "next/image";
 import { ScrollAnimationWrapper } from "@/components/shared/ScrollAnimationWrapper";
 
 export const metadata = {
-  title: "Notícias",
+  title: "Notícias e Mídia — Viver Saúde",
   description:
-    "Acompanhe as notícias, comunicados e novidades da Viver Saúde. Informações sobre rede credenciada, benefícios e orientações de saúde.",
+    "Notícias, comunicados e cobertura da Viver Saúde na mídia. Novidades sobre rede credenciada, programas de saúde, benefícios e orientações de saúde em Natal/RN.",
+  alternates: { canonical: "/noticias" },
+  openGraph: {
+    title: "Notícias — Viver Saúde",
+    description: "Cobertura da mídia e novidades da Viver Saúde.",
+    url: "https://planoviversaude.com.br/noticias",
+  },
 };
 
 interface NoticiaItem {

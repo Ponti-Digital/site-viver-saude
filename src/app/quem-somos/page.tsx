@@ -4,9 +4,15 @@ import { ScrollAnimationWrapper } from "@/components/shared/ScrollAnimationWrapp
 import { WHATSAPP_URL } from "@/lib/constants/site";
 
 export const metadata = {
-  title: "Quem Somos",
+  title: "Quem Somos — Viver Saúde Natal/RN",
   description:
-    "Conheça a Viver Saúde. Um plano de saúde em Natal/RN com acolhimento, organização e compromisso com o cuidado da sua família.",
+    "Conheça a Viver Saúde, operadora de planos de saúde em Natal/RN (ANS 424480). Missão, visão, valores e diferenciais de uma operadora com cuidado humanizado e atendimento próximo.",
+  alternates: { canonical: "/quem-somos" },
+  openGraph: {
+    title: "Quem Somos — Viver Saúde",
+    description: "Operadora de planos de saúde em Natal/RN com cuidado humanizado.",
+    url: "https://planoviversaude.com.br/quem-somos",
+  },
 };
 
 const valores = [

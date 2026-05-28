@@ -5,9 +5,16 @@ import { WHATSAPP_URL } from "@/lib/constants/site";
 import { getPlansOrder, reorderBySlug } from "@/lib/supabase/plans";
 
 export const metadata = {
-  title: "Planos",
+  title: "Planos de Saúde — Diamante, Ametista, Quartzo, Rubi, Safira e Topázio",
   description:
-    "Encontre o plano de saúde ideal para você e sua família. Conheça os planos Diamante, Quartzo, Turmalina, Rubi, Safira e Topázio da Viver Saúde.",
+    "Conheça os planos de saúde Viver Saúde em Natal/RN: Diamante, Ametista, Quartzo, Turmalina, Rubi, Safira e Topázio. Cobertura ambulatorial, hospitalar e obstétrica para pessoa física, empresas e adesão. A partir de R$ 69,90/mês.",
+  alternates: { canonical: "/planos" },
+  openGraph: {
+    title: "Planos de Saúde Viver Saúde — Natal/RN",
+    description:
+      "Sete planos para diferentes perfis e necessidades. A partir de R$ 69,90/mês em Natal/RN.",
+    url: "https://planoviversaude.com.br/planos",
+  },
 };
 
 const plans = [
@@ -59,8 +66,24 @@ export default async function PlanosPage() {
   const { slugs, activeSlugs } = await getPlansOrder();
   const orderedPlans = reorderBySlug(plans, slugs, activeSlugs);
 
+  const itemListJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Planos de Saúde Viver Saúde",
+    itemListElement: orderedPlans.map((plan, idx) => ({
+      "@type": "ListItem",
+      position: idx + 1,
+      url: `https://planoviversaude.com.br/planos/${plan.slug}`,
+      name: `Plano ${plan.name}`,
+    })),
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
+      />
       {/* Hero */}
       <section className="bg-gradient-to-br from-primary-dark to-primary text-white py-20 lg:py-28">
         <div className="container mx-auto px-4 text-center">

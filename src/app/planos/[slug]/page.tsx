@@ -278,9 +278,100 @@ export async function generateMetadata(props: {
     return { title: "Plano não encontrado" };
   }
 
+  const description = `${plan.tagline} Cobertura ${plan.coverageType.toLowerCase()} a partir de ${plan.priceRaw}/mês. ${plan.audienceLabel}. Conheça o plano ${plan.name} da Viver Saúde em Natal/RN.`;
+
   return {
-    title: `Plano ${plan.name}`,
-    description: `${plan.tagline}. Conheça o plano ${plan.name} da Viver Saúde em Natal/RN.`,
+    title: `Plano ${plan.name} — A partir de ${plan.priceRaw}/mês`,
+    description,
+    alternates: { canonical: `/planos/${plan.slug}` },
+    openGraph: {
+      title: `Plano ${plan.name} — Viver Saúde`,
+      description,
+      url: `https://planoviversaude.com.br/planos/${plan.slug}`,
+      type: "website",
+      images: [
+        {
+          url: plan.image,
+          alt: `Plano ${plan.name} — Viver Saúde`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `Plano ${plan.name} — Viver Saúde`,
+      description,
+      images: [plan.image],
+    },
+  };
+}
+
+function buildPlanJsonLd(plan: PlanData) {
+  const priceNumeric = parseFloat(
+    plan.priceRaw.replace("R$ ", "").replace(".", "").replace(",", ".")
+  );
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Product",
+        "@id": `https://planoviversaude.com.br/planos/${plan.slug}#product`,
+        name: `Plano ${plan.name}`,
+        description: plan.description,
+        image: `https://planoviversaude.com.br${plan.image}`,
+        brand: {
+          "@type": "Brand",
+          name: "Viver Saúde",
+        },
+        category: "Plano de Saúde",
+        audience: {
+          "@type": "Audience",
+          audienceType: plan.audienceLabel,
+        },
+        offers: {
+          "@type": "Offer",
+          url: `https://planoviversaude.com.br/planos/${plan.slug}`,
+          priceCurrency: "BRL",
+          price: priceNumeric.toFixed(2),
+          priceSpecification: {
+            "@type": "UnitPriceSpecification",
+            price: priceNumeric.toFixed(2),
+            priceCurrency: "BRL",
+            unitText: "MONTH",
+          },
+          availability: "https://schema.org/InStock",
+          areaServed: plan.region.split(", ").map((city) => ({
+            "@type": "City",
+            name: city,
+          })),
+          seller: {
+            "@id": "https://planoviversaude.com.br/#organization",
+          },
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Início",
+            item: "https://planoviversaude.com.br",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Planos",
+            item: "https://planoviversaude.com.br/planos",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: plan.name,
+            item: `https://planoviversaude.com.br/planos/${plan.slug}`,
+          },
+        ],
+      },
+    ],
   };
 }
 
@@ -294,8 +385,14 @@ export default async function PlanPage(props: {
     notFound();
   }
 
+  const jsonLd = buildPlanJsonLd(plan);
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Plan Header / Hero */}
       <section className="bg-gradient-to-br from-primary-dark to-primary text-white py-20 lg:py-28">
         <div className="max-w-7xl mx-auto px-4 lg:px-6">

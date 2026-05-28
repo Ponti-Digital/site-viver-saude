@@ -2,5 +2,13 @@ User-agent: *
 Allow: /
 Disallow: /ponti-admin/
 Disallow: /api/
+Disallow: /busca
+Disallow: /servicos
+
+# Bloqueios de uploads/assets antigos do WordPress (site legado)
+Disallow: /wp-admin/
+Disallow: /wp-login.php
+Disallow: /wp-content/
+Disallow: /wp-includes/
 
 Sitemap: https://planoviversaude.com.br/sitemap.xml

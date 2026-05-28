@@ -3,9 +3,15 @@ import { ContactForm } from "@/components/sections/ContactForm";
 import { SITE, WHATSAPP_URL } from "@/lib/constants/site";
 
 export const metadata = {
-  title: "Contato",
+  title: "Contato — Fale com a Viver Saúde",
   description:
-    "Entre em contato com a Viver Saúde. Fale conosco pelo WhatsApp, telefone ou e-mail. Atendimento em Natal/RN.",
+    "Entre em contato com a Viver Saúde em Natal/RN. WhatsApp (84) 3114-1100, telefone, e-mail contato@planoviversaude.com.br ou formulário online. Ouvidoria e SAC disponíveis.",
+  alternates: { canonical: "/contato" },
+  openGraph: {
+    title: "Contato — Viver Saúde",
+    description: "WhatsApp, telefone e e-mail da Viver Saúde em Natal/RN.",
+    url: "https://planoviversaude.com.br/contato",
+  },
 };
 
 const contactCards = [

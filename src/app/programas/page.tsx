@@ -5,9 +5,15 @@ import { ScrollAnimationWrapper } from "@/components/shared/ScrollAnimationWrapp
 import { ProgramEnrollButton } from "@/components/sections/ProgramEnrollButton";
 
 export const metadata = {
-  title: "Programas de Qualidade de Vida — Viver Melhor 2.6",
+  title: "Programas Viver Melhor 2.6 — Qualidade de Vida",
   description:
-    "Viver Melhor 2.6: o programa de qualidade de vida da Viver Saúde. Linhas de cuidado com foco temático próprio, acompanhamento contínuo e equipe multiprofissional na CASA, em Natal/RN.",
+    "Viver Melhor 2.6: programas de qualidade de vida sem custo adicional. Tempo de Viver (60+), Medida Certa (obesidade) e Viver Sem Limites (fibromialgia). Equipe multiprofissional na CASA em Tirol, Natal/RN.",
+  alternates: { canonical: "/programas" },
+  openGraph: {
+    title: "Viver Melhor 2.6 — Programas Viver Saúde",
+    description: "Programas de qualidade de vida sem custo adicional para beneficiários.",
+    url: "https://planoviversaude.com.br/programas",
+  },
 };
 
 const PHONE_1100_TEL = "tel:+558431141100";

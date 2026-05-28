@@ -6,6 +6,7 @@ export const metadata = {
   title: "Serviços e Benefícios",
   description:
     "Conheça os serviços e benefícios oferecidos pela Viver Saúde: atenção, cuidado contínuo, rede credenciada e comunicação oficial.",
+  robots: { index: false, follow: true },
 };
 
 const servicos = [
