@@ -7,14 +7,14 @@ import { getPlansOrder, reorderBySlug } from "@/lib/supabase/plans";
 export const metadata = {
   title: "Planos",
   description:
-    "Encontre o plano de saúde ideal para você e sua família. Conheça os planos Diamante, Ametista, Quartzo, Turmalina, Rubi, Safira e Topázio da Viver Saúde.",
+    "Encontre o plano de saúde ideal para você e sua família. Conheça os planos Diamante, Quartzo, Turmalina, Rubi, Safira e Topázio da Viver Saúde.",
 };
 
 const plans = [
   {
     name: "Diamante",
     slug: "diamante",
-    tagline: "Plano empresarial completo, com obstetrícia e opção de quarto privativo",
+    tagline: "Mais cuidado, mais conforto, mais tranquilidade.",
     image: "/images/plans/diamante.png",
   },
   {
@@ -26,25 +26,25 @@ const plans = [
   {
     name: "Quartzo",
     slug: "quartzo",
-    tagline: "Plano completo com obstetrícia para empresas e pessoa física",
+    tagline: "Saúde e acolhimento para todos os momentos.",
     image: "/images/plans/quartzo.png",
   },
   {
     name: "Turmalina",
     slug: "turmalina",
-    tagline: "Plano de atenção primária com obstetrícia para empresas e pessoa física",
+    tagline: "Plano de atenção primária com obstetrícia para empresas e coletivo por adesão",
     image: "/images/plans/turmalina.png",
   },
   {
     name: "Rubi",
     slug: "rubi",
-    tagline: "Plano ambulatorial e hospitalar para empresas e pessoa física",
+    tagline: "Plano ambulatorial e hospitalar sem obstetrícia.",
     image: "/images/plans/rubi.png",
   },
   {
     name: "Safira",
     slug: "safira",
-    tagline: "Plano sênior ambulatorial e hospitalar para pessoa física e por adesão",
+    tagline: "Um plano pensado para o bem-estar e a longevidade.",
     image: "/images/plans/safira.png",
   },
   {
@@ -55,41 +55,9 @@ const plans = [
   },
 ];
 
-type CellValue = boolean | "partial" | string;
-
-const comparisonRows: { label: string; bySlug: Record<string, CellValue>; note?: string }[] = [
-  { label: "Consultas e exames ambulatoriais", bySlug: { diamante: true, ametista: true, quartzo: true, turmalina: true, rubi: true, safira: true, topazio: true } },
-  { label: "Internação hospitalar", bySlug: { diamante: true, ametista: true, quartzo: true, turmalina: true, rubi: true, safira: true, topazio: false } },
-  { label: "Cobertura obstétrica (parto)", bySlug: { diamante: true, ametista: true, quartzo: true, turmalina: true, rubi: "partial", safira: false, topazio: false }, note: "Rubi: disponível apenas na modalidade por adesão" },
-  { label: "Urgência e emergência", bySlug: { diamante: true, ametista: true, quartzo: true, turmalina: true, rubi: true, safira: true, topazio: true } },
-  { label: "Cirurgias e procedimentos", bySlug: { diamante: true, ametista: true, quartzo: true, turmalina: true, rubi: true, safira: true, topazio: false } },
-  { label: "Quimioterapia e radioterapia", bySlug: { diamante: true, ametista: true, quartzo: true, turmalina: true, rubi: true, safira: true, topazio: true } },
-  { label: "Opção de quarto privativo", bySlug: { diamante: true, ametista: false, quartzo: true, turmalina: false, rubi: false, safira: true, topazio: false } },
-  { label: "Sem coparticipação", bySlug: { diamante: false, ametista: false, quartzo: false, turmalina: false, rubi: false, safira: false, topazio: false } },
-  { label: "Telemedicina inclusa", bySlug: { diamante: true, ametista: true, quartzo: true, turmalina: true, rubi: true, safira: true, topazio: true } },
-  { label: "Seguro de vida incluso", bySlug: { diamante: "R$ 50K", ametista: "R$ 50K", quartzo: "R$ 30K", turmalina: "R$ 30K", rubi: "R$ 30K", safira: "R$ 30K", topazio: "R$ 15K" } },
-  { label: "Benefício Pet incluso", bySlug: { diamante: true, ametista: true, quartzo: true, turmalina: true, rubi: true, safira: true, topazio: true } },
-  { label: "Disponível para empresas", bySlug: { diamante: true, ametista: true, quartzo: true, turmalina: true, rubi: true, safira: false, topazio: true } },
-  { label: "Disponível para pessoa física", bySlug: { diamante: false, ametista: false, quartzo: true, turmalina: true, rubi: true, safira: true, topazio: false } },
-  { label: "Disponível por adesão", bySlug: { diamante: true, ametista: true, quartzo: true, turmalina: false, rubi: true, safira: true, topazio: false } },
-  { label: "Foco em atenção primária", bySlug: { diamante: false, ametista: false, quartzo: false, turmalina: true, rubi: false, safira: false, topazio: false } },
-  { label: "Foco no público sênior", bySlug: { diamante: false, ametista: false, quartzo: false, turmalina: false, rubi: false, safira: true, topazio: false } },
-];
-
-const comparisonPlans = [
-  { name: "Diamante", slug: "diamante" },
-  { name: "Ametista", slug: "ametista" },
-  { name: "Quartzo", slug: "quartzo" },
-  { name: "Turmalina", slug: "turmalina" },
-  { name: "Rubi", slug: "rubi" },
-  { name: "Safira", slug: "safira" },
-  { name: "Topázio", slug: "topazio" },
-];
-
 export default async function PlanosPage() {
   const { slugs, activeSlugs } = await getPlansOrder();
   const orderedPlans = reorderBySlug(plans, slugs, activeSlugs);
-  const orderedComparisonPlans = reorderBySlug(comparisonPlans, slugs, activeSlugs);
 
   return (
     <>
@@ -141,97 +109,6 @@ export default async function PlanosPage() {
               </ScrollAnimationWrapper>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Tabela Comparativa */}
-      <section className="py-16 lg:py-24 bg-card">
-        <div className="container mx-auto px-4">
-          <ScrollAnimationWrapper>
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Compare os planos
-              </h2>
-              <p className="text-muted text-lg max-w-2xl mx-auto">
-                Veja lado a lado o que cada plano oferece e escolha o que faz mais sentido para você.
-              </p>
-            </div>
-          </ScrollAnimationWrapper>
-
-          <ScrollAnimationWrapper>
-            <div className="overflow-x-auto -mx-4 px-4 pb-4">
-              <table className="w-full min-w-[800px] border-collapse">
-                <thead>
-                  <tr>
-                    <th className="sticky left-0 z-10 bg-white text-left py-4 px-4 text-sm font-semibold text-muted border-b-2 border-border min-w-[200px]">
-                      Cobertura
-                    </th>
-                    {orderedComparisonPlans.map((p) => (
-                      <th
-                        key={p.slug}
-                        className="py-4 px-3 text-center text-sm font-bold text-foreground border-b-2 border-border whitespace-nowrap"
-                      >
-                        <a href={`/planos/${p.slug}`} className="hover:text-primary transition-colors">
-                          {p.name}
-                        </a>
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {comparisonRows.map((row, rowIdx) => (
-                    <tr
-                      key={rowIdx}
-                      className={rowIdx % 2 === 0 ? "bg-white" : "bg-card/50"}
-                    >
-                      <td className="sticky left-0 z-10 py-3.5 px-4 text-sm text-foreground font-medium border-b border-border/60 min-w-[200px]" style={{ backgroundColor: rowIdx % 2 === 0 ? "white" : "var(--color-card, #f8f9fa)" }}>
-                        {row.label}
-                        {row.note && (
-                          <span className="block text-xs text-muted font-normal mt-0.5">
-                            *{row.note}
-                          </span>
-                        )}
-                      </td>
-                      {orderedComparisonPlans.map((p) => {
-                        const val = row.bySlug[p.slug];
-                        return (
-                        <td
-                          key={p.slug}
-                          className="py-3.5 px-3 text-center border-b border-border/60"
-                        >
-                          {val === true ? (
-                            <svg className="w-6 h-6 mx-auto text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
-                              <circle cx="12" cy="12" r="10" strokeWidth={1.5} className="text-green-100" fill="currentColor" stroke="none" />
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 12.5l3 3 6-6" className="text-green-600" />
-                            </svg>
-                          ) : val === "partial" ? (
-                            <svg className="w-6 h-6 mx-auto text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
-                              <circle cx="12" cy="12" r="10" strokeWidth={1.5} className="text-amber-100" fill="currentColor" stroke="none" />
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h8" className="text-amber-500" />
-                            </svg>
-                          ) : typeof val === "string" ? (
-                            <span className="inline-block px-2.5 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold whitespace-nowrap">
-                              {val}
-                            </span>
-                          ) : (
-                            <svg className="w-6 h-6 mx-auto text-red-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
-                              <circle cx="12" cy="12" r="10" strokeWidth={1.5} className="text-red-50" fill="currentColor" stroke="none" />
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M9 9l6 6M15 9l-6 6" className="text-red-400" />
-                            </svg>
-                          )}
-                        </td>
-                        );
-                      })}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            <p className="text-xs text-muted mt-4 text-center">
-              * Todos os planos seguem o Rol de Procedimentos da ANS. Consulte as condições gerais de cada plano para detalhes completos.
-            </p>
-          </ScrollAnimationWrapper>
         </div>
       </section>
 

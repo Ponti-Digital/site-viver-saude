@@ -44,7 +44,6 @@ export const NAV_ITEMS = [
     href: "/planos",
     children: [
       { label: "Diamante", href: "/planos/diamante" },
-      { label: "Ametista", href: "/planos/ametista" },
       { label: "Quartzo", href: "/planos/quartzo" },
       { label: "Turmalina", href: "/planos/turmalina" },
       { label: "Rubi", href: "/planos/rubi" },
@@ -53,7 +52,6 @@ export const NAV_ITEMS = [
     ],
   },
   { label: "Rede Credenciada", href: "/rede-credenciada" },
-  { label: "Serviços", href: "/servicos" },
   { label: "Programas", href: "/programas" },
   {
     label: "Mais",
