@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { SITE, SOCIAL, NAV_ITEMS, APP_LINKS, WHATSAPP_URL, PORTALS, LGPD } from "@/lib/constants/site";
+import { SITE, SOCIAL, NAV_ITEMS, APP_LINKS, WHATSAPP_URL, PORTALS } from "@/lib/constants/site";
 import { ManageCookiesButton } from "@/components/shared/ManageCookiesButton";
 
 const footerVariants = {
@@ -57,14 +57,13 @@ export function Footer() {
             <p className="text-gray-400 text-sm leading-relaxed mb-6">
               Um plano de saúde para cuidar de você de um jeito mais próximo, acolhedor e descomplicado.
             </p>
-            <div className="flex items-center gap-2 bg-white/10 rounded-lg px-4 py-3">
-              <Image
-                src="/images/ans/ANS.png"
-                alt="Selo ANS - Agência Nacional de Saúde Suplementar"
-                width={40}
-                height={40}
-                className="object-contain"
-              />
+            <div className="flex items-center gap-3 bg-white/10 rounded-lg px-4 py-3">
+              <span
+                className="inline-flex items-center border-2 border-white rounded px-2.5 py-1 text-white font-bold text-sm tracking-tight whitespace-nowrap"
+                aria-label={`Selo ANS - Agência Nacional de Saúde Suplementar, número ${SITE.ansNumber}`}
+              >
+                ANS - n° {SITE.ansNumber}
+              </span>
               <div className="text-xs text-gray-400">
                 <span className="block">Registro ANS</span>
                 <span className="text-white font-medium">N. {SITE.ansNumber}</span>
@@ -215,23 +214,13 @@ export function Footer() {
         </motion.div>
 
         {/* LGPD / Privacidade */}
-        <div className="mt-12 pt-8 border-t border-white/10 grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+        <div className="mt-12 pt-8 border-t border-white/10 grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
           <div>
             <h3 className="text-white font-semibold mb-2">Privacidade e LGPD</h3>
             <p className="text-gray-400 text-xs leading-relaxed">
               Tratamos seus dados conforme a Lei nº 13.709/2018 (LGPD). Conheça nossas políticas e
               exerça seus direitos como titular.
             </p>
-          </div>
-          <div>
-            <h3 className="text-white font-semibold mb-2">Encarregado (DPO)</h3>
-            <p className="text-gray-400 text-xs mb-1">{LGPD.dpoName}</p>
-            <a
-              href={`mailto:${LGPD.dpoEmail}`}
-              className="text-gray-300 hover:text-accent text-xs transition-colors"
-            >
-              {LGPD.dpoEmail}
-            </a>
           </div>
           <div>
             <h3 className="text-white font-semibold mb-2">Cookies</h3>
