@@ -3,7 +3,7 @@ export const SITE = {
   tagline: "Plano de Saúde em Natal/RN",
   phone: "(84) 3114-1100",
   phoneRaw: "558431141100",
-  phoneSac: "(84) 3311-1411",
+  phoneSac: "(84) 3114-1100",
   email: "contato@planoviversaude.com.br",
   url: "https://planoviversaude.com.br",
   address: "Natal, RN",
