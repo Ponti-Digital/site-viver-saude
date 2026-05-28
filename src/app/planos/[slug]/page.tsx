@@ -312,21 +312,34 @@ export default async function PlanPage(props: {
                 {plan.description}
               </p>
 
-              {/* Price card */}
+              {/* Preço inline tipográfico */}
               <ScrollAnimationWrapper>
-                <div className="bg-white rounded-2xl p-6 mb-8 inline-block min-w-[220px]">
-                  <p className="text-xs uppercase tracking-wider text-mata-700 font-semibold mb-1">
-                    A partir de
-                  </p>
-                  <p className="text-5xl md:text-6xl font-bold text-mata-900 leading-none">
-                    <sup className="text-xl font-semibold align-super mr-0.5">R$</sup>
-                    {plan.priceRaw.replace("R$ ", "")}
-                  </p>
-                  <p className="text-sm text-muted mt-1">/mês</p>
-                  {plan.slug === "safira" && (
-                    <p className="text-xs text-muted mt-1">faixa 59+ anos</p>
-                  )}
-                </div>
+                {(() => {
+                  const value = plan.priceRaw.replace("R$ ", "");
+                  const [inteiro, centavos] = value.split(",");
+                  return (
+                    <div className="mt-8 mb-8">
+                      <p className="text-xs font-medium tracking-[0.18em] uppercase text-accent/90 mb-2">
+                        A partir de
+                      </p>
+                      <div className="flex items-baseline gap-1 text-white">
+                        <span className="text-2xl md:text-3xl font-medium text-white/70 mr-1">R$</span>
+                        <span className="text-6xl md:text-7xl font-bold leading-none tracking-tight tabular-nums">
+                          {inteiro}
+                        </span>
+                        {centavos && (
+                          <span className="text-3xl md:text-4xl font-bold leading-none text-white/85 tabular-nums">
+                            ,{centavos}
+                          </span>
+                        )}
+                        <span className="text-base md:text-lg font-medium text-white/60 ml-2">/mês</span>
+                      </div>
+                      {plan.slug === "safira" && (
+                        <p className="text-sm text-white/60 mt-2">faixa 59+ anos</p>
+                      )}
+                    </div>
+                  );
+                })()}
               </ScrollAnimationWrapper>
 
               <div className="flex flex-col sm:flex-row gap-4">
