@@ -45,8 +45,7 @@ const sections = [
     title: "5. Bases legais (art. 7º e art. 11 LGPD)",
     list: [
       "Consentimento explícito do titular (formulários e cookies não essenciais).",
-      "Execução de contrato (relação de plano de saúde).",
-      "Cumprimento de obrigação legal e regulatória (ANS, CDC, Código Civil).",
+      "Execução de contrato, cumprimento de obrigação legal ou regulatória e exercício regular de direitos, conforme arts. 7º, V, II e VI da LGPD, quando aplicáveis.",
       'Tutela da saúde, em procedimento realizado por profissionais de saúde (art. 11, II, "f").',
       "Legítimo interesse, com avaliação de impacto, para segurança e prevenção a fraude.",
     ],

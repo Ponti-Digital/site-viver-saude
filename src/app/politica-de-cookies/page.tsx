@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 const cookieCategories = [
   {
-    name: "Cookies Essenciais",
+    name: "Cookies necessários",
     required: true,
     purpose:
       "Necessários para o funcionamento básico do site (navegação, sessão, preferências de consentimento e segurança). Não podem ser desativados.",
@@ -21,22 +21,37 @@ const cookieCategories = [
       "vs_consent — armazena suas preferências de cookies",
       "sb-* — sessão de autenticação Supabase (somente em áreas logadas)",
     ],
+    retention:
+      "Durante a sessão de navegação ou por até 12 meses, conforme a finalidade específica do cookie e os requisitos de segurança da informação.",
   },
   {
-    name: "Cookies de Desempenho/Análise",
+    name: "Cookies funcionais",
+    required: false,
+    purpose:
+      "Permitem que o site lembre escolhas que você faz (como preferências de exibição) e ofereça funcionalidades aprimoradas. Só são instalados após seu consentimento.",
+    examples: [],
+    retention: "Até 6 meses, podendo variar conforme a funcionalidade utilizada.",
+  },
+  {
+    name: "Cookies analíticos / de desempenho",
     required: false,
     purpose:
       "Coletam informações agregadas sobre como os visitantes usam o site, ajudando-nos a melhorar a experiência. Só são instalados após seu consentimento.",
     examples: [
-      "(Se ativado) Ferramentas como Google Analytics 4, com IP anonimizado",
+      "Google Analytics 4 (GA4), Google Tag Manager ou outras ferramentas de análise de navegação eventualmente utilizadas por nosso site",
     ],
+    retention: "Até 14 meses.",
   },
   {
-    name: "Cookies de Marketing",
+    name: "Cookies de marketing e publicidade",
     required: false,
     purpose:
-      "Utilizados para personalização de anúncios e mensuração de campanhas. Só são instalados após seu consentimento.",
-    examples: ["(Se ativado) Meta Pixel, Google Ads"],
+      "Utilizados para personalização de anúncios, mensuração de campanhas e remarketing. Só são instalados após seu consentimento.",
+    examples: [
+      "Meta Pixel (Facebook/Instagram), Google Ads Conversion Tracking, Google Remarketing ou outras tecnologias de publicidade eventualmente utilizadas pela Viver",
+    ],
+    retention:
+      "Até 6 meses, podendo variar conforme as configurações da plataforma parceira.",
   },
 ];
 
@@ -109,12 +124,17 @@ export default function PoliticaCookiesPage() {
                   {cat.examples.length > 0 && (
                     <>
                       <h3 className="font-semibold text-foreground text-sm mb-2">Exemplos:</h3>
-                      <ul className="list-disc pl-6 space-y-1 text-muted text-sm">
+                      <ul className="list-disc pl-6 space-y-1 text-muted text-sm mb-4">
                         {cat.examples.map((ex, i) => (
                           <li key={i}>{ex}</li>
                         ))}
                       </ul>
                     </>
+                  )}
+                  {cat.retention && (
+                    <p className="text-muted text-sm leading-relaxed">
+                      <strong className="text-foreground">Retenção típica:</strong> {cat.retention}
+                    </p>
                   )}
                 </article>
               </ScrollAnimationWrapper>
