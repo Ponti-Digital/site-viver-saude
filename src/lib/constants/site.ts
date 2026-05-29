@@ -1,5 +1,7 @@
 export const SITE = {
   name: "Viver Saúde",
+  legalName: "Viver Saúde LTDA",
+  cnpj: "58.054.221/0001-22",
   tagline: "Plano de Saúde em Natal/RN",
   phone: "(84) 3114-1100",
   phoneRaw: "558431141100",
@@ -8,6 +10,11 @@ export const SITE = {
   url: "https://planoviversaude.com.br",
   address: "Natal, RN",
   ansNumber: "424480",
+} as const;
+
+export const DEVELOPED_BY = {
+  name: "Ponti Digital",
+  url: "https://pontidigital.com.br/",
 } as const;
 
 export const LGPD = {
