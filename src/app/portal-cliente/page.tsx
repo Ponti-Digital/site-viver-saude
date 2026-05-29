@@ -6,6 +6,8 @@ export const metadata = {
   title: "Portal do Cliente",
   description:
     "Acesse o Portal do Cliente Viver Saúde para consultar boletos, autorizações, guias e informações do seu plano de saúde.",
+  alternates: { canonical: "/portal-cliente" },
+  robots: { index: false, follow: true },
 };
 
 export default function PortalClientePage() {

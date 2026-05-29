@@ -3,14 +3,22 @@ module.exports = {
   siteUrl: "https://planoviversaude.com.br",
   generateRobotsTxt: false,
   exclude: [
+    "/ponti-admin",
     "/ponti-admin/*",
     "/api/*",
     "/busca",
     "/servicos", // rota órfã — não exposta na navegação
+    "/portal-cliente", // gateway noindex (redirect externo Solus)
+    "/area-prestador", // gateway noindex (redirect externo Solus)
   ],
   changefreq: "weekly",
   priority: 0.7,
   autoLastmod: true,
+  additionalPaths: async (config) => [
+    // Rotas que o auto-discover do next-sitemap pula no build do Next 16 (sem .html físico).
+    await config.transform(config, "/"),
+    await config.transform(config, "/planos"),
+  ],
   transform: async (config, path) => {
     const priorities = {
       "/": 1.0,
@@ -29,8 +37,6 @@ module.exports = {
       "/contato": 0.8,
       "/faq": 0.7,
       "/noticias": 0.6,
-      "/portal-cliente": 0.5,
-      "/area-prestador": 0.5,
       "/politica-de-privacidade": 0.3,
       "/politica-de-cookies": 0.3,
       "/termos-de-uso": 0.3,
@@ -41,7 +47,8 @@ module.exports = {
       loc: path,
       changefreq: config.changefreq,
       priority: priorities[path] ?? config.priority,
-      lastmod: new Date().toISOString(),
+      // lastmod intencionalmente omitido: autoLastmod usa mtime real do arquivo gerado.
+      // lastmod sintético (= build time) é ignorado pelo Google e prejudica re-crawl.
     };
   },
 };

@@ -18,6 +18,7 @@ interface NoticiaItem {
   titulo: string;
   resumo: string;
   data: string;
+  dataIso: string;
   fonte: string;
   fonteUrl: string;
   categoria: string;
@@ -31,6 +32,7 @@ const noticias: NoticiaItem[] = [
     resumo:
       "O colunista Thiago Cavalcanti destaca a chegada de um novo plano de saúde em Natal com proposta focada em atendimento integrado e medicina preventiva.",
     data: "11 de novembro de 2025",
+    dataIso: "2025-11-11",
     fonte: "Tribuna do Norte — Blog Thiago Cavalcanti",
     fonteUrl: "https://blog.tribunadonorte.com.br/thiagocavalcanti/viver-saude/",
     categoria: "Na mídia",
@@ -43,6 +45,7 @@ const noticias: NoticiaItem[] = [
     resumo:
       "Sob liderança da CEO Dra. Eva Rodrigues, o Viver Saúde estreia em Natal oferecendo planos adaptáveis, programas de atenção à saúde e acompanhamento contínuo.",
     data: "11 de novembro de 2025",
+    dataIso: "2025-11-11",
     fonte: "Agora RN",
     fonteUrl:
       "https://agorarn.com.br/ultimas/viver-saude-chega-a-natal-proposta-inovadora-medicina-integrativa/",
@@ -56,6 +59,7 @@ const noticias: NoticiaItem[] = [
     resumo:
       "O setor de saúde complementar do Rio Grande do Norte recebe novo operador com o lançamento do Viver Saúde em Natal, com foco em atenção integral e prevenção.",
     data: "10 de novembro de 2025",
+    dataIso: "2025-11-10",
     fonte: "Tribuna do Norte",
     fonteUrl:
       "https://tribunadonorte.com.br/economia/chegada-do-viver-saude-movimenta-segmento-de-planos-no-estado/",
@@ -70,6 +74,7 @@ const noticias: NoticiaItem[] = [
     resumo:
       "Uma operadora de saúde inédita é lançada em Natal com modelo focado em prevenção e atenção integral, com clínicas próprias nas zonas Norte, Sul e Central.",
     data: "10 de novembro de 2025",
+    dataIso: "2025-11-10",
     fonte: "NOVO Notícias",
     fonteUrl:
       "https://www.novonoticias.com.br/viver-saude-chega-ao-rn-com-proposta-inovadora-de-cuidado-integrado-e-medicina-preventiva/",
@@ -84,6 +89,7 @@ const noticias: NoticiaItem[] = [
     resumo:
       "O Viver Saúde é lançado em Natal com foco em medicina integrativa e prevenção, contando com clínicas próprias estrategicamente distribuídas pela capital potiguar.",
     data: "10 de novembro de 2025",
+    dataIso: "2025-11-10",
     fonte: "Blog do BG",
     fonteUrl:
       "https://www.blogdobg.com.br/viver-saude-chega-ao-rio-grande-do-norte-com-proposta-inovadora-de-cuidado-integrado-e-medicina-preventiva/",
@@ -93,9 +99,36 @@ const noticias: NoticiaItem[] = [
   },
 ];
 
+const noticiasJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Notícias Viver Saúde",
+  description: "Cobertura da mídia sobre a Viver Saúde em Natal/RN.",
+  numberOfItems: noticias.length,
+  itemListElement: noticias.map((n, idx) => ({
+    "@type": "ListItem",
+    position: idx + 1,
+    item: {
+      "@type": "NewsArticle",
+      headline: n.titulo,
+      description: n.resumo,
+      datePublished: n.dataIso,
+      url: n.fonteUrl,
+      isBasedOn: n.fonteUrl,
+      publisher: { "@type": "Organization", name: n.fonte },
+      about: { "@id": "https://planoviversaude.com.br/#organization" },
+      ...(n.thumbnail ? { image: n.thumbnail } : {}),
+    },
+  })),
+};
+
 export default function NoticiasPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(noticiasJsonLd) }}
+      />
       {/* Header banner */}
       <section className="bg-gradient-to-br from-primary-dark to-primary py-14 lg:py-18">
         <div className="container mx-auto px-4">

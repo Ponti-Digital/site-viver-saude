@@ -6,6 +6,8 @@ export const metadata = {
   title: "Área do Prestador",
   description:
     "Acesse a área exclusiva para prestadores credenciados da Viver Saúde. Consulte guias, autorizações e informações do seu cadastro.",
+  alternates: { canonical: "/area-prestador" },
+  robots: { index: false, follow: true },
 };
 
 export default function AreaPrestadorPage() {
