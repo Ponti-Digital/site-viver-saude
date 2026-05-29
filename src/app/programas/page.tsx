@@ -16,6 +16,47 @@ export const metadata = {
   },
 };
 
+const programasJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Início", item: "https://planoviversaude.com.br" },
+        { "@type": "ListItem", position: 2, name: "Programas Viver Melhor", item: "https://planoviversaude.com.br/programas" },
+      ],
+    },
+    {
+      "@type": "MedicalTherapy",
+      "@id": "https://planoviversaude.com.br/programas#tempo-de-viver",
+      name: "Tempo de Viver 2.6",
+      description:
+        "Programa de cuidado integral para beneficiários 60+ com acompanhamento multiprofissional, foco em prevenção, autonomia e qualidade de vida.",
+      provider: { "@id": "https://planoviversaude.com.br/#organization" },
+      recognizingAuthority: { "@type": "Organization", name: "ANS — Agência Nacional de Saúde Suplementar" },
+      audience: { "@type": "PeopleAudience", suggestedMinAge: 60 },
+    },
+    {
+      "@type": "MedicalTherapy",
+      "@id": "https://planoviversaude.com.br/programas#viver-na-medida-certa",
+      name: "Viver na Medida Certa 2.6",
+      description:
+        "Programa de tratamento da obesidade com equipe multiprofissional (nutrição, medicina, educação física, psicologia), sem custo adicional.",
+      provider: { "@id": "https://planoviversaude.com.br/#organization" },
+      relevantSpecialty: ["Endocrinology", "Nutrition"],
+    },
+    {
+      "@type": "MedicalTherapy",
+      "@id": "https://planoviversaude.com.br/programas#viver-sem-limites",
+      name: "Viver Sem Limites 2.6",
+      description:
+        "Programa de acompanhamento de fibromialgia com abordagem multidisciplinar para controle da dor crônica e melhora da qualidade de vida.",
+      provider: { "@id": "https://planoviversaude.com.br/#organization" },
+      relevantSpecialty: ["Rheumatology", "Psychiatry", "PhysicalTherapy"],
+    },
+  ],
+};
+
 const PHONE_1100_TEL = "tel:+558431141100";
 const PHONE_1122_TEL = "tel:+558431141122";
 const WHATSAPP_1100 = "https://wa.me/558431141100";
@@ -309,6 +350,10 @@ const CASA_ITEMS = [
 export default function ProgramasPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(programasJsonLd) }}
+      />
       {/* Bloco 1 — Hero */}
       <section className="bg-gradient-to-br from-primary-light via-white to-accent/5 py-20 lg:py-28">
         <div className="max-w-7xl mx-auto px-4 lg:px-6">

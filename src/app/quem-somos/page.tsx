@@ -15,6 +15,15 @@ export const metadata = {
   },
 };
 
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Início", item: "https://planoviversaude.com.br" },
+    { "@type": "ListItem", position: 2, name: "Quem Somos", item: "https://planoviversaude.com.br/quem-somos" },
+  ],
+};
+
 const valores = [
   {
     title: "Missão",
@@ -61,6 +70,10 @@ const diferenciais = [
 export default function QuemSomosPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       {/* Hero Banner */}
       <section className="bg-gradient-to-br from-primary-dark to-primary text-white py-20 lg:py-28">
         <div className="container mx-auto px-4 text-center">

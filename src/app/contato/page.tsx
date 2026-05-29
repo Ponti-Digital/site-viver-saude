@@ -14,6 +14,15 @@ export const metadata = {
   },
 };
 
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Início", item: "https://planoviversaude.com.br" },
+    { "@type": "ListItem", position: 2, name: "Contato", item: "https://planoviversaude.com.br/contato" },
+  ],
+};
+
 const contactCards = [
   {
     title: "WhatsApp",
@@ -68,6 +77,10 @@ const contactCards = [
 export default function ContatoPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       {/* Hero */}
       <section className="bg-gradient-to-br from-primary-dark to-primary text-white py-20 lg:py-28">
         <div className="max-w-7xl mx-auto px-4 lg:px-6 text-center">
