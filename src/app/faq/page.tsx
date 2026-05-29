@@ -27,24 +27,6 @@ const planosTabela: Array<{
   area: string;
 }> = [
   {
-    registro: "506.795/25-2",
-    nome: "AMETISTA CA QC",
-    segmentacao: "Ambulatorial + Hospitalar com obstetrícia",
-    contratacao: "Coletivo por adesão",
-    fator: "Co-participação",
-    acomodacao: "Coletivo",
-    area: "Canguaretama, São Gonçalo do Amarante, São José de Mipibu, Parnamirim, Macaíba, Goianinha, Natal, Ceará-Mirim, Extremoz",
-  },
-  {
-    registro: "506.794/25-4",
-    nome: "AMETISTA CE QC",
-    segmentacao: "Ambulatorial + Hospitalar com obstetrícia",
-    contratacao: "Coletivo empresarial",
-    fator: "Co-participação",
-    acomodacao: "Coletivo",
-    area: "Canguaretama, São Gonçalo do Amarante, São José de Mipibu, Parnamirim, Macaíba, Goianinha, Natal, Ceará-Mirim, Extremoz",
-  },
-  {
     registro: "506.797/25-9",
     nome: "DIAMANTE CA QC",
     segmentacao: "Ambulatorial + Hospitalar com obstetrícia",
@@ -79,24 +61,6 @@ const planosTabela: Array<{
     fator: "Co-participação",
     acomodacao: "Individual",
     area: "Canguaretama, Nísia Floresta, São Gonçalo do Amarante, Açu, Caicó, Guamaré, Pendências, São José de Mipibu, Parnamirim, Extremoz, Goianinha, Mossoró, Alto do Rodrigues, Natal, Ceará-Mirim, Currais Novos, Macaíba, Macau, Pau dos Ferros",
-  },
-  {
-    registro: "506.800/25-2",
-    nome: "ESMERALDA CA QC",
-    segmentacao: "Hospitalar sem obstetrícia",
-    contratacao: "Coletivo por adesão",
-    fator: "Co-participação",
-    acomodacao: "Coletivo",
-    area: "São Gonçalo do Amarante, Natal, Parnamirim",
-  },
-  {
-    registro: "506.801/25-1",
-    nome: "ESMERALDA CE QC",
-    segmentacao: "Hospitalar sem obstetrícia",
-    contratacao: "Coletivo empresarial",
-    fator: "Co-participação",
-    acomodacao: "Coletivo",
-    area: "São Gonçalo do Amarante, Natal, Parnamirim",
   },
   {
     registro: "504.286/25-1",
@@ -224,15 +188,6 @@ const planosTabela: Array<{
     acomodacao: "Coletivo",
     area: "São Gonçalo do Amarante, Natal, Parnamirim",
   },
-  {
-    registro: "505.560/25-1",
-    nome: "TURQUESA CE QC",
-    segmentacao: "Ambulatorial + Hospitalar com obstetrícia",
-    contratacao: "Coletivo empresarial",
-    fator: "Não possui",
-    acomodacao: "Coletivo",
-    area: "São Gonçalo do Amarante, Natal, Mossoró, Parnamirim",
-  },
 ];
 
 const categorias: FaqCategory[] = [
@@ -242,14 +197,14 @@ const categorias: FaqCategory[] = [
       {
         question: "Quais planos a Viver Saúde oferece?",
         answerText:
-          "A Viver Saúde oferece várias opções de planos: Topázio, Rubi, Safira, Turmalina, Quartzo, Diamante, Ametista, Esmeralda e Turquesa — para pessoa física, empresas e adesão, com coberturas e diferenciais próprios para cada perfil. Acesse a página de Planos para conhecer cada opção.",
+          "A Viver Saúde oferece várias opções de planos: Topázio, Rubi, Safira, Turmalina, Quartzo e Diamante — para pessoa física, empresas e adesão, com coberturas e diferenciais próprios para cada perfil. Acesse a página de Planos para conhecer cada opção.",
         answer: (
           <div className="space-y-4">
             <p>
               A Viver Saúde oferece diversas opções de planos: Topázio, Rubi,
-              Safira, Turmalina, Quartzo, Diamante, Ametista, Esmeralda e
-              Turquesa — para pessoa física, empresas e adesão, com coberturas
-              e diferenciais próprios para cada perfil.{" "}
+              Safira, Turmalina, Quartzo e Diamante — para pessoa física,
+              empresas e adesão, com coberturas e diferenciais próprios para
+              cada perfil.{" "}
               <Link
                 href="/planos"
                 className="text-primary font-semibold hover:underline"
