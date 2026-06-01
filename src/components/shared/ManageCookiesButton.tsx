@@ -3,9 +3,16 @@
 import { Button } from "@/components/ui/Button";
 import { openConsentManager } from "@/lib/utils/cookie-consent";
 
-export function ManageCookiesButton() {
+interface ManageCookiesButtonProps {
+  /** Use "outline-light" em fundos escuros (ex.: footer). Default "outline" para fundos claros. */
+  variant?: "outline" | "outline-light";
+}
+
+export function ManageCookiesButton({
+  variant = "outline",
+}: ManageCookiesButtonProps = {}) {
   return (
-    <Button variant="outline" size="md" onClick={openConsentManager}>
+    <Button variant={variant} size="md" onClick={openConsentManager}>
       Gerenciar preferências de cookies
     </Button>
   );

@@ -224,7 +224,7 @@ export function Footer() {
           </div>
           <div>
             <h3 className="text-white font-semibold mb-2">Cookies</h3>
-            <ManageCookiesButton />
+            <ManageCookiesButton variant="outline-light" />
           </div>
         </div>
       </div>
