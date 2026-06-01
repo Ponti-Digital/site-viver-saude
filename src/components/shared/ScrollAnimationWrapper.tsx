@@ -18,10 +18,13 @@ export function ScrollAnimationWrapper({
 }: ScrollAnimationWrapperProps) {
   const { ref, isInView } = useScrollAnimation();
 
+  // Animação apenas por opacidade — translações (x/y) causam CLS ao deslocar elementos
+  // no layout antes da animação disparar (especialmente em seções acima da fold).
+  // will-change: opacity garante que o navegador não recalcule o layout.
   const directionOffset = {
-    up: { x: 0, y: 40 },
-    left: { x: -40, y: 0 },
-    right: { x: 40, y: 0 },
+    up: { x: 0, y: 0 },
+    left: { x: 0, y: 0 },
+    right: { x: 0, y: 0 },
   };
 
   return (

@@ -60,34 +60,43 @@ export function BannerCarousel() {
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
 
-  if (banners.length === 0) return null;
+  // Reserva espaço durante o carregamento inicial para evitar CLS
+  // Aspect ratios reais: mobile 600×341 (~56.8%), desktop 1920×681 (~35.5%)
+  if (banners.length === 0) {
+    return (
+      <section className="relative w-full">
+        <div className="w-full bg-gray-100 md:hidden" style={{ paddingBottom: "56.83%" }} />
+        <div className="w-full bg-gray-100 hidden md:block" style={{ paddingBottom: "35.47%" }} />
+      </section>
+    );
+  }
 
   return (
     <section className="relative w-full">
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
-          {banners.map((banner) => {
+          {banners.map((banner, index) => {
             const slide = (
               <div className="relative w-full flex-none min-w-0 basis-full">
-                {/* Desktop image */}
+                {/* Desktop image — aspect ratio real: 1920×681 */}
                 <Image
                   src={banner.image_url}
                   alt={banner.alt_text || banner.title}
                   width={1920}
-                  height={600}
+                  height={681}
                   className="w-full h-auto hidden md:block"
                   sizes="100vw"
-                  priority
+                  priority={index === 0}
                 />
-                {/* Mobile image (fallback to desktop) */}
+                {/* Mobile image — aspect ratio real: 600×341 */}
                 <Image
                   src={banner.image_mobile_url || banner.image_url}
                   alt={banner.alt_text || banner.title}
                   width={600}
-                  height={600}
+                  height={341}
                   className="w-full h-auto md:hidden"
                   sizes="100vw"
-                  priority
+                  priority={index === 0}
                 />
               </div>
             );
