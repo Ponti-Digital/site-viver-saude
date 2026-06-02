@@ -78,26 +78,31 @@ export function BannerCarousel() {
           {banners.map((banner, index) => {
             const slide = (
               <div className="relative w-full flex-none min-w-0 basis-full">
-                {/* Desktop image — aspect ratio real: 1920×681 */}
-                <Image
-                  src={banner.image_url}
-                  alt={banner.alt_text || banner.title}
-                  width={1920}
-                  height={681}
-                  className="w-full h-auto hidden md:block"
-                  sizes="100vw"
-                  priority={index === 0}
-                />
+                {/* Desktop image — aspect ratio real: 1920×681.
+                    fill + object-cover evita o mismatch de proporção que o
+                    otimizador (sharp) introduz ao arredondar a altura; o
+                    container reserva o espaço exato (CLS). */}
+                <div className="relative hidden md:block w-full aspect-[1920/681]">
+                  <Image
+                    src={banner.image_url}
+                    alt={banner.alt_text || banner.title}
+                    fill
+                    className="object-cover"
+                    sizes="100vw"
+                    priority={index === 0}
+                  />
+                </div>
                 {/* Mobile image — aspect ratio real: 600×341 */}
-                <Image
-                  src={banner.image_mobile_url || banner.image_url}
-                  alt={banner.alt_text || banner.title}
-                  width={600}
-                  height={341}
-                  className="w-full h-auto md:hidden"
-                  sizes="100vw"
-                  priority={index === 0}
-                />
+                <div className="relative md:hidden w-full aspect-[600/341]">
+                  <Image
+                    src={banner.image_mobile_url || banner.image_url}
+                    alt={banner.alt_text || banner.title}
+                    fill
+                    className="object-cover"
+                    sizes="100vw"
+                    priority={index === 0}
+                  />
+                </div>
               </div>
             );
 
