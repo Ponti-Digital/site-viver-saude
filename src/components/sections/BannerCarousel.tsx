@@ -5,19 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import useEmblaCarousel from "embla-carousel-react";
 import { createClient } from "@/lib/supabase/client";
+import type { Banner } from "@/lib/supabase/banners";
 
-interface Banner {
-  id: string;
-  title: string;
-  image_url: string;
-  image_mobile_url: string | null;
-  link_url: string | null;
-  link_target: string;
-  alt_text: string | null;
-}
-
-export function BannerCarousel() {
-  const [banners, setBanners] = useState<Banner[]>([]);
+export function BannerCarousel({ initialBanners = [] }: { initialBanners?: Banner[] }) {
+  const [banners, setBanners] = useState<Banner[]>(initialBanners);
   const [current, setCurrent] = useState(0);
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -27,6 +18,10 @@ export function BannerCarousel() {
   });
 
   useEffect(() => {
+    // Os banners já vêm do servidor (SSR) via initialBanners — o que coloca a
+    // imagem LCP no HTML inicial. Só buscamos no cliente como fallback, caso a
+    // lista venha vazia (ex.: falha no SSR).
+    if (initialBanners.length > 0) return;
     async function fetchBanners() {
       const supabase = createClient();
       const { data } = await supabase
@@ -37,7 +32,7 @@ export function BannerCarousel() {
       if (data && data.length > 0) setBanners(data);
     }
     fetchBanners();
-  }, []);
+  }, [initialBanners.length]);
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;

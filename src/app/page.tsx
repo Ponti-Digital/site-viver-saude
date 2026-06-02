@@ -5,12 +5,16 @@ import { BenefitsGrid } from "@/components/sections/BenefitsGrid";
 import { QuickAccessSection } from "@/components/sections/QuickAccessSection";
 import { CTASection } from "@/components/sections/CTASection";
 import { getPlansOrder } from "@/lib/supabase/plans";
+import { getBanners } from "@/lib/supabase/banners";
 
 export default async function Home() {
-  const { slugs, activeSlugs } = await getPlansOrder();
+  const [{ slugs, activeSlugs }, banners] = await Promise.all([
+    getPlansOrder(),
+    getBanners(),
+  ]);
   return (
     <>
-      <BannerCarousel />
+      <BannerCarousel initialBanners={banners} />
       <WhyViverSection />
       <PlansCarousel slugOrder={slugs} activeSlugs={Array.from(activeSlugs)} />
       <BenefitsGrid />
