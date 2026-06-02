@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    // Inlina o CSS (Tailwind) em <style> no <head> em vez de <link rel="stylesheet">,
+    // eliminando a requisição que bloqueava a renderização (PageSpeed: LCP/FCP).
+    inlineCss: true,
+  },
   images: {
     remotePatterns: [
       {
