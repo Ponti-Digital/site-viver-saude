@@ -1,11 +1,32 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import useEmblaCarousel from "embla-carousel-react";
 import { createClient } from "@/lib/supabase/client";
 import type { Banner } from "@/lib/supabase/banners";
+
+// Art-direction com o otimizador de imagem do Next.
+//
+// Antes usávamos dois <Image fill> (desktop com `hidden md:block` e mobile com
+// `md:hidden`). O navegador baixa <img> mesmo com display:none, então no mobile
+// a versão desktop também era baixada, competindo por banda com o LCP.
+//
+// Um único <picture> com <source media> resolve: o preload scanner lê o HTML
+// SSR antes do JS e baixa SÓ a imagem que casa com o breakpoint. As URLs
+// apontam para /_next/image, então AVIF/WebP e o resize continuam ativos.
+const IMG_QUALITY = 75;
+// Larguras devem existir em images.deviceSizes (default do Next) p/ o otimizador aceitar.
+const MOBILE_WIDTHS = [640, 750, 828, 1080];
+const DESKTOP_WIDTHS = [1080, 1200, 1920, 2048];
+
+function optimized(src: string, w: number) {
+  return `/_next/image?url=${encodeURIComponent(src)}&w=${w}&q=${IMG_QUALITY}`;
+}
+
+function buildSrcSet(src: string, widths: number[]) {
+  return widths.map((w) => `${optimized(src, w)} ${w}w`).join(", ");
+}
 
 export function BannerCarousel({ initialBanners = [] }: { initialBanners?: Banner[] }) {
   const [banners, setBanners] = useState<Banner[]>(initialBanners);
@@ -71,33 +92,32 @@ export function BannerCarousel({ initialBanners = [] }: { initialBanners?: Banne
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
           {banners.map((banner, index) => {
+            const isLcp = index === 0;
+            const desktopSrc = banner.image_url;
+            const mobileSrc = banner.image_mobile_url || banner.image_url;
+            // Aspect ratios reais: mobile 600×341, desktop 1920×681 — o
+            // container reserva o espaço exato em cada breakpoint (evita CLS).
             const slide = (
-              <div className="relative w-full flex-none min-w-0 basis-full">
-                {/* Desktop image — aspect ratio real: 1920×681.
-                    fill + object-cover evita o mismatch de proporção que o
-                    otimizador (sharp) introduz ao arredondar a altura; o
-                    container reserva o espaço exato (CLS). */}
-                <div className="relative hidden md:block w-full aspect-[1920/681]">
-                  <Image
-                    src={banner.image_url}
-                    alt={banner.alt_text || banner.title}
-                    fill
-                    className="object-cover"
+              <div className="relative w-full aspect-[600/341] md:aspect-[1920/681]">
+                <picture>
+                  {/* Desktop só baixa quando a media query casa */}
+                  <source
+                    media="(min-width: 768px)"
+                    srcSet={buildSrcSet(desktopSrc, DESKTOP_WIDTHS)}
                     sizes="100vw"
-                    priority={index === 0}
                   />
-                </div>
-                {/* Mobile image — aspect ratio real: 600×341 */}
-                <div className="relative md:hidden w-full aspect-[600/341]">
-                  <Image
-                    src={banner.image_mobile_url || banner.image_url}
-                    alt={banner.alt_text || banner.title}
-                    fill
-                    className="object-cover"
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={optimized(mobileSrc, 828)}
+                    srcSet={buildSrcSet(mobileSrc, MOBILE_WIDTHS)}
                     sizes="100vw"
-                    priority={index === 0}
+                    alt={banner.alt_text || banner.title}
+                    className="absolute inset-0 h-full w-full object-cover"
+                    decoding="async"
+                    loading={isLcp ? "eager" : "lazy"}
+                    fetchPriority={isLcp ? "high" : "auto"}
                   />
-                </div>
+                </picture>
               </div>
             );
 
