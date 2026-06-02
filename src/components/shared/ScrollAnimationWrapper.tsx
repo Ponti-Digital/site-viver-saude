@@ -1,12 +1,14 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 interface ScrollAnimationWrapperProps {
   children: React.ReactNode;
   className?: string;
   delay?: number;
+  // Mantido por compatibilidade de API. A animação é só de opacidade (translações
+  // x/y causavam CLS), então a direção não altera o efeito visual.
   direction?: "up" | "left" | "right";
 }
 
@@ -14,37 +16,18 @@ export function ScrollAnimationWrapper({
   children,
   className,
   delay = 0,
-  direction = "up",
 }: ScrollAnimationWrapperProps) {
   const { ref, isInView } = useScrollAnimation();
+  const reduce = useReducedMotion();
 
-  // Animação apenas por opacidade — translações (x/y) causam CLS ao deslocar elementos
-  // no layout antes da animação disparar (especialmente em seções acima da fold).
-  // will-change: opacity garante que o navegador não recalcule o layout.
-  const directionOffset = {
-    up: { x: 0, y: 0 },
-    left: { x: 0, y: 0 },
-    right: { x: 0, y: 0 },
-  };
-
+  // Animação apenas por opacidade. Sob prefers-reduced-motion exibimos o
+  // conteúdo já visível, sem fade.
   return (
     <motion.div
       ref={ref}
-      initial={{
-        opacity: 0,
-        x: directionOffset[direction].x,
-        y: directionOffset[direction].y,
-      }}
-      animate={
-        isInView
-          ? { opacity: 1, x: 0, y: 0 }
-          : {
-              opacity: 0,
-              x: directionOffset[direction].x,
-              y: directionOffset[direction].y,
-            }
-      }
-      transition={{ duration: 0.5, delay, ease: "easeOut" }}
+      initial={reduce ? false : { opacity: 0 }}
+      animate={isInView || reduce ? { opacity: 1 } : { opacity: 0 }}
+      transition={{ duration: reduce ? 0 : 0.5, delay: reduce ? 0 : delay, ease: "easeOut" }}
       className={className}
     >
       {children}

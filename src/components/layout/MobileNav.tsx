@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { NAV_ITEMS, SITE, PORTALS, WHATSAPP_URL } from "@/lib/constants/site";
 import { Button } from "@/components/ui/Button";
 
@@ -14,6 +14,7 @@ interface MobileNavProps {
 
 export function MobileNav({ isOpen, onClose }: MobileNavProps) {
   const [expandedItem, setExpandedItem] = useState<string | null>(null);
+  const reduce = useReducedMotion();
 
   useEffect(() => {
     if (isOpen) {
@@ -43,6 +44,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: reduce ? 0 : 0.2 }}
             onClick={onClose}
             className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50"
           />
@@ -52,7 +54,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
-            transition={{ type: "spring", damping: 30, stiffness: 300 }}
+            transition={reduce ? { duration: 0 } : { type: "spring", damping: 30, stiffness: 300 }}
             role="dialog"
             aria-modal="true"
             aria-label="Menu de navegação"
@@ -113,7 +115,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                               initial={{ height: 0, opacity: 0 }}
                               animate={{ height: "auto", opacity: 1 }}
                               exit={{ height: 0, opacity: 0 }}
-                              transition={{ duration: 0.2 }}
+                              transition={{ duration: reduce ? 0 : 0.2 }}
                               className="overflow-hidden"
                             >
                               <div className="pl-6 space-y-1 pb-2">

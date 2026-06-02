@@ -1,17 +1,18 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { WHATSAPP_URL } from "@/lib/constants/site";
 
 export function FloatingWhatsApp() {
+  const reduce = useReducedMotion();
   return (
     <motion.a
       href={WHATSAPP_URL}
       target="_blank"
       rel="noopener noreferrer"
-      initial={{ scale: 0 }}
+      initial={reduce ? false : { scale: 0 }}
       animate={{ scale: 1 }}
-      transition={{ delay: 1, type: "spring", stiffness: 200 }}
+      transition={reduce ? { duration: 0 } : { delay: 1, type: "spring", stiffness: 200 }}
       className="fixed bottom-6 right-6 z-40 w-14 h-14 bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
       aria-label="Fale conosco pelo WhatsApp"
     >

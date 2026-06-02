@@ -304,7 +304,7 @@ export default function DireitosTitularPage() {
                   )}
                 </div>
 
-                <div className="bg-gray-50 rounded-lg p-4">
+                <div className="bg-areia-50 rounded-lg p-4">
                   <label className="flex items-start gap-3 cursor-pointer">
                     <input
                       type="checkbox"

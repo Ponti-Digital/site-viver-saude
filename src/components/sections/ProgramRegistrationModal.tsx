@@ -194,7 +194,7 @@ export function ProgramRegistrationModal({
         <button
           type="button"
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 rounded-lg text-muted hover:text-foreground hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50"
+          className="absolute top-4 right-4 p-2 rounded-lg text-muted hover:text-foreground hover:bg-areia-100 transition-colors outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
           aria-label="Fechar"
         >
           <svg

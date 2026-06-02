@@ -1,7 +1,6 @@
 "use client";
 
 import { ScrollAnimationWrapper } from "@/components/shared/ScrollAnimationWrapper";
-import { Button } from "@/components/ui/Button";
 import { WHATSAPP_URL } from "@/lib/constants/site";
 
 export function CTASection() {
@@ -23,7 +22,7 @@ export function CTASection() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="/quero-ser-cliente"
-              className="inline-flex items-center justify-center font-semibold rounded-lg px-8 py-4 text-lg bg-white text-primary hover:bg-gray-100 shadow-md hover:shadow-lg transition-all duration-300"
+              className="inline-flex items-center justify-center font-semibold rounded-lg px-8 py-4 text-lg bg-white text-primary hover:bg-areia-100 shadow-md hover:shadow-lg transition-all duration-300 outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary-dark"
             >
               Simule seu plano
             </a>
@@ -31,7 +30,7 @@ export function CTASection() {
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center font-semibold rounded-lg px-8 py-4 text-lg border-2 border-white text-white hover:bg-white hover:text-primary transition-all duration-300"
+              className="inline-flex items-center justify-center font-semibold rounded-lg px-8 py-4 text-lg border-2 border-white text-white hover:bg-white hover:text-primary transition-all duration-300 outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary-dark"
             >
               Fale Conosco
             </a>

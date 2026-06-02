@@ -86,7 +86,7 @@ export function QuickAccessSection() {
                   sizes="(max-width: 768px) 100vw, 33vw"
                   className="object-cover object-center"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-emerald-700/40 to-emerald-500/10" />
+                <div className="absolute inset-0 bg-gradient-to-t from-ceu-700/40 to-ceu-500/10" />
                 <div className="absolute bottom-4 left-6">
                   <h3 className="text-white text-xl font-bold">Área Pessoa Jurídica</h3>
                 </div>
