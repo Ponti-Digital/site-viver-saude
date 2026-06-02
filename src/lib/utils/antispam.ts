@@ -1,8 +1,6 @@
-import { createHash } from "crypto";
-
-export function hashIP(ip: string): string {
-  return createHash("sha256").update(ip).digest("hex").slice(0, 16);
-}
+// hashIP foi movido para "@/lib/utils/pii-hash" (HMAC + salt obrigatório).
+// Reexportado aqui apenas para compatibilidade; prefira importar de pii-hash.
+export { hashIP } from "@/lib/utils/pii-hash";
 
 export function isHoneypotFilled(value: string | undefined | null): boolean {
   return !!value && value.trim().length > 0;

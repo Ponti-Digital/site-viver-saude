@@ -1,5 +1,9 @@
 import type { NextConfig } from "next";
 
+// 'unsafe-eval' só é necessário em desenvolvimento (React usa eval para stacks de erro).
+// Em produção, nem React nem Next usam eval por padrão — então ele é removido da CSP.
+const isDev = process.env.NODE_ENV === "development";
+
 const nextConfig: NextConfig = {
   experimental: {
     // Inlina o CSS (Tailwind) em <style> no <head> em vez de <link rel="stylesheet">,
@@ -162,12 +166,19 @@ const nextConfig: NextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com",
+              // 'unsafe-inline' é mantido por causa do GA (next/script inline) e do JSON-LD
+              // estático; migrar para nonce exigiria render dinâmico (regredindo o LCP).
+              // 'unsafe-eval' fica restrito ao dev. CSP com nonce/SRI é um próximo passo possível.
+              `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://www.googletagmanager.com`,
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com",
               "img-src 'self' data: blob: https://*.supabase.co https://images.unsplash.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com",
               "connect-src 'self' https://*.supabase.co https://wa.me https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com",
               "frame-ancestors 'none'",
+              "object-src 'none'",
+              "base-uri 'self'",
+              "form-action 'self'",
+              "upgrade-insecure-requests",
             ].join("; "),
           },
         ],

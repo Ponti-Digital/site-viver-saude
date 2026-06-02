@@ -34,10 +34,28 @@ export async function updateSession(request: NextRequest) {
     request.nextUrl.pathname === "/ponti-admin/login" ||
     request.nextUrl.pathname === "/ponti-admin/reset-password";
 
-  if (isAdminRoute && !isLoginRoute && !user) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/ponti-admin/login";
-    return NextResponse.redirect(url);
+  if (isAdminRoute && !isLoginRoute) {
+    // Sem usuário autenticado -> login.
+    if (!user) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/ponti-admin/login";
+      return NextResponse.redirect(url);
+    }
+
+    // Autenticado mas sem perfil/role válido (ex.: auto-registro) -> negar acesso ao painel.
+    // RLS "Users can view own profile" permite ler o próprio perfil com a anon key + JWT.
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
+
+    if (profile?.role !== "admin" && profile?.role !== "editor") {
+      const url = request.nextUrl.clone();
+      url.pathname = "/ponti-admin/login";
+      url.searchParams.set("erro", "sem-permissao");
+      return NextResponse.redirect(url);
+    }
   }
 
   if (isLoginRoute && user) {

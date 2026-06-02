@@ -4,22 +4,23 @@ import { createAdminClient } from "@/lib/supabase/admin";
 
 async function checkAdmin() {
   const supabase = await createClient();
-  const { data: { session } } = await supabase.auth.getSession();
-  if (!session) return null;
+  // getUser() revalida o JWT no Auth server do Supabase — não confiar em getSession() no servidor.
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return null;
 
   const { data: profile } = await supabase
     .from("profiles")
     .select("role")
-    .eq("id", session.user.id)
+    .eq("id", user.id)
     .single();
 
   if (profile?.role !== "admin") return null;
-  return session;
+  return user;
 }
 
 export async function GET() {
-  const session = await checkAdmin();
-  if (!session) {
+  const user = await checkAdmin();
+  if (!user) {
     return NextResponse.json({ error: "Nao autorizado" }, { status: 401 });
   }
 
@@ -47,8 +48,8 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
-  const session = await checkAdmin();
-  if (!session) {
+  const user = await checkAdmin();
+  if (!user) {
     return NextResponse.json({ error: "Nao autorizado" }, { status: 401 });
   }
 
@@ -91,8 +92,8 @@ export async function POST(request: NextRequest) {
 }
 
 export async function PATCH(request: NextRequest) {
-  const session = await checkAdmin();
-  if (!session) {
+  const user = await checkAdmin();
+  if (!user) {
     return NextResponse.json({ error: "Nao autorizado" }, { status: 401 });
   }
 
@@ -125,8 +126,8 @@ export async function PATCH(request: NextRequest) {
 }
 
 export async function DELETE(request: NextRequest) {
-  const session = await checkAdmin();
-  if (!session) {
+  const user = await checkAdmin();
+  if (!user) {
     return NextResponse.json({ error: "Nao autorizado" }, { status: 401 });
   }
 
@@ -137,7 +138,7 @@ export async function DELETE(request: NextRequest) {
     return NextResponse.json({ error: "ID obrigatorio." }, { status: 400 });
   }
 
-  if (userId === session.user.id) {
+  if (userId === user.id) {
     return NextResponse.json({ error: "Voce nao pode excluir a si mesmo." }, { status: 400 });
   }
 

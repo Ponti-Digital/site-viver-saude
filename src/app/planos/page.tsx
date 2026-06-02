@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/Button";
 import { ScrollAnimationWrapper } from "@/components/shared/ScrollAnimationWrapper";
 import { WHATSAPP_URL } from "@/lib/constants/site";
 import { getPlansOrder, reorderBySlug } from "@/lib/supabase/plans";
+import { jsonLdString } from "@/lib/utils/json-ld";
 
 export const metadata = {
   title: "Planos de Saúde — Diamante, Ametista, Quartzo, Rubi, Safira e Topázio",
@@ -82,7 +83,7 @@ export default async function PlanosPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdString(itemListJsonLd) }}
       />
       {/* Hero */}
       <section className="bg-gradient-to-br from-primary-dark to-primary text-white py-20 lg:py-28">

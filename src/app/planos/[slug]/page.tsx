@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/Button";
 import { ScrollAnimationWrapper } from "@/components/shared/ScrollAnimationWrapper";
 import { PlanStickyBar } from "@/components/sections/PlanStickyBar";
 import { WHATSAPP_URL } from "@/lib/constants/site";
+import { jsonLdString } from "@/lib/utils/json-ld";
 import type { Metadata } from "next";
 
 interface PlanDocument {
@@ -391,7 +392,7 @@ export default async function PlanPage(props: {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdString(jsonLd) }}
       />
       {/* Plan Header / Hero */}
       <section className="bg-gradient-to-br from-primary-dark to-primary text-white py-20 lg:py-28">
