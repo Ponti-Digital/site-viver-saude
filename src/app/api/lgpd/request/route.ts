@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 import { z } from "zod";
-import crypto from "crypto";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { clientIp, hashIP, hashCpf } from "@/lib/utils/pii-hash";
 
 const REQUEST_TYPES = [
   "access",
@@ -30,24 +30,6 @@ const requestSchema = z.object({
   company_website: z.string().optional(),
 });
 
-function hashIP(ip: string): string {
-  return crypto
-    .createHash("sha256")
-    .update(ip + (process.env.IP_HASH_SALT ?? "viver-saude-salt"))
-    .digest("hex")
-    .slice(0, 16);
-}
-
-function hashCpf(cpf: string): string {
-  const onlyDigits = cpf.replace(/\D/g, "");
-  if (!onlyDigits) return "";
-  return crypto
-    .createHash("sha256")
-    .update(onlyDigits + (process.env.IP_HASH_SALT ?? "viver-saude-salt"))
-    .digest("hex")
-    .slice(0, 32);
-}
-
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -68,9 +50,7 @@ export async function POST(request: NextRequest) {
     }
 
     const data = result.data;
-    const forwarded = request.headers.get("x-forwarded-for");
-    const ip = forwarded?.split(",")[0]?.trim() ?? "unknown";
-    const ipHash = hashIP(ip);
+    const ipHash = hashIP(clientIp(request.headers));
 
     const supabase = createAdminClient();
 

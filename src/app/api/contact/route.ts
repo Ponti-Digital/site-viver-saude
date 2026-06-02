@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 import { z } from "zod";
 import { createAdminClient } from "@/lib/supabase/admin";
-import crypto from "crypto";
+import { clientIp, hashIP, hashSubject } from "@/lib/utils/pii-hash";
 
 const contactSchema = z.object({
   name: z.string().min(1, "Nome é obrigatório"),
@@ -12,16 +12,8 @@ const contactSchema = z.object({
   consent: z.boolean().optional(),
   consent_text: z.string().optional(),
   policy_version: z.string().optional(),
-  purposes: z.array(z.string()).optional(),
+  purposes: z.array(z.string()).max(50).optional(),
 });
-
-function hashIP(ip: string): string {
-  return crypto
-    .createHash("sha256")
-    .update(ip + (process.env.IP_HASH_SALT ?? "viver-saude-salt"))
-    .digest("hex")
-    .slice(0, 16);
-}
 
 export async function POST(request: NextRequest) {
   try {
@@ -51,10 +43,8 @@ export async function POST(request: NextRequest) {
 
     const { name, phone, email, plan_interest, message, consent, consent_text, policy_version, purposes } = result.data;
 
-    // Hash IP for rate limiting
-    const forwarded = request.headers.get("x-forwarded-for");
-    const ip = forwarded?.split(",")[0]?.trim() ?? "unknown";
-    const ipHash = hashIP(ip);
+    // Hash IP for rate limiting (IP confiável da plataforma, não o XFF spoofável)
+    const ipHash = hashIP(clientIp(request.headers));
 
     // Rate limit: 5 submissions per hour per IP
     const supabase = createAdminClient();
@@ -104,11 +94,7 @@ export async function POST(request: NextRequest) {
 
     // Registro de consentimento (LGPD art. 8º §1º — prova do consentimento)
     if (consent && consent_text) {
-      const subjectHash = crypto
-        .createHash("sha256")
-        .update(email.toLowerCase().trim() + (process.env.IP_HASH_SALT ?? "viver-saude-salt"))
-        .digest("hex")
-        .slice(0, 32);
+      const subjectHash = hashSubject(email);
 
       const { error: consentErr } = await supabase.from("consent_logs").insert({
         subject_hash: subjectHash,

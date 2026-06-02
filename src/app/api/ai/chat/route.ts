@@ -20,16 +20,39 @@ Sempre responda em português brasileiro.
 Baseie suas sugestões em melhores práticas de UX e dados de pesquisa quando possível.`,
 };
 
+// Rate limit por usuário (best-effort). Em serverless (Netlify) o estado é por
+// instância e pode resetar em cold start — para um limite durável use um store
+// compartilhado (tabela no Supabase ou Upstash/Redis). Mesmo assim, contém abuso
+// de custo em instâncias quentes. Endpoint já é restrito a admin/editor autenticado.
+const RATE_WINDOW_MS = 60_000;
+const RATE_MAX = 20;
+const hits = new Map<string, number[]>();
+
+function isUserRateLimited(userId: string): boolean {
+  const now = Date.now();
+  const recent = (hits.get(userId) ?? []).filter((t) => now - t < RATE_WINDOW_MS);
+  recent.push(now);
+  hits.set(userId, recent);
+  return recent.length > RATE_MAX;
+}
+
 export async function POST(request: Request) {
   try {
-    // Auth check
+    // Auth check — getUser() revalida o JWT no Auth server (não confiar em getSession()).
     const supabase = await createClient();
     const {
-      data: { session },
-    } = await supabase.auth.getSession();
+      data: { user },
+    } = await supabase.auth.getUser();
 
-    if (!session) {
+    if (!user) {
       return Response.json({ error: "Não autorizado" }, { status: 401 });
+    }
+
+    if (isUserRateLimited(user.id)) {
+      return Response.json(
+        { error: "Muitas requisições. Aguarde um instante." },
+        { status: 429 }
+      );
     }
 
     const body = await request.json();
