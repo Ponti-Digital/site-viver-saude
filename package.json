@@ -2,6 +2,16 @@
   "name": "site-viver-saude",
   "version": "0.1.0",
   "private": true,
+  "comment:browserslist": "Piso baseado nos recursos que o PageSpeed acusava como 'JS legado' (Array.prototype.at e Object.hasOwn exigem Chrome 93+/FF 92+/Safari 15.4+, todos de 2021-2022). Define o alvo do SWC do Next para nao transpilar/injetar esses polyfills. Cobre >99% dos usuarios reais.",
+  "browserslist": [
+    "chrome >= 93",
+    "edge >= 93",
+    "firefox >= 92",
+    "safari >= 15.4",
+    "ios_saf >= 15.4",
+    "opera >= 79",
+    "samsung >= 16"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
