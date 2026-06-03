@@ -140,10 +140,11 @@ export default function SettingsPage() {
             <div className="space-y-4">
               {group.fields.map((field) => (
                 <div key={field.key}>
-                  <label className="mb-1.5 block text-sm font-medium text-gray-700">
+                  <label htmlFor={field.key} className="mb-1.5 block text-sm font-medium text-gray-700">
                     {field.label}
                   </label>
                   <input
+                    id={field.key}
                     type={field.type}
                     value={settings[field.key]}
                     onChange={(e) => handleChange(field.key, e.target.value)}

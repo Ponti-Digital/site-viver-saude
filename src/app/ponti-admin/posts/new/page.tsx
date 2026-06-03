@@ -151,10 +151,11 @@ export default function NewPostPage() {
         <div className="rounded-xl bg-white p-6 shadow-sm space-y-5">
           {/* Title */}
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">
+            <label htmlFor="new-post-title" className="mb-1.5 block text-sm font-medium text-gray-700">
               Titulo
             </label>
             <input
+              id="new-post-title"
               type="text"
               value={title}
               onChange={(e) => handleTitleChange(e.target.value)}
@@ -165,10 +166,11 @@ export default function NewPostPage() {
 
           {/* Slug */}
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">
+            <label htmlFor="new-post-slug" className="mb-1.5 block text-sm font-medium text-gray-700">
               Slug
             </label>
             <input
+              id="new-post-slug"
               type="text"
               value={slug}
               onChange={(e) => setSlug(e.target.value)}
@@ -178,10 +180,11 @@ export default function NewPostPage() {
 
           {/* Excerpt */}
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">
+            <label htmlFor="new-post-excerpt" className="mb-1.5 block text-sm font-medium text-gray-700">
               Resumo
             </label>
             <textarea
+              id="new-post-excerpt"
               value={excerpt}
               onChange={(e) => setExcerpt(e.target.value)}
               rows={2}
@@ -192,10 +195,11 @@ export default function NewPostPage() {
 
           {/* Category */}
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">
+            <label htmlFor="new-post-category" className="mb-1.5 block text-sm font-medium text-gray-700">
               Categoria
             </label>
             <select
+              id="new-post-category"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm text-gray-700 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
@@ -211,7 +215,7 @@ export default function NewPostPage() {
 
           {/* Tags */}
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">
+            <label htmlFor="new-post-tags" className="mb-1.5 block text-sm font-medium text-gray-700">
               Tags
             </label>
             <div className="flex flex-wrap gap-2 mb-2">
@@ -226,6 +230,7 @@ export default function NewPostPage() {
               ))}
             </div>
             <input
+              id="new-post-tags"
               type="text"
               value={tagInput}
               onChange={(e) => setTagInput(e.target.value)}
@@ -238,10 +243,11 @@ export default function NewPostPage() {
 
           {/* Content */}
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">
+            <label htmlFor="new-post-content" className="mb-1.5 block text-sm font-medium text-gray-700">
               Conteudo
             </label>
             <textarea
+              id="new-post-content"
               value={content}
               onChange={(e) => setContent(e.target.value)}
               rows={12}
@@ -252,7 +258,7 @@ export default function NewPostPage() {
 
           {/* Cover Image */}
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">
+            <label htmlFor="new-post-cover" className="mb-1.5 block text-sm font-medium text-gray-700">
               Imagem de Capa
             </label>
             <div className="flex items-center gap-4">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 
 interface Submission {
@@ -90,9 +90,8 @@ export default function SubmissionsPage() {
                     sub.utm_term;
 
                   return (
-                    <>
+                    <Fragment key={sub.id}>
                       <tr
-                        key={sub.id}
                         className="cursor-pointer hover:bg-gray-50"
                         onClick={() => toggleExpand(sub.id)}
                       >
@@ -239,7 +238,7 @@ export default function SubmissionsPage() {
                           </td>
                         </tr>
                       )}
-                    </>
+                    </Fragment>
                   );
                 })
               )}
