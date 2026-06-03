@@ -6,68 +6,48 @@ import { motion } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
 import { ScrollAnimationWrapper } from "@/components/shared/ScrollAnimationWrapper";
 import { Button } from "@/components/ui/Button";
+import { PLANS_CONTENT_FALLBACK } from "@/lib/constants/plans-content";
 
-const plans = [
-  {
-    name: "Diamante",
-    slug: "diamante",
-    tagline: "Mais cuidado, mais conforto, mais tranquilidade.",
-    image: "/images/plans/diamante.png",
-    color: "from-cyan-300 to-cyan-500",
-  },
-  {
-    name: "Ametista",
-    slug: "ametista",
-    tagline: "Plano completo com obstetrícia para empresas e por adesão.",
-    image: "/images/plans/ametista.png",
-    color: "from-purple-400 to-purple-600",
-  },
-  {
-    name: "Quartzo",
-    slug: "quartzo",
-    tagline: "Saúde e acolhimento para todos os momentos.",
-    image: "/images/plans/quartzo.png",
-    color: "from-gray-400 to-gray-600",
-  },
-  {
-    name: "Turmalina",
-    slug: "turmalina",
-    tagline: "Plano de atenção primária com obstetrícia para empresas e coletivo por adesão",
-    image: "/images/plans/turmalina.png",
-    color: "from-pink-400 to-pink-600",
-  },
-  {
-    name: "Rubi",
-    slug: "rubi",
-    tagline: "Plano ambulatorial e hospitalar sem obstetrícia.",
-    image: "/images/plans/rubi.png",
-    color: "from-red-400 to-red-600",
-  },
-  {
-    name: "Safira",
-    slug: "safira",
-    tagline: "Um plano pensado para o bem-estar e a longevidade.",
-    image: "/images/plans/safira.png",
-    color: "from-sky-400 to-sky-600",
-  },
-  {
-    name: "Topázio",
-    slug: "topazio",
-    tagline: "Plano ambulatorial empresarial com foco em consultas e prevenção.",
-    image: "/images/plans/topázio.png",
-    color: "from-amber-400 to-amber-600",
-  },
-];
+interface CarouselPlan {
+  name: string;
+  slug: string;
+  tagline: string;
+  image: string;
+  color: string;
+}
 
 interface PlansCarouselProps {
+  /** Lista completa de planos já ordenados e filtrados pelo server component */
+  plans?: CarouselPlan[];
+  /** Legado: slugs em ordem (ignorado se plans for fornecido) */
   slugOrder?: string[];
+  /** Legado: slugs ativos (ignorado se plans for fornecido) */
   activeSlugs?: string[];
 }
 
-export function PlansCarousel({ slugOrder = [], activeSlugs = [] }: PlansCarouselProps = {}) {
-  const orderedPlans = (() => {
+const FALLBACK_PLANS: CarouselPlan[] = Object.values(PLANS_CONTENT_FALLBACK).map((p) => ({
+  name: p.name,
+  slug: p.slug,
+  tagline: p.tagline,
+  image: p.image,
+  color: p.color,
+}));
+
+export function PlansCarousel({
+  plans,
+  slugOrder = [],
+  activeSlugs = [],
+}: PlansCarouselProps = {}) {
+  const orderedPlans: CarouselPlan[] = (() => {
+    // Se o server component passou plans diretamente, usa sem processamento extra
+    if (plans && plans.length > 0) return plans;
+
+    // Fallback legado: ordena/filtra internamente
     const activeSet = new Set(activeSlugs);
-    const filtered = activeSet.size > 0 ? plans.filter((p) => activeSet.has(p.slug)) : plans;
+    const filtered =
+      activeSet.size > 0
+        ? FALLBACK_PLANS.filter((p) => activeSet.has(p.slug))
+        : FALLBACK_PLANS;
     if (slugOrder.length === 0) return filtered;
     const rank = new Map(slugOrder.map((s, i) => [s, i]));
     return [...filtered].sort((a, b) => {

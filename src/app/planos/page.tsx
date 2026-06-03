@@ -2,8 +2,10 @@ import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { ScrollAnimationWrapper } from "@/components/shared/ScrollAnimationWrapper";
 import { WHATSAPP_URL } from "@/lib/constants/site";
-import { getPlansOrder, reorderBySlug } from "@/lib/supabase/plans";
+import { getAllPlansContent } from "@/lib/supabase/plans";
 import { jsonLdString } from "@/lib/utils/json-ld";
+
+export const revalidate = 3600;
 
 export const metadata = {
   title: "Planos de Saúde — Diamante, Ametista, Quartzo, Rubi, Safira e Topázio",
@@ -18,54 +20,8 @@ export const metadata = {
   },
 };
 
-const plans = [
-  {
-    name: "Diamante",
-    slug: "diamante",
-    tagline: "Mais cuidado, mais conforto, mais tranquilidade.",
-    image: "/images/plans/diamante.png",
-  },
-  {
-    name: "Ametista",
-    slug: "ametista",
-    tagline: "Plano completo com obstetrícia para empresas e por adesão",
-    image: "/images/plans/ametista.png",
-  },
-  {
-    name: "Quartzo",
-    slug: "quartzo",
-    tagline: "Saúde e acolhimento para todos os momentos.",
-    image: "/images/plans/quartzo.png",
-  },
-  {
-    name: "Turmalina",
-    slug: "turmalina",
-    tagline: "Plano de atenção primária com obstetrícia para empresas e coletivo por adesão",
-    image: "/images/plans/turmalina.png",
-  },
-  {
-    name: "Rubi",
-    slug: "rubi",
-    tagline: "Plano ambulatorial e hospitalar sem obstetrícia.",
-    image: "/images/plans/rubi.png",
-  },
-  {
-    name: "Safira",
-    slug: "safira",
-    tagline: "Um plano pensado para o bem-estar e a longevidade.",
-    image: "/images/plans/safira.png",
-  },
-  {
-    name: "Topázio",
-    slug: "topazio",
-    tagline: "Plano ambulatorial empresarial com foco em consultas e prevenção",
-    image: "/images/plans/topázio.png",
-  },
-];
-
 export default async function PlanosPage() {
-  const { slugs, activeSlugs } = await getPlansOrder();
-  const orderedPlans = reorderBySlug(plans, slugs, activeSlugs);
+  const orderedPlans = await getAllPlansContent();
 
   const itemListJsonLd = {
     "@context": "https://schema.org",
