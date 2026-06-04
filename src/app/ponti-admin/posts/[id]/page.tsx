@@ -4,15 +4,6 @@ import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
-function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-}
-
 const categories = [
   "Saude",
   "Bem-estar",
@@ -35,6 +26,9 @@ export default function EditPostPage() {
   const [category, setCategory] = useState("");
   const [content, setContent] = useState("");
   const [status, setStatus] = useState<"draft" | "published">("draft");
+  // Guarda o status e published_at originais do banco para evitar sobrescrever a data
+  const [originalStatus, setOriginalStatus] = useState<"draft" | "published">("draft");
+  const [originalPublishedAt, setOriginalPublishedAt] = useState<string | null>(null);
   const [coverFile, setCoverFile] = useState<File | null>(null);
   const [coverPreview, setCoverPreview] = useState<string | null>(null);
   const [existingCover, setExistingCover] = useState<string | null>(null);
@@ -66,6 +60,8 @@ export default function EditPostPage() {
       setCategory(data.category ?? "");
       setContent(typeof data.content === "string" ? data.content : JSON.stringify(data.content));
       setStatus(data.status);
+      setOriginalStatus(data.status);
+      setOriginalPublishedAt(data.published_at ?? null);
       setExistingCover(data.cover_image_url);
       setTags(data.tags ?? []);
       setMetaTitle(data.meta_title ?? "");
@@ -79,7 +75,8 @@ export default function EditPostPage() {
 
   const handleTitleChange = (value: string) => {
     setTitle(value);
-    setSlug(slugify(value));
+    // Slug travado em posts já existentes: não regenerar ao editar título
+    // (em posts/new/page.tsx o auto-slug permanece ativo)
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -159,8 +156,14 @@ export default function EditPostPage() {
       updated_at: new Date().toISOString(),
     };
 
+    // Só define published_at na transição draft → published.
+    // Em saves de post já publicado, preserva a data original.
     if (status === "published") {
-      updateData.published_at = new Date().toISOString();
+      if (originalStatus === "draft" || !originalPublishedAt) {
+        updateData.published_at = new Date().toISOString();
+      } else {
+        updateData.published_at = originalPublishedAt;
+      }
     }
 
     const { error: updateError } = await supabase
@@ -199,10 +202,11 @@ export default function EditPostPage() {
         <div className="rounded-xl bg-white p-6 shadow-sm space-y-5">
           {/* Title */}
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">
+            <label htmlFor="post-title" className="mb-1.5 block text-sm font-medium text-gray-700">
               Titulo
             </label>
             <input
+              id="post-title"
               type="text"
               value={title}
               onChange={(e) => handleTitleChange(e.target.value)}
@@ -212,23 +216,30 @@ export default function EditPostPage() {
 
           {/* Slug */}
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">
+            <label htmlFor="post-slug" className="mb-1.5 block text-sm font-medium text-gray-700">
               Slug
             </label>
             <input
+              id="post-slug"
               type="text"
               value={slug}
               onChange={(e) => setSlug(e.target.value)}
               className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-gray-600 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
             />
+            {status === "published" && (
+              <p className="mt-1 text-xs text-amber-600">
+                Alterar o slug muda a URL pública e pode quebrar links indexados.
+              </p>
+            )}
           </div>
 
           {/* Excerpt */}
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">
+            <label htmlFor="post-excerpt" className="mb-1.5 block text-sm font-medium text-gray-700">
               Resumo
             </label>
             <textarea
+              id="post-excerpt"
               value={excerpt}
               onChange={(e) => setExcerpt(e.target.value)}
               rows={2}
@@ -238,10 +249,11 @@ export default function EditPostPage() {
 
           {/* Category */}
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">
+            <label htmlFor="post-category" className="mb-1.5 block text-sm font-medium text-gray-700">
               Categoria
             </label>
             <select
+              id="post-category"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm text-gray-700 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
@@ -255,7 +267,7 @@ export default function EditPostPage() {
 
           {/* Tags */}
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">
+            <label htmlFor="post-tags" className="mb-1.5 block text-sm font-medium text-gray-700">
               Tags
             </label>
             <div className="flex flex-wrap gap-2 mb-2">
@@ -276,6 +288,7 @@ export default function EditPostPage() {
               ))}
             </div>
             <input
+              id="post-tags"
               type="text"
               value={tagInput}
               onChange={(e) => setTagInput(e.target.value)}
@@ -288,10 +301,11 @@ export default function EditPostPage() {
 
           {/* Content */}
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">
+            <label htmlFor="post-content" className="mb-1.5 block text-sm font-medium text-gray-700">
               Conteudo
             </label>
             <textarea
+              id="post-content"
               value={content}
               onChange={(e) => setContent(e.target.value)}
               rows={12}
@@ -301,7 +315,7 @@ export default function EditPostPage() {
 
           {/* Cover Image */}
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">
+            <label htmlFor="post-cover" className="mb-1.5 block text-sm font-medium text-gray-700">
               Imagem de Capa
             </label>
             <div className="flex items-center gap-4">
@@ -326,7 +340,7 @@ export default function EditPostPage() {
 
           {/* Status */}
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">
+            <label htmlFor="post-status" className="mb-1.5 block text-sm font-medium text-gray-700">
               Status
             </label>
             <div className="flex items-center gap-3">
@@ -361,10 +375,11 @@ export default function EditPostPage() {
           <h2 className="text-lg font-semibold text-gray-900">SEO</h2>
 
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">
+            <label htmlFor="post-meta-title" className="mb-1.5 block text-sm font-medium text-gray-700">
               Meta Title
             </label>
             <input
+              id="post-meta-title"
               type="text"
               value={metaTitle}
               onChange={(e) => setMetaTitle(e.target.value)}
@@ -375,10 +390,11 @@ export default function EditPostPage() {
           </div>
 
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">
+            <label htmlFor="post-meta-description" className="mb-1.5 block text-sm font-medium text-gray-700">
               Meta Description
             </label>
             <textarea
+              id="post-meta-description"
               value={metaDescription}
               onChange={(e) => setMetaDescription(e.target.value)}
               rows={2}
@@ -389,10 +405,11 @@ export default function EditPostPage() {
           </div>
 
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">
+            <label htmlFor="post-og-image" className="mb-1.5 block text-sm font-medium text-gray-700">
               OG Image URL
             </label>
             <input
+              id="post-og-image"
               type="text"
               value={ogImageUrl}
               onChange={(e) => setOgImageUrl(e.target.value)}

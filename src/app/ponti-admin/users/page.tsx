@@ -106,8 +106,9 @@ export default function UsersPage() {
             )}
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
-                <label className="mb-1.5 block text-sm font-medium text-gray-700">Nome completo</label>
+                <label htmlFor="user-full-name" className="mb-1.5 block text-sm font-medium text-gray-700">Nome completo</label>
                 <input
+                  id="user-full-name"
                   type="text"
                   required
                   value={formData.full_name}
@@ -116,8 +117,9 @@ export default function UsersPage() {
                 />
               </div>
               <div>
-                <label className="mb-1.5 block text-sm font-medium text-gray-700">Email</label>
+                <label htmlFor="user-email" className="mb-1.5 block text-sm font-medium text-gray-700">Email</label>
                 <input
+                  id="user-email"
                   type="email"
                   required
                   value={formData.email}
@@ -126,8 +128,9 @@ export default function UsersPage() {
                 />
               </div>
               <div>
-                <label className="mb-1.5 block text-sm font-medium text-gray-700">Senha</label>
+                <label htmlFor="user-password" className="mb-1.5 block text-sm font-medium text-gray-700">Senha</label>
                 <input
+                  id="user-password"
                   type="password"
                   required
                   minLength={6}
@@ -137,8 +140,9 @@ export default function UsersPage() {
                 />
               </div>
               <div>
-                <label className="mb-1.5 block text-sm font-medium text-gray-700">Role</label>
+                <label htmlFor="user-role" className="mb-1.5 block text-sm font-medium text-gray-700">Role</label>
                 <select
+                  id="user-role"
                   value={formData.role}
                   onChange={(e) => setFormData({ ...formData, role: e.target.value as "admin" | "editor" })}
                   className="w-full rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"

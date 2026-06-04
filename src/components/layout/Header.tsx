@@ -139,7 +139,7 @@ export function Header() {
 
                   {"children" in item && openDropdown === item.href && (
                     <div className="absolute top-full left-0 pt-1 w-52">
-                      <div className="bg-white rounded-xl shadow-xl border border-gray-100 py-1.5 overflow-hidden">
+                      <div className="bg-white rounded-xl shadow-xl border border-areia-200 py-1.5 overflow-hidden">
                         {item.children.map((child) => (
                           <Link
                             key={child.href}
@@ -178,7 +178,7 @@ export function Header() {
                       onChange={(e) => setSearchQuery(e.target.value)}
                       onKeyDown={(e) => e.key === "Escape" && setSearchOpen(false)}
                       autoFocus
-                      className="w-[220px] xl:w-[260px] pl-9 pr-3 py-1.5 text-sm rounded-lg border border-gray-200 bg-gray-50 text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-all"
+                      className="w-[220px] xl:w-[260px] pl-9 pr-3 py-1.5 text-sm rounded-lg border border-border bg-areia-50 text-foreground placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-all"
                     />
                   </div>
                   <button
@@ -192,7 +192,7 @@ export function Header() {
                     type="button"
                     onClick={() => setSearchOpen(false)}
                     aria-label="Fechar busca"
-                    className="p-2 text-foreground/60 hover:text-primary hover:bg-gray-50 rounded-lg transition-colors"
+                    className="p-2 text-foreground/60 hover:text-primary hover:bg-areia-100 rounded-lg transition-colors outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -204,7 +204,7 @@ export function Header() {
                   type="button"
                   onClick={() => setSearchOpen(true)}
                   aria-label="Abrir busca"
-                  className="w-9 h-9 flex items-center justify-center p-2 text-foreground/60 hover:text-primary hover:bg-gray-50 rounded-lg transition-colors"
+                  className="w-9 h-9 flex items-center justify-center p-2 text-foreground/60 hover:text-primary hover:bg-areia-100 rounded-lg transition-colors outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
@@ -225,7 +225,7 @@ export function Header() {
 
               <button
                 onClick={() => setIsMobileOpen(true)}
-                className="lg:hidden p-2.5 text-foreground hover:text-primary transition-colors rounded-lg hover:bg-gray-50"
+                className="lg:hidden p-2.5 text-foreground hover:text-primary transition-colors rounded-lg hover:bg-areia-100 outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
                 aria-label="Abrir menu"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

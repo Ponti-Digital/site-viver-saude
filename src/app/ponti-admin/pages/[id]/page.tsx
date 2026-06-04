@@ -103,22 +103,22 @@ export default function EditPagePage() {
 
         <div className="rounded-xl bg-white p-6 shadow-sm space-y-5">
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">Título</label>
-            <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm text-gray-900 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
+            <label htmlFor="page-title" className="mb-1.5 block text-sm font-medium text-gray-700">Título</label>
+            <input id="page-title" type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm text-gray-900 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
           </div>
 
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">Slug</label>
-            <input type="text" value={slug} onChange={(e) => setSlug(e.target.value)} className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-gray-600 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
+            <label htmlFor="page-slug" className="mb-1.5 block text-sm font-medium text-gray-700">Slug</label>
+            <input id="page-slug" type="text" value={slug} onChange={(e) => setSlug(e.target.value)} className="w-full rounded-lg border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-gray-600 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
           </div>
 
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">Conteudo (JSON)</label>
-            <textarea value={content} onChange={(e) => setContent(e.target.value)} rows={16} className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm text-gray-900 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary font-mono" />
+            <label htmlFor="page-content" className="mb-1.5 block text-sm font-medium text-gray-700">Conteudo (JSON)</label>
+            <textarea id="page-content" value={content} onChange={(e) => setContent(e.target.value)} rows={16} className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm text-gray-900 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary font-mono" />
           </div>
 
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">Status</label>
+            <label htmlFor="page-status" className="mb-1.5 block text-sm font-medium text-gray-700">Status</label>
             <div className="flex items-center gap-3">
               <button type="button" onClick={() => setStatus("draft")} className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${status === "draft" ? "bg-yellow-50 text-yellow-700 ring-1 ring-yellow-200" : "bg-gray-50 text-gray-500 hover:bg-gray-100"}`}>
                 Rascunho
@@ -134,18 +134,18 @@ export default function EditPagePage() {
         <div className="rounded-xl bg-white p-6 shadow-sm space-y-5">
           <h2 className="text-lg font-semibold text-gray-900">SEO</h2>
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">Meta Title</label>
-            <input type="text" value={metaTitle} onChange={(e) => setMetaTitle(e.target.value)} className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm text-gray-900 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
+            <label htmlFor="page-meta-title" className="mb-1.5 block text-sm font-medium text-gray-700">Meta Title</label>
+            <input id="page-meta-title" type="text" value={metaTitle} onChange={(e) => setMetaTitle(e.target.value)} className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm text-gray-900 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
             <p className="mt-1 text-xs text-gray-400">{metaTitle.length}/60</p>
           </div>
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">Meta Description</label>
-            <textarea value={metaDescription} onChange={(e) => setMetaDescription(e.target.value)} rows={2} className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm text-gray-900 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
+            <label htmlFor="page-meta-description" className="mb-1.5 block text-sm font-medium text-gray-700">Meta Description</label>
+            <textarea id="page-meta-description" value={metaDescription} onChange={(e) => setMetaDescription(e.target.value)} rows={2} className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm text-gray-900 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
             <p className="mt-1 text-xs text-gray-400">{metaDescription.length}/160</p>
           </div>
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">OG Image URL</label>
-            <input type="text" value={ogImageUrl} onChange={(e) => setOgImageUrl(e.target.value)} className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm text-gray-900 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
+            <label htmlFor="page-og-image" className="mb-1.5 block text-sm font-medium text-gray-700">OG Image URL</label>
+            <input id="page-og-image" type="text" value={ogImageUrl} onChange={(e) => setOgImageUrl(e.target.value)} className="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-sm text-gray-900 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
           </div>
         </div>
 

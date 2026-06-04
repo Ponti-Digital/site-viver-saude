@@ -478,7 +478,7 @@ export default function ProgramasPage() {
                 ].map((photo) => (
                   <div
                     key={photo.src}
-                    className="relative aspect-[4/3] overflow-hidden rounded-xl bg-gray-50"
+                    className="relative aspect-[4/3] overflow-hidden rounded-xl bg-areia-100"
                   >
                     <Image
                       src={photo.src}
@@ -513,7 +513,7 @@ export default function ProgramasPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {linesOfCare.map((line, index) => (
               <ScrollAnimationWrapper key={line.slug} delay={index * 0.05}>
-                <article className="group h-full flex flex-col bg-white border border-gray-200 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                <article className="group h-full flex flex-col bg-white border border-border rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
                   <div className="h-48 bg-gradient-to-br from-areia-50 to-areia-100 border-b-2 border-menta-400 relative flex items-center justify-center p-6">
                     {line.logoSrc ? (
                       <Image
@@ -620,7 +620,7 @@ function AvailableProgramSection({ line }: { line: AvailableLine }) {
     <ScrollAnimationWrapper>
       <article
         id={line.slug}
-        className="scroll-mt-24 bg-white rounded-2xl border border-gray-200 p-8 md:p-12"
+        className="scroll-mt-24 bg-white rounded-2xl border border-border p-8 md:p-12"
       >
         <div className="flex flex-col md:flex-row gap-8 md:items-start mb-8">
           <div className="flex-shrink-0 flex flex-col items-center md:items-start gap-3">
@@ -751,7 +751,7 @@ function ComingSoonProgramSection({ line }: { line: ComingSoonLine }) {
     <ScrollAnimationWrapper>
       <article
         id={line.slug}
-        className="scroll-mt-24 bg-white rounded-2xl border border-gray-200 p-8 md:p-10"
+        className="scroll-mt-24 bg-white rounded-2xl border border-border p-8 md:p-10"
       >
         <div className="flex flex-col md:flex-row gap-6 md:items-center">
           <div className="flex-shrink-0 flex flex-col items-center md:items-start gap-2">

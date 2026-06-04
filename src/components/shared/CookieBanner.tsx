@@ -214,7 +214,7 @@ function CookieToggle({ label, description, checked, disabled, onChange }: Cooki
     <label
       className={
         "flex items-start gap-3 p-3 rounded-lg border border-border " +
-        (disabled ? "bg-gray-50" : "hover:bg-gray-50 cursor-pointer")
+        (disabled ? "bg-areia-50" : "hover:bg-areia-50 cursor-pointer")
       }
     >
       <input

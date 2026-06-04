@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 
@@ -14,41 +14,75 @@ interface Post {
   updated_at: string;
 }
 
+interface StatusCounts {
+  all: number;
+  published: number;
+  draft: number;
+}
+
 export default function PostsPage() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [counts, setCounts] = useState<StatusCounts>({ all: 0, published: 0, draft: 0 });
 
-  useEffect(() => {
-    async function fetchPosts() {
-      const supabase = createClient();
-      let query = supabase
-        .from("posts")
-        .select("*")
-        .order("created_at", { ascending: false });
+  const loadCounts = useCallback(async () => {
+    const supabase = createClient();
+    const [{ count: all }, { count: published }, { count: draft }] = await Promise.all([
+      supabase.from("posts").select("*", { count: "exact", head: true }),
+      supabase.from("posts").select("*", { count: "exact", head: true }).eq("status", "published"),
+      supabase.from("posts").select("*", { count: "exact", head: true }).eq("status", "draft"),
+    ]);
+    return { all: all ?? 0, published: published ?? 0, draft: draft ?? 0 };
+  }, []);
 
-      if (statusFilter !== "all") {
-        query = query.eq("status", statusFilter);
-      }
+  const fetchPosts = useCallback(async () => {
+    const supabase = createClient();
+    let query = supabase
+      .from("posts")
+      .select("*")
+      .order("created_at", { ascending: false });
 
-      if (search.trim()) {
-        query = query.ilike("title", `%${search.trim()}%`);
-      }
-
-      const { data } = await query;
-      setPosts(data ?? []);
-      setLoading(false);
+    if (statusFilter !== "all") {
+      query = query.eq("status", statusFilter);
     }
 
-    fetchPosts();
+    if (search.trim()) {
+      query = query.ilike("title", `%${search.trim()}%`);
+    }
+
+    const { data } = await query;
+    setPosts(data ?? []);
+    setLoading(false);
   }, [search, statusFilter]);
+
+  // Carrega contadores uma vez no mount — função interna para evitar set-state-in-effect
+  useEffect(() => {
+    async function initCounts() {
+      const result = await loadCounts();
+      setCounts(result);
+    }
+    initCounts();
+  }, [loadCounts]);
+
+  // Debounce: aguarda 300ms antes de buscar (padrão de rede-credenciada/page.tsx:80-83)
+  useEffect(() => {
+    const timer = setTimeout(fetchPosts, 300);
+    return () => clearTimeout(timer);
+  }, [fetchPosts]);
 
   const handleDelete = async (id: string) => {
     if (!confirm("Tem certeza que deseja excluir este post?")) return;
     const supabase = createClient();
-    await supabase.from("posts").delete().eq("id", id);
+    const { error } = await supabase.from("posts").delete().eq("id", id);
+    if (error) {
+      alert("Erro ao excluir post: " + error.message);
+      return;
+    }
     setPosts((prev) => prev.filter((p) => p.id !== id));
+    const result = await loadCounts();
+    setCounts(result);
   };
 
   return (
@@ -64,7 +98,28 @@ export default function PostsPage() {
         </Link>
       </div>
 
-      {/* Filters */}
+      {/* Filtros por status estilo WordPress */}
+      <div className="mb-3 flex flex-wrap items-center gap-x-2 text-sm text-gray-500">
+        {(
+          [
+            { key: "all", label: "Todos", count: counts.all },
+            { key: "published", label: "Publicados", count: counts.published },
+            { key: "draft", label: "Rascunhos", count: counts.draft },
+          ] as const
+        ).map((item, i, arr) => (
+          <span key={item.key} className="flex items-center gap-x-2">
+            <button
+              onClick={() => setStatusFilter(item.key)}
+              className={`hover:underline ${statusFilter === item.key ? "font-bold text-primary" : ""}`}
+            >
+              {item.label} ({item.count})
+            </button>
+            {i < arr.length - 1 && <span>|</span>}
+          </span>
+        ))}
+      </div>
+
+      {/* Filtros */}
       <div className="mb-6 flex flex-col gap-3 sm:flex-row">
         <input
           type="text"
@@ -73,15 +128,6 @@ export default function PostsPage() {
           onChange={(e) => setSearch(e.target.value)}
           className="rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
         />
-        <select
-          value={statusFilter}
-          onChange={(e) => setStatusFilter(e.target.value)}
-          className="rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm text-gray-700 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
-        >
-          <option value="all">Todos os status</option>
-          <option value="published">Publicado</option>
-          <option value="draft">Rascunho</option>
-        </select>
       </div>
 
       {/* Table */}

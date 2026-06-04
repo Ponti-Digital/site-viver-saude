@@ -81,8 +81,8 @@ export function BannerCarousel({ initialBanners = [] }: { initialBanners?: Banne
   if (banners.length === 0) {
     return (
       <section className="relative w-full">
-        <div className="w-full bg-gray-100 md:hidden" style={{ paddingBottom: "56.83%" }} />
-        <div className="w-full bg-gray-100 hidden md:block" style={{ paddingBottom: "35.47%" }} />
+        <div className="w-full animate-shimmer md:hidden" style={{ paddingBottom: "56.83%" }} />
+        <div className="w-full animate-shimmer hidden md:block" style={{ paddingBottom: "35.47%" }} />
       </section>
     );
   }
@@ -149,7 +149,7 @@ export function BannerCarousel({ initialBanners = [] }: { initialBanners?: Banne
         <>
           <button
             onClick={scrollPrev}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-black/20 backdrop-blur-sm flex items-center justify-center hover:bg-black/40 transition-colors"
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-black/20 backdrop-blur-sm flex items-center justify-center hover:bg-black/40 transition-colors outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/30"
             aria-label="Banner anterior"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -158,7 +158,7 @@ export function BannerCarousel({ initialBanners = [] }: { initialBanners?: Banne
           </button>
           <button
             onClick={scrollNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-black/20 backdrop-blur-sm flex items-center justify-center hover:bg-black/40 transition-colors"
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-black/20 backdrop-blur-sm flex items-center justify-center hover:bg-black/40 transition-colors outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/30"
             aria-label="Próximo banner"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -172,11 +172,12 @@ export function BannerCarousel({ initialBanners = [] }: { initialBanners?: Banne
               <button
                 key={i}
                 onClick={() => emblaApi?.scrollTo(i)}
-                className={`h-3 rounded-full transition-all duration-300 ${
+                className={`h-3 rounded-full transition-all duration-300 outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/30 ${
                   i === current
                     ? "bg-white w-8"
                     : "bg-white/50 w-3 hover:bg-white/80"
                 }`}
+                aria-current={i === current}
                 aria-label={`Ir para banner ${i + 1}`}
               />
             ))}

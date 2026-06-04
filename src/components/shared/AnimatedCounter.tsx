@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useInView, motion } from "framer-motion";
+import { useInView, motion, useReducedMotion } from "framer-motion";
 
 interface AnimatedCounterProps {
   target: number;
@@ -20,10 +20,13 @@ export function AnimatedCounter({
 }: AnimatedCounterProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.5 });
+  const reduce = useReducedMotion();
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    if (!isInView) return;
+    // Sob prefers-reduced-motion, não animamos a contagem — o valor final é
+    // derivado direto no render (displayCount), sem setState no efeito.
+    if (!isInView || reduce) return;
 
     let startTime: number | null = null;
     let animationFrame: number;
@@ -44,18 +47,18 @@ export function AnimatedCounter({
 
     animationFrame = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animationFrame);
-  }, [isInView, target, duration]);
+  }, [isInView, target, duration, reduce]);
 
   return (
     <motion.span
       ref={ref}
       className={className}
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-      transition={{ duration: 0.4 }}
+      initial={reduce ? false : { opacity: 0, scale: 0.8 }}
+      animate={isInView || reduce ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+      transition={{ duration: reduce ? 0 : 0.4 }}
     >
       {prefix}
-      {count.toLocaleString("pt-BR")}
+      {(reduce ? target : count).toLocaleString("pt-BR")}
       {suffix}
     </motion.span>
   );

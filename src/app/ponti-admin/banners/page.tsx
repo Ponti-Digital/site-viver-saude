@@ -116,13 +116,22 @@ export default function BannersPage() {
       updated_at: new Date().toISOString(),
     };
 
+    let saveError;
     if (editing) {
-      await supabase.from("banners").update(payload).eq("id", editing);
+      const { error } = await supabase.from("banners").update(payload).eq("id", editing);
+      saveError = error;
     } else {
-      await supabase.from("banners").insert(payload);
+      const { error } = await supabase.from("banners").insert(payload);
+      saveError = error;
     }
 
     setSaving(false);
+
+    if (saveError) {
+      alert("Erro ao salvar banner: " + saveError.message);
+      return;
+    }
+
     setEditing(null);
     setForm(emptyForm);
     fetchBanners();
@@ -153,10 +162,14 @@ export default function BannersPage() {
 
   const handleToggle = async (id: string, active: boolean) => {
     const supabase = createClient();
-    await supabase
+    const { error } = await supabase
       .from("banners")
       .update({ is_active: !active, updated_at: new Date().toISOString() })
       .eq("id", id);
+    if (error) {
+      alert("Erro ao alterar status do banner: " + error.message);
+      return;
+    }
     fetchBanners();
   };
 
@@ -183,8 +196,9 @@ export default function BannersPage() {
 
         <div className="grid gap-4 md:grid-cols-2">
           <div>
-            <label className={labelClass}>Título *</label>
+            <label htmlFor="banner-title" className={labelClass}>Título *</label>
             <input
+              id="banner-title"
               type="text"
               value={form.title}
               onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
@@ -194,8 +208,9 @@ export default function BannersPage() {
           </div>
 
           <div>
-            <label className={labelClass}>Texto alternativo</label>
+            <label htmlFor="banner-alt-text" className={labelClass}>Texto alternativo</label>
             <input
+              id="banner-alt-text"
               type="text"
               value={form.alt_text}
               onChange={(e) =>
@@ -208,8 +223,9 @@ export default function BannersPage() {
 
           {/* Desktop image */}
           <div>
-            <label className={labelClass}>Imagem Desktop *</label>
+            <label htmlFor="banner-image-desktop" className={labelClass}>Imagem Desktop *</label>
             <input
+              id="banner-image-desktop"
               type="file"
               accept="image/*"
               onChange={(e) => handleFileChange(e, "image_url")}

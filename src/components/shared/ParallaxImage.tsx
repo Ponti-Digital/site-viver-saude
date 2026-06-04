@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 
 interface ParallaxImageProps {
@@ -26,12 +26,15 @@ export function ParallaxImage({
   priority = false,
 }: ParallaxImageProps) {
   const ref = useRef(null);
+  const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [-30 * speed, 30 * speed]);
+  const parallaxY = useTransform(scrollYProgress, [0, 1], [-30 * speed, 30 * speed]);
+  // Sob prefers-reduced-motion, desliga o parallax (sem deslocamento no scroll).
+  const y = reduce ? 0 : parallaxY;
 
   return (
     <div ref={ref} className="overflow-hidden">
